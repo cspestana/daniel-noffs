@@ -22,16 +22,17 @@
   html { scroll-behavior: smooth; }
   body {
     background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; overflow-x: hidden;
+  }
+
+  html::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -2;
     background-image: url("images/background.jpg");
-    background-size: cover; background-position: center top; background-attachment: fixed;
+    background-size: cover; background-position: center;
   }
 
   @media (max-width: 768px) {
-    body {
-      background-attachment: scroll;
-      background-size: cover;
-      background-position: center center;
-    }
+    html::before { background-position: 60% center; }
   }
 
   body::after {
@@ -294,7 +295,7 @@
   @media (max-width: 500px) {
     .tab-btn { padding: 14px 20px; font-size: 11px; }
     .plan-card, .online-highlight, .online-info { padding: 36px 24px; }
-    header { min-height: 100vh; padding: 60px 6vw 8vh; justify-content: flex-end; }
+    header { min-height: auto; padding: 120px 6vw 60px; }
     .btn-wpp { padding: 18px 24px; font-size: 14px; width: 100%; justify-content: center; }
     .bio { padding: 48px 6vw; }
     .plans-section, .testimonials-section, .cta-section { padding: 60px 6vw; }
