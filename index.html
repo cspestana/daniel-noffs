@@ -169,6 +169,7 @@
     padding: 16px 36px; position: relative; transition: color 0.2s;
   }
   .tab-btn:first-child { border-right: 1px solid var(--gray2); }
+  .tab-btn:nth-child(2) { border-right: 1px solid var(--gray2); }
   .tab-btn.active { color: var(--white); background: var(--gray2); }
   .tab-btn.active::after {
     content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
@@ -282,6 +283,85 @@
   .btn-wpp:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(37,211,102,0.5); }
   .btn-wpp svg { width: 24px; height: 24px; }
 
+  /* PRODUTOS DIGITAIS */
+  .products-section { padding: 80px 6vw; border-bottom: 1px solid var(--gray2); }
+
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--gray2); border: 1px solid var(--gray2);
+  }
+
+  @media (max-width: 900px) { .products-grid { grid-template-columns: 1fr; } }
+
+  .product-card {
+    background: var(--gray); padding: 40px 36px;
+    display: flex; flex-direction: column; gap: 0;
+    position: relative;
+  }
+
+  .product-card.featured {
+    background: var(--black); border: 1px solid var(--yellow); margin: -1px; z-index: 2;
+  }
+
+  .product-card.featured::before {
+    content: 'MAIS POPULAR';
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--yellow); color: #111;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    padding: 5px 16px; white-space: nowrap;
+  }
+
+  .product-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 16px;
+    display: inline-block; padding: 4px 10px;
+    background: var(--yellow-glow); color: var(--yellow); border: 1px solid var(--yellow);
+    width: fit-content;
+  }
+
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 0.02em; color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px; line-height: 1; color: var(--white); margin-bottom: 4px;
+  }
+  .product-price sup { font-size: 24px; vertical-align: top; margin-top: 8px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--muted); }
+
+  .product-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 16px 0 24px; }
+
+  .product-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+  .product-features li { font-size: 13px; color: #999; display: flex; align-items: flex-start; gap: 8px; }
+  .product-features li::before { content: '✓'; color: var(--yellow); flex-shrink: 0; font-weight: 700; }
+  .product-card.featured .product-features li { color: var(--white); }
+
+  .btn-product {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--yellow); color: #111;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 16px 24px; text-decoration: none; margin-top: auto;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-product:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-product::after { content: '↗'; font-size: 14px; }
+
+  .btn-product-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: transparent; color: var(--yellow);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 16px 24px; text-decoration: none; margin-top: auto;
+    border: 1px solid var(--yellow);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-product-ghost:hover { background: var(--yellow); color: #111; }
+  .btn-product-ghost::after { content: '↗'; font-size: 14px; }
+
   footer {
     padding: 24px 6vw; border-top: 1px solid var(--gray2);
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
@@ -361,6 +441,9 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     <button class="tab-btn" onclick="switchTab('online', this)">
       <span class="tab-icon">💻</span> Online
     </button>
+    <button class="tab-btn" onclick="switchTab('digital', this)">
+      <span class="tab-icon">📦</span> Produtos Digitais
+    </button>
   </div>
 
   <div class="tab-content active" id="tab-presencial">
@@ -437,14 +520,64 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
       </div>
     </div>
   </div>
+
+  <!-- ABA DIGITAL -->
+  <div class="tab-content" id="tab-digital">
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-badge">Entrada</div>
+        <div class="product-name">Protocolo Definição</div>
+        <div class="product-price"><sup>R$</sup>27</div>
+        <p class="product-desc">PDF com 4 semanas de treino focado em emagrecimento e definição muscular. Fixo, mesmo para todos.</p>
+        <ul class="product-features">
+          <li>Treino A/B/C (3×/semana)</li>
+          <li>Guia de execução dos exercícios</li>
+          <li>Dicas de nutrição básica</li>
+          <li>Tabela de progressão de carga</li>
+        </ul>
+        <a href="LINK_KIWIFY_PRODUTO1" target="_blank" class="btn-product-ghost">Adquirir agora</a>
+      </div>
+
+      <div class="product-card featured">
+        <div class="product-badge">Mais popular</div>
+        <div class="product-name">Planilha Noffs Personalizada</div>
+        <div class="product-price"><sup>R$</sup>37</div>
+        <p class="product-desc">Planilha Google Sheets/Excel interativa. O aluno preenche seu perfil e o treino se adapta ao nível e objetivo dele.</p>
+        <ul class="product-features">
+          <li>Formulário de perfil (nível, objetivo, dias)</li>
+          <li>3 níveis: iniciante, intermediário, avançado</li>
+          <li>12 semanas de periodização</li>
+          <li>Registro de evolução de carga</li>
+          <li>Vídeos de referência (links do YouTube)</li>
+        </ul>
+        <a href="LINK_KIWIFY_PRODUTO2" target="_blank" class="btn-product">Adquirir agora</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">Premium</div>
+        <div class="product-name">Protocolo 90 Dias</div>
+        <div class="product-price"><sup>R$</sup>47</div>
+        <p class="product-desc">Protocolo em etapas com 3 fases de 30 dias cada. Progressão estruturada do iniciante ao intermediário.</p>
+        <ul class="product-features">
+          <li>Fase 1: adaptação (dias 1–30)</li>
+          <li>Fase 2: progressão (dias 31–60)</li>
+          <li>Fase 3: intensificação (dias 61–90)</li>
+          <li>Checklist semanal de progresso</li>
+          <li>Guia de suplementação básica</li>
+        </ul>
+        <a href="LINK_KIWIFY_PRODUTO3" target="_blank" class="btn-product-ghost">Adquirir agora</a>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <!-- DEPOIMENTOS -->
 <section class="testimonials-section">
   <div class="section-label">Resultados reais</div>
   <div class="section-title">O que dizem os alunos</div>
-
-  <!-- CARDS -->
   <div id="cards-container">
     <p class="loading-msg">Carregando depoimentos...</p>
   </div>
