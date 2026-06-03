@@ -435,18 +435,78 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   <div class="section-title">Planos e Valores</div>
 
   <div class="tab-switcher">
-    <button class="tab-btn active" onclick="switchTab('presencial', this)">
+    <button class="tab-btn active" onclick="switchTab('digital', this)">
+      <span class="tab-icon">📦</span> Produtos Digitais
+    </button>
+    <button class="tab-btn" onclick="switchTab('presencial', this)">
       <span class="tab-icon">📍</span> Presencial
     </button>
     <button class="tab-btn" onclick="switchTab('online', this)">
       <span class="tab-icon">💻</span> Online
     </button>
-    <button class="tab-btn" onclick="switchTab('digital', this)">
-      <span class="tab-icon">📦</span> Produtos Digitais
-    </button>
   </div>
 
-  <div class="tab-content active" id="tab-presencial">
+  <!-- ABA DIGITAL -->
+  <div class="tab-content active" id="tab-digital">
+    <div class="products-grid">
+
+      <!-- PRODUTO 1 — FULLBODY -->
+      <div class="product-card">
+        <div class="product-badge">Treino em Casa incluso</div>
+        <div class="product-name">Treino FullBody</div>
+        <div class="product-price"><sup>R$</sup>55 <span style="font-size:16px; font-weight:300; color:var(--muted); font-family:'DM Sans',sans-serif;">cada</span></div>
+        <p class="product-desc">Planilha completa de treino FullBody para academia. Inclui também treino em casa. Escolha a versão ideal para você:</p>
+        <ul class="product-features">
+          <li>Treino FullBody completo</li>
+          <li>Progressão de cargas</li>
+          <li>Treino em casa incluso</li>
+          <li>Versões masculina e feminina</li>
+        </ul>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
+          <a href="https://pay.kiwify.com.br/tvF58zl" target="_blank" class="btn-product-ghost" style="justify-content:center; text-align:center;">
+            ♂ Versão Masculina
+          </a>
+          <a href="https://pay.kiwify.com.br/tTpMi9C" target="_blank" class="btn-product-ghost" style="justify-content:center; text-align:center;">
+            ♀ Versão Feminina
+          </a>
+        </div>
+      </div>
+
+      <!-- PRODUTO 2 — PLANILHA -->
+      <div class="product-card featured">
+        <div class="product-badge">Mais popular</div>
+        <div class="product-name">Planilha Noffs Personalizada</div>
+        <div class="product-price"><sup>R$</sup>37</div>
+        <p class="product-desc">Planilha Google Sheets/Excel interativa. O aluno preenche seu perfil e o treino se adapta ao nível e objetivo dele.</p>
+        <ul class="product-features">
+          <li>Formulário de perfil (nível, objetivo, dias)</li>
+          <li>3 níveis: iniciante, intermediário, avançado</li>
+          <li>12 semanas de periodização</li>
+          <li>Registro de evolução de carga</li>
+        </ul>
+        <a href="https://pay.kiwify.com.br/DNIxAXg" target="_blank" class="btn-product">Adquirir agora</a>
+      </div>
+
+      <!-- PRODUTO 3 — PROTOCOLO 90 DIAS -->
+      <div class="product-card">
+        <div class="product-badge">Premium</div>
+        <div class="product-name">Protocolo 90 Dias</div>
+        <div class="product-price"><sup>R$</sup>47</div>
+        <p class="product-desc">Protocolo em etapas com 3 fases de 30 dias cada. Progressão estruturada do iniciante ao intermediário.</p>
+        <ul class="product-features">
+          <li>Fase 1: adaptação (dias 1–30)</li>
+          <li>Fase 2: progressão (dias 31–60)</li>
+          <li>Fase 3: intensificação (dias 61–90)</li>
+          <li>Checklist semanal de progresso</li>
+          <li>Guia de suplementação básica</li>
+        </ul>
+        <a href="https://pay.kiwify.com.br/tR4kZab" target="_blank" class="btn-product-ghost">Adquirir agora</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-presencial">
     <div class="plans-grid">
       <div class="plan-card">
         <div class="plan-name">1x por semana</div>
@@ -492,7 +552,7 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
         <div class="plan-period">por mês</div>
         <div class="plan-desc" style="margin-top:12px;">Treino personalizado para alcançar seus objetivos.</div>
         <ul class="plan-features">
-          <li>Treino personalizada</li>
+          <li>Treino personalizado</li>
           <li>Ajustes mensais</li>
           <li>Suporte via WhatsApp</li>
         </ul>
@@ -518,56 +578,6 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
           <span class="online-info-value">WhatsApp com resposta em até 24h úteis</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- ABA DIGITAL -->
-  <div class="tab-content" id="tab-digital">
-    <div class="products-grid">
-
-      <div class="product-card">
-        <div class="product-badge">Entrada</div>
-        <div class="product-name">Protocolo Definição</div>
-        <div class="product-price"><sup>R$</sup>27</div>
-        <p class="product-desc">PDF com 4 semanas de treino focado em emagrecimento e definição muscular. Fixo, mesmo para todos.</p>
-        <ul class="product-features">
-          <li>Treino A/B/C (3×/semana)</li>
-          <li>Guia de execução dos exercícios</li>
-          <li>Dicas de nutrição básica</li>
-          <li>Tabela de progressão de carga</li>
-        </ul>
-        <a href="LINK_KIWIFY_PRODUTO1" target="_blank" class="btn-product-ghost">Adquirir agora</a>
-      </div>
-
-      <div class="product-card featured">
-        <div class="product-badge">Mais popular</div>
-        <div class="product-name">Planilha Noffs Personalizada</div>
-        <div class="product-price"><sup>R$</sup>37</div>
-        <p class="product-desc">Planilha Google Sheets/Excel interativa. O aluno preenche seu perfil e o treino se adapta ao nível e objetivo dele.</p>
-        <ul class="product-features">
-          <li>Formulário de perfil (nível, objetivo, dias)</li>
-          <li>3 níveis: iniciante, intermediário, avançado</li>
-          <li>12 semanas de periodização</li>
-          <li>Registro de evolução de carga</li>
-        </ul>
-        <a href="LINK_KIWIFY_PRODUTO2" target="_blank" class="btn-product">Adquirir agora</a>
-      </div>
-
-      <div class="product-card">
-        <div class="product-badge">Premium</div>
-        <div class="product-name">Protocolo 90 Dias</div>
-        <div class="product-price"><sup>R$</sup>47</div>
-        <p class="product-desc">Protocolo em etapas com 3 fases de 30 dias cada. Progressão estruturada do iniciante ao intermediário.</p>
-        <ul class="product-features">
-          <li>Fase 1: adaptação (dias 1–30)</li>
-          <li>Fase 2: progressão (dias 31–60)</li>
-          <li>Fase 3: intensificação (dias 61–90)</li>
-          <li>Checklist semanal de progresso</li>
-          <li>Guia de suplementação básica</li>
-        </ul>
-        <a href="LINK_KIWIFY_PRODUTO3" target="_blank" class="btn-product-ghost">Adquirir agora</a>
-      </div>
-
     </div>
   </div>
 
