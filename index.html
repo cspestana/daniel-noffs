@@ -6,7 +6,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-WWB9F3145B');
 </script>
 <meta charset="UTF-8">
@@ -25,6 +24,7 @@
     --gray2: #2A2A2A;
     --muted: #888;
     --gold: #D4A843;
+    --max-width: 1100px;
   }
 
   html { scroll-behavior: smooth; }
@@ -38,7 +38,6 @@
     background-image: url("images/background.jpg");
     background-size: cover; background-position: center;
   }
-
   @media (max-width: 768px) {
     html::before { background-position: 60% center; }
   }
@@ -59,16 +58,34 @@
 
   section, header, footer { position: relative; z-index: 1; }
 
-  /* HERO */
+  /* CONTAINER CENTRALIZADO */
+  .inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  @media (max-width: 500px) {
+    .inner { padding: 0 20px; }
+  }
+
+  /* ── HERO (menor) ── */
   header {
-    min-height: 100svh;
+    min-height: 65svh;
     display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 6vw 8vh;
+    padding-bottom: 0;
     background:
       linear-gradient(to top, #252528 0%, rgba(37,37,40,0.5) 40%, transparent 70%),
       linear-gradient(135deg, rgba(255,207,5,0.06) 0%, transparent 60%);
     border-bottom: 1px solid var(--gray2);
     overflow: hidden;
+  }
+
+  .hero-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 40px 6vh;
+    display: flex; flex-direction: column;
   }
 
   .hero-tag {
@@ -98,7 +115,6 @@
     display: flex; flex-wrap: wrap; gap: 0; margin-top: 32px;
     animation: fadeUp 0.7s 0.3s ease both;
   }
-
   .badge {
     font-size: 12px; font-weight: 400;
     letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
@@ -108,45 +124,28 @@
   .badge.highlight { color: var(--muted); font-weight: 400; }
 
   /* FOTO + BIO */
-  .bio {
-    padding: 80px 6vw;
+  .bio { padding: 80px 40px; border-bottom: 1px solid var(--gray2); }
+  .bio .inner {
     display: grid; grid-template-columns: 340px 1fr; gap: 60px; align-items: center;
-    border-bottom: 1px solid var(--gray2);
   }
-  @media (max-width: 860px) { .bio { grid-template-columns: 1fr; gap: 40px; } }
+  @media (max-width: 860px) { .bio .inner { grid-template-columns: 1fr; gap: 40px; } }
 
   .bio-photo {
     width: 100%; aspect-ratio: 3/4;
-    background: var(--gray2);
-    border: 1px solid #333;
-    position: relative;
-    overflow: hidden;
+    background: var(--gray2); border: 1px solid #333;
+    position: relative; overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-
-  .bio-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-  }
-
-  .bio-photo-placeholder {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 12px; color: #444; font-size: 13px; text-align: center; padding: 24px;
-  }
-
-  .bio-photo-placeholder svg { opacity: 0.3; }
-
+  .bio-photo img { width: 100%; height: 100%; object-fit: cover; }
   .bio-photo::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
     background: var(--yellow);
   }
-
   .bio-text h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(36px, 5vw, 52px); letter-spacing: 0.02em; margin-bottom: 20px;
   }
   .bio-text p { font-size: 15px; line-height: 1.8; color: #AAA; margin-bottom: 14px; }
-
   .stats-row { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
   .stat { border-left: 3px solid var(--yellow); padding-left: 14px; }
   .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); line-height: 1; }
@@ -163,13 +162,12 @@
   }
 
   /* PLANOS */
-  .plans-section { padding: 80px 6vw; border-bottom: 1px solid var(--gray2); }
+  .plans-section { padding: 80px 40px; border-bottom: 1px solid var(--gray2); }
 
   .tab-switcher {
     display: flex; gap: 0; margin-bottom: 48px;
     border: 1px solid var(--gray2); width: fit-content;
   }
-
   .tab-btn {
     background: none; border: none; cursor: pointer;
     font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
@@ -191,7 +189,6 @@
     display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2px; background: var(--gray2); border: 1px solid var(--gray2);
   }
-
   .plan-card { background: var(--gray); padding: 44px 36px; position: relative; }
   .plan-card.featured {
     background: var(--black); border: 1px solid var(--yellow); margin: -1px; z-index: 2;
@@ -203,7 +200,6 @@
     font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
     padding: 5px 16px; white-space: nowrap;
   }
-
   .plan-name { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: var(--white); }
   .plan-price sup { font-size: 28px; vertical-align: top; margin-top: 10px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--muted); }
@@ -219,7 +215,6 @@
     background: var(--gray2); border: 1px solid var(--gray2);
   }
   @media (max-width: 640px) { .online-wrapper { grid-template-columns: 1fr; } }
-
   .online-highlight {
     background: var(--black); padding: 48px 40px;
     border: 1px solid var(--yellow); margin: -1px; z-index: 2; position: relative;
@@ -237,43 +232,90 @@
   .online-info-value { font-size: 15px; color: var(--white); }
   .online-divider { width: 40px; height: 1px; background: var(--gray2); }
 
-  /* DEPOIMENTOS */
-  .testimonials-section { padding: 80px 6vw; border-bottom: 1px solid var(--gray2); }
+  /* ── DEPOIMENTOS COM CARROSSEL + SETAS ── */
+  .testimonials-section { padding: 80px 40px; border-bottom: 1px solid var(--gray2); }
 
-  /* CARDS DE DEPOIMENTOS */
-  .testimonials-label { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+  .carousel-wrapper {
+    position: relative;
+  }
+
+  /* setas */
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 10;
+    background: var(--gray2); border: 1px solid #444; color: var(--white);
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    font-size: 18px; line-height: 1;
+    flex-shrink: 0;
+  }
+  .carousel-btn:hover { background: var(--yellow); border-color: var(--yellow); color: #111; }
+  .carousel-btn.prev { left: -22px; }
+  .carousel-btn.next { right: -22px; }
+
+  @media (max-width: 600px) {
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
+  }
+
+  /* trilha do carrossel */
+  .cards-track-outer {
+    overflow: hidden;
+    margin: 0 32px;
+  }
+  @media (max-width: 600px) {
+    .cards-track-outer { margin: 0 48px; }
+  }
 
   .cards-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2px; background: var(--gray2);
+    display: flex;
+    gap: 2px;
+    transition: transform 0.4s ease;
+    will-change: transform;
   }
 
   .testimonial-card {
     background: var(--gray); padding: 32px;
     display: flex; flex-direction: column; gap: 16px;
-    animation: fadeUp 0.4s ease both;
+    flex-shrink: 0;
+    /* desktop: 3 cards visíveis */
+    width: calc((100%) / 3 - 2px);
+  }
+
+  @media (max-width: 900px) {
+    /* tablet: 2 cards */
+    .testimonial-card { width: calc(50% - 2px); }
+  }
+  @media (max-width: 560px) {
+    /* mobile: 1 card */
+    .testimonial-card { width: 100%; }
   }
 
   .card-stars { display: flex; gap: 4px; }
   .card-star { font-size: 16px; color: var(--yellow); }
-
-  .card-text {
-    font-size: 15px; line-height: 1.7; color: #CCC;
-    font-style: italic; flex: 1;
-  }
+  .card-text { font-size: 15px; line-height: 1.7; color: #CCC; font-style: italic; flex: 1; }
   .card-text::before { content: '"'; }
-  .card-text::after  { content: '"'; }
-
+  .card-text::after { content: '"'; }
   .card-footer { display: flex; flex-direction: column; gap: 2px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--gray2); }
   .card-name { font-size: 14px; font-weight: 700; color: var(--white); }
-  .card-meta { font-size: 12px; color: var(--muted); }
-
   .loading-msg { font-size: 14px; color: var(--muted); font-style: italic; }
   .empty-msg { font-size: 14px; color: var(--muted); padding: 24px 0; }
 
+  /* pontos indicadores */
+  .carousel-dots {
+    display: flex; justify-content: center; gap: 8px; margin-top: 28px;
+  }
+  .carousel-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gray2); border: 1px solid #444;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .carousel-dot.active { background: var(--yellow); border-color: var(--yellow); }
+
   /* CTA */
   .cta-section {
-    padding: 80px 6vw 100px; text-align: center;
+    padding: 80px 40px 100px; text-align: center;
     background: linear-gradient(to bottom, var(--black), var(--gray));
   }
   .cta-section .section-title { margin: 0 auto 16px; text-align: center; }
@@ -293,24 +335,19 @@
 
   /* PRODUTOS DIGITAIS */
   .products-section { padding: 80px 6vw; border-bottom: 1px solid var(--gray2); }
-
   .products-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 2px; background: var(--gray2); border: 1px solid var(--gray2);
   }
-
   @media (max-width: 900px) { .products-grid { grid-template-columns: 1fr; } }
 
   .product-card {
     background: var(--gray); padding: 40px 36px;
-    display: flex; flex-direction: column; gap: 0;
-    position: relative;
+    display: flex; flex-direction: column; gap: 0; position: relative;
   }
-
   .product-card.featured {
     background: var(--black); border: 1px solid var(--yellow); margin: -1px; z-index: 2;
   }
-
   .product-card.featured::before {
     content: 'MAIS POPULAR';
     position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
@@ -318,7 +355,6 @@
     font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
     padding: 5px 16px; white-space: nowrap;
   }
-
   .product-badge {
     font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
     text-transform: uppercase; margin-bottom: 16px;
@@ -326,21 +362,16 @@
     background: var(--yellow-glow); color: var(--yellow); border: 1px solid var(--yellow);
     width: fit-content;
   }
-
   .product-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px; letter-spacing: 0.02em; color: var(--white);
-    margin-bottom: 8px;
+    font-size: 26px; letter-spacing: 0.02em; color: var(--white); margin-bottom: 8px;
   }
-
   .product-price {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 56px; line-height: 1; color: var(--white); margin-bottom: 4px;
   }
   .product-price sup { font-size: 24px; vertical-align: top; margin-top: 8px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--muted); }
-
   .product-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 16px 0 24px; }
-
   .product-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
   .product-features li { font-size: 13px; color: #999; display: flex; align-items: flex-start; gap: 8px; }
   .product-features li::before { content: '✓'; color: var(--yellow); flex-shrink: 0; font-weight: 700; }
@@ -352,8 +383,7 @@
     font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
     padding: 16px 24px; text-decoration: none; margin-top: auto;
-    transition: opacity 0.2s, transform 0.15s;
-    border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s; border: none; cursor: pointer;
   }
   .btn-product:hover { opacity: 0.85; transform: translateY(-2px); }
   .btn-product::after { content: '↗'; font-size: 14px; }
@@ -364,30 +394,31 @@
     font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
     padding: 16px 24px; text-decoration: none; margin-top: auto;
-    border: 1px solid var(--yellow);
-    transition: background 0.2s, color 0.2s;
+    border: 1px solid var(--yellow); transition: background 0.2s, color 0.2s;
   }
   .btn-product-ghost:hover { background: var(--yellow); color: #111; }
   .btn-product-ghost::after { content: '↗'; font-size: 14px; }
 
   footer {
-    padding: 24px 6vw; border-top: 1px solid var(--gray2);
+    padding: 24px 40px; border-top: 1px solid var(--gray2);
+  }
+  .footer-inner {
+    max-width: var(--max-width); margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
   }
   footer p { font-size: 12px; color: #444; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   @media (max-width: 500px) {
     .tab-btn { padding: 14px 20px; font-size: 11px; }
     .plan-card, .online-highlight, .online-info { padding: 36px 24px; }
-    header { min-height: auto; padding: 120px 6vw 60px; }
     .btn-wpp { padding: 18px 24px; font-size: 14px; width: 100%; justify-content: center; }
-    .bio { padding: 48px 6vw; }
-    .plans-section, .testimonials-section, .cta-section { padding: 60px 6vw; }
+    .bio { padding: 48px 20px; }
+    .plans-section, .testimonials-section, .cta-section { padding: 60px 20px; }
   }
 </style>
 </head>
@@ -395,44 +426,36 @@
 
 <!-- HERO -->
 <header>
-  <div class="hero-tag">Personal Trainer</div>
-  <h1>Daniel<span>Noffs</span></h1>
-  <p class="hero-sub">Treinamento personalizado para adultos e 50+, com atendimento presencial e planos de treino adaptados aos seus objetivos.
-</p>
-  <div class="hero-badges">
-    <div class="badge highlight">Pós-Graduado</div>
-    <div class="badge">Musculação</div>
-    <div class="badge">Funcional</div>
-    <div class="badge">Emagrecimento</div>
-    <div class="badge">Hipertrofia</div>
-    <div class="badge">+50 anos</div>
+  <div class="hero-inner">
+    <div class="hero-tag">Personal Trainer</div>
+    <h1>Daniel<span>Noffs</span></h1>
+    <p class="hero-sub">Treinamento personalizado para adultos e 50+, com atendimento presencial e planos de treino adaptados aos seus objetivos.</p>
+    <div class="hero-badges">
+      <div class="badge highlight">Pós-Graduado</div>
+      <div class="badge">Musculação</div>
+      <div class="badge">Funcional</div>
+      <div class="badge">Emagrecimento</div>
+      <div class="badge">Hipertrofia</div>
+      <div class="badge">+50 anos</div>
+    </div>
   </div>
 </header>
 
 <!-- BIO COM FOTO -->
 <section class="bio">
-  <div class="bio-photo">
-    <img src="images/daniel.jpg" alt="Daniel Noffs">
-  </div>
-
-  <div class="bio-text">
-    <h2>Quem é o Daniel</h2>
-    <p>Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.
-    <p>Ao longo da minha trajetória, já acompanhei alunos de diferentes perfis e fases da vida, incluindo o público 50+, sempre com foco em mais disposição, autonomia, confiança e qualidade de vida.
-Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu objetivo e no seu tempo.
-    <p>Sou de Santo André/SP, casado, pai da Lara e de duas dogs que completam nossa família. 🐾</p>
-    <div class="stats-row">
-      <div class="stat">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Anos na área</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3k+</div>
-        <div class="stat-label">alunos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Personalizado</div>
+  <div class="inner">
+    <div class="bio-photo">
+      <img src="images/daniel.jpg" alt="Daniel Noffs">
+    </div>
+    <div class="bio-text">
+      <h2>Quem é o Daniel</h2>
+      <p>Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.</p>
+      <p>Ao longo da minha trajetória, já acompanhei alunos de diferentes perfis e fases da vida, incluindo o público 50+, sempre com foco em mais disposição, autonomia, confiança e qualidade de vida. Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu objetivo e no seu tempo.</p>
+      <p>Sou de Santo André/SP, casado, pai da Lara e de duas dogs que completam nossa família. 🐾</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Anos na área</div></div>
+        <div class="stat"><div class="stat-num">3k+</div><div class="stat-label">alunos</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Personalizado</div></div>
       </div>
     </div>
   </div>
@@ -440,197 +463,238 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
 
 <!-- PLANOS -->
 <section class="plans-section">
-  <div class="section-label">Investimento</div>
-  <div class="section-title">Planos e Valores</div>
+  <div class="inner">
+    <div class="section-label">Investimento</div>
+    <div class="section-title">Planos e Valores</div>
 
-  <div class="tab-switcher">
-    <button class="tab-btn active" onclick="switchTab('digital', this)">
-      <span class="tab-icon">📦</span> Produtos Digitais
-    </button>
-    <button class="tab-btn" onclick="switchTab('presencial', this)">
-      <span class="tab-icon">📍</span> Presencial
-    </button>
-    <button class="tab-btn" onclick="switchTab('online', this)">
-      <span class="tab-icon">💻</span> Online
-    </button>
-  </div>
-
-  <!-- ABA DIGITAL -->
-  <div class="tab-content active" id="tab-digital">
-    <div class="products-grid">
-
-      <!-- PRODUTO 1 — FULLBODY -->
-      <div class="product-card">
-        <div class="product-badge">Treino em Casa incluso</div>
-        <div class="product-name">Treino FullBody</div>
-        <div class="product-price"><sup>R$</sup>55 <span style="font-size:16px; font-weight:300; color:var(--muted); font-family:'DM Sans',sans-serif;">cada</span></div>
-        <p class="product-desc">Planilha completa de treino FullBody para academia. Inclui também treino em casa. Escolha a versão ideal para você:</p>
-        <ul class="product-features">
-          <li>Treino FullBody completo</li>
-          <li>Progressão de cargas</li>
-          <li>Treino em casa incluso</li>
-          <li>Versões masculina e feminina</li>
-        </ul>
-        <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
-          <a href="https://pay.kiwify.com.br/tvF58zl" target="_blank" class="btn-product-ghost" style="justify-content:center; text-align:center;">
-            ♂ Versão Masculina
-          </a>
-          <a href="https://pay.kiwify.com.br/tTpMi9C" target="_blank" class="btn-product-ghost" style="justify-content:center; text-align:center;">
-            ♀ Versão Feminina
-          </a>
-        </div>
-      </div>
-
-      <!-- PRODUTO 2 — PLANILHA -->
-      <div class="product-card featured">
-        <div class="product-badge">Mais popular</div>
-        <div class="product-name">Planilha Noffs Personalizada</div>
-        <div class="product-price"><sup>R$</sup>37</div>
-        <p class="product-desc">Planilha Google Sheets/Excel interativa. O aluno preenche seu perfil e o treino se adapta ao nível e objetivo dele.</p>
-        <ul class="product-features">
-          <li>Formulário de perfil (nível, objetivo, dias)</li>
-          <li>3 níveis: iniciante, intermediário, avançado</li>
-          <li>12 semanas de periodização</li>
-          <li>Registro de evolução de carga</li>
-        </ul>
-        <a href="https://pay.kiwify.com.br/DNIxAXg" target="_blank" class="btn-product">Adquirir agora</a>
-      </div>
-
-      <!-- PRODUTO 3 — PROTOCOLO 90 DIAS -->
-      <div class="product-card">
-        <div class="product-badge">Premium</div>
-        <div class="product-name">Protocolo 90 Dias</div>
-        <div class="product-price"><sup>R$</sup>47</div>
-        <p class="product-desc">Protocolo em etapas com 3 fases de 30 dias cada. Progressão estruturada do iniciante ao intermediário.</p>
-        <ul class="product-features">
-          <li>Fase 1: adaptação (dias 1–30)</li>
-          <li>Fase 2: progressão (dias 31–60)</li>
-          <li>Fase 3: intensificação (dias 61–90)</li>
-          <li>Checklist semanal de progresso</li>
-          <li>Guia de suplementação básica</li>
-        </ul>
-        <a href="https://pay.kiwify.com.br/tR4kZab" target="_blank" class="btn-product-ghost">Adquirir agora</a>
-      </div>
-
+    <div class="tab-switcher">
+      <button class="tab-btn active" onclick="switchTab('digital', this)"><span class="tab-icon">📦</span> Produtos Digitais</button>
+      <button class="tab-btn" onclick="switchTab('presencial', this)"><span class="tab-icon">📍</span> Presencial</button>
+      <button class="tab-btn" onclick="switchTab('online', this)"><span class="tab-icon">💻</span> Online</button>
     </div>
-  </div>
 
-  <div class="tab-content" id="tab-presencial">
-    <div class="plans-grid">
-      <div class="plan-card">
-        <div class="plan-name">1x por semana</div>
-        <div class="plan-price"><sup>R$</sup>120</div>
-        <div class="plan-period">por sessão semanal</div>
-        <div class="plan-desc">Sem compromisso de pacote</div>
-        <ul class="plan-features">
-          <li>Treino individualizado</li>
-          <li>Duração de 60 minutos</li>
-          <li>Acompanhamento focado nos seus resultados</li>
-        </ul>
-      </div>
-      <div class="plan-card featured">
-        <div class="plan-name">Pacote Mensal · 8 Aulas</div>
-        <div class="plan-price"><sup>R$</sup>100</div>
-        <div class="plan-period">por aula · 2x por semana</div>
-        <div class="plan-desc">R$800,00 por mês</div>
-        <ul class="plan-features">
-          <li>Treino 100% personalizado</li>
-          <li>Suporte via WhatsApp</li>
-          <li>Seu progresso acompanhado de perto</li>
-        </ul>
-      </div>
-      <div class="plan-card">
-        <div class="plan-name">Pacote Mensal · 12 Aulas</div>
-        <div class="plan-price"><sup>R$</sup>90</div>
-        <div class="plan-period">por aula · 3x por semana</div>
-        <div class="plan-desc">R$1.080 por mês</div>
-        <ul class="plan-features">
-          <li>Treino 100% personalizado</li>
-          <li>Suporte via WhatsApp</li>
-          <li>Seu progresso acompanhado de perto</li>
-        </ul>
+    <!-- ABA DIGITAL -->
+    <div class="tab-content active" id="tab-digital">
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-badge">Treino em Casa incluso</div>
+          <div class="product-name">Treino FullBody</div>
+          <div class="product-price"><sup>R$</sup>55 <span style="font-size:16px; font-weight:300; color:var(--muted); font-family:'DM Sans',sans-serif;">cada</span></div>
+          <p class="product-desc">Planilha completa de treino FullBody para academia. Inclui também treino em casa. Escolha a versão ideal para você:</p>
+          <ul class="product-features">
+            <li>Treino FullBody completo</li>
+            <li>Progressão de cargas</li>
+            <li>Treino em casa incluso</li>
+            <li>Versões masculina e feminina</li>
+          </ul>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
+            <a href="https://pay.kiwify.com.br/tvF58zl" target="_blank" class="btn-product-ghost" style="justify-content:center;">♂ Versão Masculina</a>
+            <a href="https://pay.kiwify.com.br/tTpMi9C" target="_blank" class="btn-product-ghost" style="justify-content:center;">♀ Versão Feminina</a>
+          </div>
+        </div>
+        <div class="product-card featured">
+          <div class="product-badge">Mais popular</div>
+          <div class="product-name">Planilha Noffs Personalizada</div>
+          <div class="product-price"><sup>R$</sup>37</div>
+          <p class="product-desc">Planilha Google Sheets/Excel interativa. O aluno preenche seu perfil e o treino se adapta ao nível e objetivo dele.</p>
+          <ul class="product-features">
+            <li>Formulário de perfil (nível, objetivo, dias)</li>
+            <li>3 níveis: iniciante, intermediário, avançado</li>
+            <li>12 semanas de periodização</li>
+            <li>Registro de evolução de carga</li>
+          </ul>
+          <a href="https://pay.kiwify.com.br/DNIxAXg" target="_blank" class="btn-product">Adquirir agora</a>
+        </div>
+        <div class="product-card">
+          <div class="product-badge">Premium</div>
+          <div class="product-name">Protocolo 90 Dias</div>
+          <div class="product-price"><sup>R$</sup>47</div>
+          <p class="product-desc">Protocolo em etapas com 3 fases de 30 dias cada. Progressão estruturada do iniciante ao intermediário.</p>
+          <ul class="product-features">
+            <li>Fase 1: adaptação (dias 1–30)</li>
+            <li>Fase 2: progressão (dias 31–60)</li>
+            <li>Fase 3: intensificação (dias 61–90)</li>
+            <li>Checklist semanal de progresso</li>
+            <li>Guia de suplementação básica</li>
+          </ul>
+          <a href="https://pay.kiwify.com.br/tR4kZab" target="_blank" class="btn-product-ghost">Adquirir agora</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="tab-content" id="tab-online">
-    <div class="online-wrapper">
-      <div class="online-highlight">
-        <div class="plan-name">Personal Online</div>
-        <div class="plan-price"><sup>R$</sup>150</div>
-        <div class="plan-period">por mês</div>
-        <div class="plan-desc" style="margin-top:12px;">Treino personalizado para alcançar seus objetivos.</div>
-        <ul class="plan-features">
-          <li>Treino personalizado</li>
-          <li>Ajustes mensais</li>
-          <li>Suporte via WhatsApp</li>
-        </ul>
+    <div class="tab-content" id="tab-presencial">
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div class="plan-name">1x por semana</div>
+          <div class="plan-price"><sup>R$</sup>120</div>
+          <div class="plan-period">por sessão semanal</div>
+          <div class="plan-desc">Sem compromisso de pacote</div>
+          <ul class="plan-features">
+            <li>Treino individualizado</li>
+            <li>Duração de 60 minutos</li>
+            <li>Acompanhamento focado nos seus resultados</li>
+          </ul>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-name">Pacote Mensal · 8 Aulas</div>
+          <div class="plan-price"><sup>R$</sup>100</div>
+          <div class="plan-period">por aula · 2x por semana</div>
+          <div class="plan-desc">R$800,00 por mês</div>
+          <ul class="plan-features">
+            <li>Treino 100% personalizado</li>
+            <li>Suporte via WhatsApp</li>
+            <li>Seu progresso acompanhado de perto</li>
+          </ul>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Pacote Mensal · 12 Aulas</div>
+          <div class="plan-price"><sup>R$</sup>90</div>
+          <div class="plan-period">por aula · 3x por semana</div>
+          <div class="plan-desc">R$1.080 por mês</div>
+          <ul class="plan-features">
+            <li>Treino 100% personalizado</li>
+            <li>Suporte via WhatsApp</li>
+            <li>Seu progresso acompanhado de perto</li>
+          </ul>
+        </div>
       </div>
-      <div class="online-info">
-        <div class="online-info-item">
-          <span class="online-info-label">Para quem é?</span>
-          <span class="online-info-value">Para quem quer evoluir com acompanhamento profissional online</span>
+    </div>
+
+    <div class="tab-content" id="tab-online">
+      <div class="online-wrapper">
+        <div class="online-highlight">
+          <div class="plan-name">Personal Online</div>
+          <div class="plan-price"><sup>R$</sup>150</div>
+          <div class="plan-period">por mês</div>
+          <div class="plan-desc" style="margin-top:12px;">Treino personalizado para alcançar seus objetivos.</div>
+          <ul class="plan-features">
+            <li>Treino personalizado</li>
+            <li>Ajustes mensais</li>
+            <li>Suporte via WhatsApp</li>
+          </ul>
         </div>
-        <div class="online-divider"></div>
-        <div class="online-info-item">
-          <span class="online-info-label">Como funciona?</span>
-          <span class="online-info-value">Avaliação inicial → montagem do treino → acompanhamento e ajustes mensais</span>
-        </div>
-        <div class="online-divider"></div>
-        <div class="online-info-item">
-          <span class="online-info-label">Atendimento</span>
-          <span class="online-info-value">Treino para academia, condomínio ou casa • Atendimento online para todo Brasil</span>
-        </div>
-        <div class="online-divider"></div>
-        <div class="online-info-item">
-          <span class="online-info-label">Suporte</span>
-          <span class="online-info-value">WhatsApp com resposta em até 24h úteis</span>
+        <div class="online-info">
+          <div class="online-info-item">
+            <span class="online-info-label">Para quem é?</span>
+            <span class="online-info-value">Para quem quer evoluir com acompanhamento profissional online</span>
+          </div>
+          <div class="online-divider"></div>
+          <div class="online-info-item">
+            <span class="online-info-label">Como funciona?</span>
+            <span class="online-info-value">Avaliação inicial → montagem do treino → acompanhamento e ajustes mensais</span>
+          </div>
+          <div class="online-divider"></div>
+          <div class="online-info-item">
+            <span class="online-info-label">Atendimento</span>
+            <span class="online-info-value">Treino para academia, condomínio ou casa • Atendimento online para todo Brasil</span>
+          </div>
+          <div class="online-divider"></div>
+          <div class="online-info-item">
+            <span class="online-info-label">Suporte</span>
+            <span class="online-info-value">WhatsApp com resposta em até 24h úteis</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- DEPOIMENTOS -->
 <section class="testimonials-section">
-  <div class="section-label">Resultados reais</div>
-  <div class="section-title">O que dizem os alunos</div>
-  <div id="cards-container">
-    <p class="loading-msg">Carregando depoimentos...</p>
+  <div class="inner">
+    <div class="section-label">Resultados reais</div>
+    <div class="section-title">O que dizem os alunos</div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)" aria-label="Anterior">&#8592;</button>
+      <div class="cards-track-outer">
+        <div class="cards-grid" id="cards-container">
+          <p class="loading-msg">Carregando depoimentos...</p>
+        </div>
+      </div>
+      <button class="carousel-btn next" onclick="moveCarousel(1)" aria-label="Próximo">&#8594;</button>
+    </div>
+
+    <div class="carousel-dots" id="carousel-dots"></div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section">
-  <div class="section-label">Próximo passo</div>
-  <div class="section-title">Bora começar?</div>
-  <p>Me envie uma mensagem no WhatsApp para agendarmos sua primeira aula ou avaliação.</p>
-  <a class="btn-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20treinos." target="_blank">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-    Falar com Daniel Noffs no WhatsApp
-  </a>
-  <p><a href="https://instagram.com/danielnoffspersonal" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-size:13px; color:var(--muted); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    Siga no Instagram · @danielnoffspersonal
-  </a>
+  <div class="inner">
+    <div class="section-label">Próximo passo</div>
+    <div class="section-title">Bora começar?</div>
+    <p>Me envie uma mensagem no WhatsApp para agendarmos sua primeira aula ou avaliação.</p>
+    <a class="btn-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20treinos." target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+      Falar com Daniel Noffs no WhatsApp
+    </a>
+    <p><a href="https://instagram.com/danielnoffspersonal" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-size:13px; color:var(--muted); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Siga no Instagram · @danielnoffspersonal
+    </a></p>
+  </div>
 </section>
 
 <footer>
-  <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">© 2026 Daniel Noffs</p>
-  <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;" >Personal Trainer · Santo André/SP</p>
-  <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">Developed by Camilla Pestana</p>
+  <div class="footer-inner">
+    <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">© 2026 Daniel Noffs</p>
+    <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">Personal Trainer · Santo André/SP</p>
+    <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">Developed by Camilla Pestana</p>
+  </div>
 </footer>
 
 <script>
-  // ==========================================
-  // CONFIGURAÇÃO — IDs DO GOOGLE SHEETS
-  // ==========================================
   const SHEET_ID = '1YShs4AfxEGGIx8Y1leLYgZN9C_sVQVEPX2Nwz1o2vZQ';
 
-  // ==========================================
-  // CARREGA DEPOIMENTOS DA PLANILHA
-  // ==========================================
+  // ── CARROSSEL ──
+  let currentIndex = 0;
+  let totalCards = 0;
+
+  function getVisible() {
+    const w = window.innerWidth;
+    if (w <= 560) return 1;
+    if (w <= 900) return 2;
+    return 3;
+  }
+
+  function updateCarousel() {
+    const track = document.getElementById('cards-container');
+    const cards = track.querySelectorAll('.testimonial-card');
+    if (!cards.length) return;
+
+    const visible = getVisible();
+    const maxIndex = Math.max(0, cards.length - visible);
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+    const cardWidth = cards[0].offsetWidth + 2; // +2 = gap
+    track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+    // atualiza pontos
+    const dots = document.getElementById('carousel-dots');
+    const pages = maxIndex + 1;
+    dots.innerHTML = '';
+    for (let i = 0; i < pages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', `Página ${i + 1}`);
+      dot.onclick = () => { currentIndex = i; updateCarousel(); };
+      dots.appendChild(dot);
+    }
+  }
+
+  function moveCarousel(dir) {
+    const track = document.getElementById('cards-container');
+    const cards = track.querySelectorAll('.testimonial-card');
+    const visible = getVisible();
+    const maxIndex = Math.max(0, cards.length - visible);
+    currentIndex = Math.min(Math.max(currentIndex + dir, 0), maxIndex);
+    updateCarousel();
+  }
+
+  window.addEventListener('resize', updateCarousel);
+
+  // ── CARREGA DEPOIMENTOS ──
   async function loadTestimonials() {
     const container = document.getElementById('cards-container');
     const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Respostas%20ao%20formul%C3%A1rio%201`;
@@ -651,8 +715,7 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
         return;
       }
 
-      const grid = document.createElement('div');
-      grid.className = 'cards-grid';
+      container.innerHTML = '';
 
       approved.forEach(row => {
         const name = row.c[1]?.v || '';
@@ -662,23 +725,20 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
         card.innerHTML = `
           <div class="card-stars"><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span></div>
           <div class="card-text">${text}</div>
-          <div class="card-footer">
-            <span class="card-name">${name}</span>
-          </div>
+          <div class="card-footer"><span class="card-name">${name}</span></div>
         `;
-        grid.appendChild(card);
+        container.appendChild(card);
       });
 
-      container.innerHTML = '';
-      container.appendChild(grid);
+      totalCards = approved.length;
+      setTimeout(updateCarousel, 50);
+
     } catch(e) {
       container.innerHTML = '<p class="empty-msg">Em breve os primeiros depoimentos aparecerão aqui. 💪</p>';
     }
   }
 
-  // ==========================================
-  // TABS
-  // ==========================================
+  // ── TABS ──
   function switchTab(tab, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -686,7 +746,6 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     btn.classList.add('active');
   }
 
-  // Inicia
   loadTestimonials();
 </script>
 
