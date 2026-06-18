@@ -51,11 +51,18 @@
 
   section, header, footer { position: relative; z-index: 1; }
 
+  /* CONTAINER CENTRALIZADO */
+  header, .bio, .plans-section, .testimonials-section, .cta-section, .products-section, footer {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* HERO */
   header {
-    min-height: 100svh;
+    min-height: 78svh;
     display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 6vw 8vh;
+    padding: 14vh 6vw 4vh;
     background:
       linear-gradient(to top, #252528 0%, rgba(37,37,40,0.5) 40%, transparent 70%),
       linear-gradient(135deg, rgba(255,207,5,0.06) 0%, transparent 60%);
@@ -232,60 +239,68 @@
   /* DEPOIMENTOS */
   .testimonials-section { padding: 80px 6vw; border-bottom: 1px solid var(--gray2); }
 
-  /* CARROSSEL */
+  /* CARROSSEL — 1 card centralizado, setas nas laterais */
   .testimonials-label { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
 
-  .carousel-wrap { position: relative; overflow: hidden; }
+  .carousel-wrap {
+    display: flex; align-items: center; justify-content: center; gap: 20px;
+    max-width: 720px; margin: 0 auto;
+  }
+
+  .carousel-track { overflow: hidden; flex: 1; }
 
   .cards-grid {
-    display: flex; gap: 2px;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .testimonial-card {
-    background: var(--gray); padding: 40px 36px;
-    display: flex; flex-direction: column; gap: 16px;
-    min-width: calc(33.333% - 2px); flex-shrink: 0;
-    animation: fadeUp 0.4s ease both;
+    background: var(--gray); padding: 44px 48px;
+    display: flex; flex-direction: column; gap: 18px;
+    min-width: 100%; flex-shrink: 0;
+    box-sizing: border-box;
+    text-align: center; align-items: center;
   }
 
-  @media (max-width: 900px) { .testimonial-card { min-width: calc(50% - 2px); } }
-  @media (max-width: 600px) { .testimonial-card { min-width: 100%; } }
-
-  .card-stars { display: flex; gap: 4px; }
-  .card-star { font-size: 16px; color: var(--yellow); }
+  .card-stars { display: flex; gap: 4px; justify-content: center; }
+  .card-star { font-size: 18px; color: var(--yellow); }
 
   .card-text {
-    font-size: 15px; line-height: 1.7; color: #CCC;
-    font-style: italic; flex: 1;
+    font-size: 17px; line-height: 1.8; color: #DDD;
+    font-style: italic; max-width: 520px;
   }
   .card-text::before { content: '"'; }
   .card-text::after  { content: '"'; }
 
-  .card-footer { display: flex; flex-direction: column; gap: 2px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--gray2); }
+  .card-footer { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
   .card-name { font-size: 14px; font-weight: 700; color: var(--white); }
   .card-meta { font-size: 12px; color: var(--muted); }
 
-  /* CONTROLES DO CARROSSEL */
-  .carousel-controls {
-    display: flex; align-items: center; gap: 16px; margin-top: 28px;
-  }
-
+  /* SETAS LATERAIS */
   .carousel-btn {
     background: none; border: 1px solid var(--gray2); color: var(--muted);
-    width: 40px; height: 40px; cursor: pointer; font-size: 18px;
+    width: 44px; height: 44px; cursor: pointer; font-size: 20px;
     display: flex; align-items: center; justify-content: center;
     transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
   }
   .carousel-btn:hover { border-color: var(--yellow); color: var(--yellow); }
 
-  .carousel-dots { display: flex; gap: 8px; }
+  @media (max-width: 600px) {
+    .carousel-wrap { gap: 10px; }
+    .carousel-btn { width: 36px; height: 36px; font-size: 16px; }
+    .testimonial-card { padding: 32px 24px; }
+    .card-text { font-size: 15px; }
+  }
+
+  /* PONTINHOS — abaixo, centralizados */
+  .carousel-dots { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
   .carousel-dot {
-    width: 6px; height: 6px; background: var(--gray2);
-    border-radius: 0; transition: background 0.2s, width 0.2s;
+    width: 7px; height: 7px; background: var(--gray2);
+    border-radius: 50%; transition: background 0.2s, width 0.2s;
     cursor: pointer;
   }
-  .carousel-dot.active { background: var(--yellow); width: 20px; }
+  .carousel-dot.active { background: var(--yellow); width: 22px; border-radius: 4px; }
 
   .loading-msg { font-size: 14px; color: var(--muted); font-style: italic; }
   .empty-msg { font-size: 14px; color: var(--muted); padding: 24px 0; }
@@ -403,7 +418,7 @@
   @media (max-width: 500px) {
     .tab-btn { padding: 14px 20px; font-size: 11px; }
     .plan-card, .online-highlight, .online-info { padding: 36px 24px; }
-    header { min-height: auto; padding: 120px 24px 60px; }
+    header { min-height: auto; padding: 90px 24px 24px; }
     .btn-wpp { padding: 18px 24px; font-size: 14px; width: 100%; justify-content: center; }
     .bio { padding: 48px 6vw; }
     .plans-section, .testimonials-section, .cta-section { padding: 60px 6vw; }
@@ -615,15 +630,15 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   <div class="section-label">Resultados reais</div>
   <div class="section-title">O que dizem os alunos</div>
   <div class="carousel-wrap">
-    <div id="cards-container">
-      <p class="loading-msg">Carregando depoimentos...</p>
-    </div>
-  </div>
-  <div class="carousel-controls">
     <button class="carousel-btn" onclick="moveCarousel(-1)">‹</button>
-    <div class="carousel-dots" id="carousel-dots"></div>
+    <div class="carousel-track">
+      <div id="cards-container">
+        <p class="loading-msg">Carregando depoimentos...</p>
+      </div>
+    </div>
     <button class="carousel-btn" onclick="moveCarousel(1)">›</button>
   </div>
+  <div class="carousel-dots" id="carousel-dots"></div>
 </section>
 
 <!-- CTA -->
@@ -635,9 +650,9 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
     Falar com Daniel Noffs no WhatsApp
   </a>
-  <p><a href="https://instagram.com/danielnoffs_personal" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-size:13px; color:var(--muted); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">
+  <p><a href="https://instagram.com/danielnoffspersonal" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-size:13px; color:var(--muted); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    Siga no Instagram · @danielnoffs_personal
+    Siga no Instagram · @danielnoffspersonal
   </a>
 </section>
 
@@ -654,35 +669,21 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   const SHEET_ID = '1YShs4AfxEGGIx8Y1leLYgZN9C_sVQVEPX2Nwz1o2vZQ';
 
   // ==========================================
-  // CARROSSEL
+  // CARROSSEL — 1 depoimento por vez, todas as telas
   // ==========================================
   let currentSlide = 0;
   let totalSlides = 0;
   let autoplayTimer = null;
-  let visibleCards = 3;
-
-  function getVisibleCards() {
-    if (window.innerWidth <= 600) return 1;
-    if (window.innerWidth <= 900) return 2;
-    return 3;
-  }
 
   function updateCarousel() {
     const grid = document.querySelector('.cards-grid');
     if (!grid) return;
-    visibleCards = getVisibleCards();
-    const maxSlide = Math.max(0, totalSlides - visibleCards);
-    if (currentSlide > maxSlide) currentSlide = maxSlide;
-    const cardWidth = grid.children[0]?.offsetWidth || 0;
-    const gap = 2;
-    grid.style.transform = `translateX(-${currentSlide * (cardWidth + gap)}px)`;
+    grid.style.transform = `translateX(-${currentSlide * 100}%)`;
     updateDots();
   }
 
   function moveCarousel(dir) {
-    visibleCards = getVisibleCards();
-    const maxSlide = Math.max(0, totalSlides - visibleCards);
-    currentSlide = Math.min(Math.max(currentSlide + dir, 0), maxSlide);
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
     updateCarousel();
     resetAutoplay();
   }
@@ -696,10 +697,8 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   function updateDots() {
     const dotsEl = document.getElementById('carousel-dots');
     if (!dotsEl) return;
-    visibleCards = getVisibleCards();
-    const numDots = Math.max(1, totalSlides - visibleCards + 1);
     dotsEl.innerHTML = '';
-    for (let i = 0; i < numDots; i++) {
+    for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('div');
       dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
       dot.onclick = () => goToSlide(i);
@@ -709,19 +708,15 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
 
   function startAutoplay() {
     autoplayTimer = setInterval(() => {
-      visibleCards = getVisibleCards();
-      const maxSlide = Math.max(0, totalSlides - visibleCards);
-      currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+      currentSlide = (currentSlide + 1) % totalSlides;
       updateCarousel();
-    }, 4000);
+    }, 4500);
   }
 
   function resetAutoplay() {
     clearInterval(autoplayTimer);
     startAutoplay();
   }
-
-  window.addEventListener('resize', updateCarousel);
 
   // ==========================================
   // CARREGA DEPOIMENTOS DA PLANILHA
@@ -771,7 +766,7 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
 
       setTimeout(() => {
         updateDots();
-        startAutoplay();
+        if (totalSlides > 1) startAutoplay();
       }, 100);
 
     } catch(e) {
