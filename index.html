@@ -53,7 +53,7 @@
 
   /* CONTAINER CENTRALIZADO */
   header, .bio, .plans-section, .testimonials-section, .cta-section, .products-section, footer {
-    max-width: 1400px;
+    max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -244,10 +244,10 @@
 
   .carousel-wrap {
     display: flex; align-items: center; justify-content: center; gap: 20px;
-    max-width: 720px; margin: 0 auto;
+    max-width: 640px; margin: 0 auto;
   }
 
-  .carousel-track { overflow: hidden; flex: 1; }
+  .carousel-track { overflow: hidden; flex: 1; min-width: 0; }
 
   .cards-grid {
     display: flex;
@@ -255,9 +255,9 @@
   }
 
   .testimonial-card {
-    background: var(--gray); padding: 44px 48px;
-    display: flex; flex-direction: column; gap: 18px;
-    min-width: 100%; flex-shrink: 0;
+    background: var(--gray); padding: 36px 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    width: 100%; min-width: 0; flex-shrink: 0;
     box-sizing: border-box;
     text-align: center; align-items: center;
   }
@@ -266,8 +266,8 @@
   .card-star { font-size: 18px; color: var(--yellow); }
 
   .card-text {
-    font-size: 17px; line-height: 1.8; color: #DDD;
-    font-style: italic; max-width: 520px;
+    font-size: 16px; line-height: 1.75; color: #DDD;
+    font-style: italic; max-width: 460px;
   }
   .card-text::before { content: '"'; }
   .card-text::after  { content: '"'; }
@@ -296,7 +296,7 @@
   /* PONTINHOS — abaixo, centralizados */
   .carousel-dots { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
   .carousel-dot {
-    width: 7px; height: 7px; background: var(--gray2);
+    width: 7px; height: 7px; background: #555;
     border-radius: 50%; transition: background 0.2s, width 0.2s;
     cursor: pointer;
   }
