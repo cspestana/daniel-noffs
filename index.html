@@ -369,7 +369,7 @@
   }
   .cta-section::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    background: radial-gradient(ellipse at center, rgba(20,20,22,0.15) 0%, rgba(20,20,22,0.65) 55%);
+    background: radial-gradient(ellipse at center, rgba(20,20,22,0.35) 0%, rgba(20,20,22,0.85) 75%);
   }
   .cta-section .section-title { margin: 0 auto 16px; text-align: center; }
   .cta-section p { color: var(--muted); font-size: 16px; margin-bottom: 40px; font-weight: 300; }
@@ -515,7 +515,9 @@
 
 
   /* DEPOIMENTOS: carrossel com card central em destaque */
-  .tcar { position: relative; max-width: 1000px; margin: 0 auto; }
+  .tcar { position: relative; max-width: 1000px; margin: 0 auto; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+  /* os cards laterais não podem alargar a página no celular */
+  .testimonials-section { overflow: hidden; overflow: clip; }
   .tcar-stage { position: relative; height: 340px; transition: height 0.4s ease; }
   .tcar-stage > p { text-align: center; padding-top: 120px; }
   .tcard {
