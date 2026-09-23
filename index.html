@@ -37,7 +37,7 @@
 
   html { scroll-behavior: smooth; }
   body {
-    background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; overflow-x: hidden;
+    background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; overflow-x: clip;
   }
 
   html::before {
@@ -358,7 +358,18 @@
   /* CTA */
   .cta-section {
     padding: 80px 6vw 100px; text-align: center;
-    background: linear-gradient(to bottom, var(--black), var(--gray));
+    background: var(--gray);
+    position: relative; overflow: hidden; isolation: isolate;
+  }
+  /* foto de fundo bem sutil, só pra tirar o cinza chapado */
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: url("images/bora-comecar.jpg") center / cover no-repeat;
+    opacity: 0.18;
+  }
+  .cta-section::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(20,20,22,0.15) 0%, rgba(20,20,22,0.65) 55%);
   }
   .cta-section .section-title { margin: 0 auto 16px; text-align: center; }
   .cta-section p { color: var(--muted); font-size: 16px; margin-bottom: 40px; font-weight: 300; }
@@ -460,6 +471,106 @@
   }
   footer p { font-size: 12px; color: #444; }
 
+
+  /* ═════ HERO + QUEM É O DANIEL (cena de scroll) ═════ */
+  #scroll-scene { height: 200vh; position: relative; z-index: 1; }
+  #scene-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .hero-name {
+    position: absolute; z-index: 2; font-family: 'Bebas Neue', sans-serif;
+    line-height: 1; letter-spacing: 0.01em; white-space: nowrap;
+    pointer-events: none; user-select: none; will-change: opacity;
+  }
+  #hero-daniel { color: var(--white); animation: none; min-height: 0; }
+  #hero-noffs { color: var(--yellow); }
+  #hero-photo { position: absolute; z-index: 6; will-change: transform, opacity, clip-path; }
+  #hero-photo img {
+    width: 100%; height: auto; display: block;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.55));
+  }
+  #hero-box {
+    position: absolute; z-index: 5; border: 1px solid #333; background: var(--gray2);
+    overflow: hidden; opacity: 0; will-change: transform, opacity;
+  }
+  #hero-box img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; }
+  #hero-box::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--yellow); }
+  #hero-cta {
+    position: absolute; z-index: 20; display: inline-block;
+    background: var(--gold); color: #151310; border: 6px solid #151310;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+    padding: 16px 52px; white-space: nowrap; transition: background 0.2s;
+  }
+  #hero-cta:hover { background: var(--yellow); }
+  #hero-about { position: absolute; z-index: 15; opacity: 0; will-change: transform, opacity; }
+  #hero-about h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 52px); letter-spacing: 0.02em; margin-bottom: 20px; }
+  #hero-about p { font-size: 15px; line-height: 1.8; color: #AAA; margin-bottom: 14px; }
+  @media (max-width: 767px) {
+    #hero-about h2 { font-size: 34px; margin-bottom: 10px; }
+    #hero-about p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    #hero-about .stats-row { margin-top: 12px; gap: 20px; }
+    #hero-about .stat-num { font-size: 28px; }
+    #hero-cta { padding: 14px 32px; font-size: 11px; }
+  }
+
+
+
+  /* DEPOIMENTOS: carrossel com card central em destaque */
+  .tcar { position: relative; max-width: 1000px; margin: 0 auto; }
+  .tcar-stage { position: relative; height: 340px; transition: height 0.4s ease; }
+  .tcar-stage > p { text-align: center; padding-top: 120px; }
+  .tcard {
+    position: absolute; top: 50%; left: 50%;
+    width: min(520px, 78vw); min-height: 240px;
+    background: var(--gray); color: var(--white); border: 1px solid var(--gray2);
+    padding: 40px 44px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    transform: translate(-50%, -50%) scale(0.7); opacity: 0; filter: blur(4px);
+    transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), opacity 0.8s ease, filter 0.8s ease;
+    cursor: pointer; pointer-events: none; z-index: 1;
+  }
+  .tcard.is-center { border-color: #3a3a3a; transform: translate(-50%, -50%) scale(1); opacity: 1; filter: none; z-index: 3; cursor: default; pointer-events: auto; }
+  .tcard.is-left  { transform: translate(-112%, -50%) scale(0.78); opacity: 0.55; filter: blur(2.5px); z-index: 2; pointer-events: auto; }
+  .tcard.is-right { transform: translate(12%, -50%) scale(0.78); opacity: 0.55; filter: blur(2.5px); z-index: 2; pointer-events: auto; }
+  .tcard .card-stars { gap: 3px; }
+  .tcard .card-star { font-size: 15px; color: var(--yellow); }
+  .tcard-name { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 17px; color: var(--white); }
+  .tcard-text { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; line-height: 1.6; color: #DDD; max-width: 430px; }
+  .tcard-text::before { content: '\201C'; } .tcard-text::after { content: '\201D'; }
+  .carousel-dots { gap: 10px; margin-top: 18px; }
+  .carousel-dot { width: 11px; height: 11px; background: transparent; border: 2px solid #777; border-radius: 50%; transition: border-color .3s, background .3s; }
+  .carousel-dot.active { width: 11px; background: var(--yellow); border-color: var(--yellow); border-radius: 50%; }
+  @media (max-width: 700px) {
+    .tcar-stage { height: 380px; }
+    .tcard { width: 84vw; padding: 32px 24px; }
+    .tcard-text { font-size: 16px; }
+    .tcard.is-left  { transform: translate(-128%, -50%) scale(0.8); }
+    .tcard.is-right { transform: translate(28%, -50%) scale(0.8); }
+  }
+
+  /* TÍTULO DOS PLANOS: entra deslizando da esquerda */
+  .slide-left { opacity: 0; transform: translateX(-120px); transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .slide-left.visible { opacity: 1; transform: translateX(0); }
+
+  /* CARDS SEPARADOS */
+  .plans-grid, .products-grid, .online-wrapper { gap: 24px; background: none; border: none; }
+  .plan-card, .product-card, .online-highlight, .online-info { border: 1px solid var(--gray2); }
+  .plan-card.featured, .product-card.featured, .online-highlight { border-color: var(--yellow); margin: 0; }
+
+  /* EFEITO 3D NO HOVER */
+  .tilt {
+    position: relative;
+    transform: perspective(900px) rotateX(0) rotateY(0) translateY(0);
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+    will-change: transform;
+  }
+  .tilt.tilting { transition: transform 0.12s ease-out, box-shadow 0.3s ease; box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+  .tilt::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    background: radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,0.07), transparent 60%);
+  }
+  .tilt.tilting::after { opacity: 1; }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -477,60 +588,32 @@
 </head>
 <body>
 
-<!-- HERO -->
-<header>
-  <!-- VÍDEO DE FUNDO -->
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="bg-video.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-
-  <div class="hero-tag">Personal Trainer</div>
-  <h1 id="hero-title"></h1>
-  <p class="hero-sub">Força, disciplina e resultado — com quem tem mais de 20 anos transformando corpos e vidas.</p>
-  <div class="hero-badges">
-    <div class="badge highlight">Pós-Graduado</div>
-    <div class="badge">Musculação</div>
-    <div class="badge">Funcional</div>
-    <div class="badge">Emagrecimento</div>
-    <div class="badge">Hipertrofia</div>
-    <div class="badge">+50 anos</div>
-  </div>
-</header>
-
-<!-- BIO COM FOTO -->
-<section class="bio">
-  <div class="bio-photo reveal-left">
-    <img src="images/daniel.jpg" alt="Daniel Noffs">
-  </div>
-
-  <div class="bio-text reveal-right">
-    <h2>Quem é o Daniel</h2>
-    <p>Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.
-    <p>Ao longo da minha trajetória, já acompanhei alunos de diferentes perfis e fases da vida, incluindo o público 50+, sempre com foco em mais disposição, autonomia, confiança e qualidade de vida.
-Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu objetivo e no seu tempo.
-    <p>Sou de Santo André/SP, casado, pai da Lara e de duas dogs que completam nossa família. 🐾</p>
-    <div class="stats-row">
-      <div class="stat">
-        <div class="stat-num" data-count="20" data-suffix="+">0+</div>
-        <div class="stat-label">Anos na área</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" data-count="3000" data-suffix="k+">0</div>
-        <div class="stat-label">alunos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" data-count="100" data-suffix="%">0%</div>
-        <div class="stat-label">Personalizado</div>
+<!-- HERO + QUEM É O DANIEL -->
+<div id="scroll-scene">
+  <div id="scene-sticky">
+    <h1 class="hero-name" id="hero-daniel">DANIEL</h1>
+    <span class="hero-name" id="hero-noffs" aria-hidden="true">NOFFS</span>
+    <div id="hero-photo"><img src="images/daniel-recorte.png" alt="Daniel Noffs, personal trainer"></div>
+    <div id="hero-box"><img id="hero-box-img" src="images/daniel.jpg" alt=""></div>
+    <a id="hero-cta" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Agendar avaliação</a>
+    <div id="hero-about" class="bio-text">
+      <h2>Quem é o Daniel</h2>
+      <p>Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.</p>
+      <p>Ao longo da minha trajetória, já acompanhei alunos de diferentes perfis e fases da vida, incluindo o público 50+, sempre com foco em mais disposição, autonomia, confiança e qualidade de vida. Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu objetivo e no seu tempo.</p>
+      <p>Sou de Santo André/SP, casado, pai da Lara e de duas dogs que completam nossa família. 🐾</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num" data-hero-count="20" data-suffix="+">0+</div><div class="stat-label">Anos na área</div></div>
+        <div class="stat"><div class="stat-num" data-hero-count="3000" data-suffix="k+">0</div><div class="stat-label">alunos</div></div>
+        <div class="stat"><div class="stat-num" data-hero-count="100" data-suffix="%">0%</div><div class="stat-label">Personalizado</div></div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- PLANOS -->
 <section class="plans-section">
-  <div class="section-label reveal">Investimento</div>
-  <div class="section-title reveal">Planos e Valores</div>
+  <div class="section-label slide-left">Investimento</div>
+  <div class="section-title slide-left" style="transition-delay:0.12s">Planos e Valores</div>
 
   <div class="tab-switcher">
     <button class="tab-btn active" onclick="switchTab('digital', this)">
@@ -683,16 +766,12 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
 
 <!-- DEPOIMENTOS -->
 <section class="testimonials-section">
-  <div class="section-label reveal">Resultados reais</div>
-  <div class="section-title reveal">O que dizem os alunos</div>
-  <div class="carousel-wrap">
-    <button class="carousel-btn" onclick="moveCarousel(-1)">‹</button>
-    <div class="carousel-track">
-      <div id="cards-container">
-        <p class="loading-msg">Carregando depoimentos...</p>
-      </div>
+  <div class="section-label slide-left">Resultados reais</div>
+  <div class="section-title slide-left" style="transition-delay:0.12s">O que dizem os alunos</div>
+  <div class="tcar" id="tcar" aria-roledescription="carrossel">
+    <div id="cards-container" class="tcar-stage">
+      <p class="loading-msg">Carregando depoimentos...</p>
     </div>
-    <button class="carousel-btn" onclick="moveCarousel(1)">›</button>
   </div>
   <div class="carousel-dots" id="carousel-dots"></div>
 </section>
@@ -725,35 +804,28 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   const SHEET_ID = '1YShs4AfxEGGIx8Y1leLYgZN9C_sVQVEPX2Nwz1o2vZQ';
 
   // ==========================================
-  // CARROSSEL — 1 depoimento por vez, todas as telas
+  // DEPOIMENTOS: carrossel com card central + laterais desfocados
   // ==========================================
-  let currentSlide = 0;
-  let totalSlides = 0;
-  let autoplayTimer = null;
+  let currentSlide = 0, totalSlides = 0, autoplayTimer = null;
 
   function updateCarousel() {
-    const grid = document.querySelector('.cards-grid');
-    if (!grid) return;
-    grid.style.transform = `translateX(-${currentSlide * 100}%)`;
+    const cards = document.querySelectorAll('.tcard');
+    cards.forEach((c, i) => {
+      c.classList.remove('is-center', 'is-left', 'is-right');
+      const d = (i - currentSlide + totalSlides) % totalSlides;
+      if (d === 0) c.classList.add('is-center');
+      else if (d === 1) c.classList.add('is-right');
+      else if (d === totalSlides - 1) c.classList.add('is-left');
+      c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
+    });
     updateDots();
   }
-
-  function moveCarousel(dir) {
-    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-    updateCarousel();
-    resetAutoplay();
-  }
-
-  function goToSlide(index) {
-    currentSlide = index;
-    updateCarousel();
-    resetAutoplay();
-  }
-
+  function moveCarousel(dir) { if (!totalSlides) return; currentSlide = (currentSlide + dir + totalSlides) % totalSlides; updateCarousel(); resetAutoplay(); }
+  function goToSlide(i) { currentSlide = i; updateCarousel(); resetAutoplay(); }
   function updateDots() {
-    const dotsEl = document.getElementById('carousel-dots');
-    if (!dotsEl) return;
+    const dotsEl = document.getElementById('carousel-dots'); if (!dotsEl) return;
     dotsEl.innerHTML = '';
+    if (totalSlides < 2) return;
     for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('div');
       dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
@@ -761,71 +833,66 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
       dotsEl.appendChild(dot);
     }
   }
+  function startAutoplay() { if (totalSlides > 1) autoplayTimer = setInterval(() => { currentSlide = (currentSlide + 1) % totalSlides; updateCarousel(); }, 4500); }
+  function resetAutoplay() { clearInterval(autoplayTimer); startAutoplay(); }
 
-  function startAutoplay() {
-    autoplayTimer = setInterval(() => {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateCarousel();
-    }, 4500);
+  // A área do carrossel cresce até caber o depoimento mais longo
+  function fitStage() {
+    const stage = document.getElementById('cards-container');
+    let max = 0;
+    stage.querySelectorAll('.tcard').forEach(c => { max = Math.max(max, c.offsetHeight); });
+    if (max) stage.style.height = (max + 40) + 'px';
   }
 
-  function resetAutoplay() {
-    clearInterval(autoplayTimer);
-    startAutoplay();
+  function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+  // Busca a planilha via JSONP (funciona mesmo quando o fetch é bloqueado por CORS)
+  function fetchSheet() {
+    return new Promise((resolve, reject) => {
+      const cb = '__dnSheet' + Date.now();
+      const sc = document.createElement('script');
+      const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 10000);
+      function cleanup() { clearTimeout(timer); delete window[cb]; sc.remove(); }
+      window[cb] = data => { cleanup(); resolve(data); };
+      sc.onerror = () => { cleanup(); reject(new Error('load')); };
+      sc.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${cb}&sheet=Form_Responses&_=${Date.now()}`;
+      document.body.appendChild(sc);
+    });
   }
 
-  // ==========================================
-  // CARREGA DEPOIMENTOS DA PLANILHA
-  // ==========================================
   async function loadTestimonials() {
     const container = document.getElementById('cards-container');
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Form_Responses`;
-
     try {
-      const res  = await fetch(url);
-      const text = await res.text();
-      const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
-      const rows = json.table.rows;
-
-      const approved = rows.filter(r => {
-        const aprovado = r.c[3]?.v;
-        return aprovado && aprovado.toString().toUpperCase() === 'SIM';
-      });
-
-      if (approved.length === 0) {
-        container.innerHTML = '<p class="empty-msg">Em breve os primeiros depoimentos aparecerão aqui. 💪</p>';
-        return;
-      }
-
+      const json = await fetchSheet();
+      const rows = (json.table && json.table.rows) || [];
+      const approved = rows.filter(r => { const v = r.c && r.c[3] && r.c[3].v; return v && v.toString().trim().toUpperCase() === 'SIM'; });
+      if (!approved.length) { container.innerHTML = '<p class="empty-msg">Em breve os primeiros depoimentos aparecerão aqui. 💪</p>'; return; }
       totalSlides = approved.length;
-
-      const grid = document.createElement('div');
-      grid.className = 'cards-grid';
-
-      approved.forEach(row => {
-        const name = row.c[1]?.v || '';
-        const text = row.c[2]?.v || '';
+      container.innerHTML = '';
+      approved.forEach((row, i) => {
+        const name = (row.c[1] && row.c[1].v) || '';
+        const text = (row.c[2] && row.c[2].v) || '';
         const card = document.createElement('div');
-        card.className = 'testimonial-card';
+        card.className = 'tcard';
         card.innerHTML = `
           <div class="card-stars"><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span></div>
-          <div class="card-text">${text}</div>
-          <div class="card-footer">
-            <span class="card-name">${name}</span>
-          </div>
-        `;
-        grid.appendChild(card);
+          <div class="tcard-name">${escapeHtml(name)}</div>
+          <div class="tcard-text">${escapeHtml(text)}</div>`;
+        card.addEventListener('click', () => { if (!card.classList.contains('is-center')) goToSlide(i); });
+        container.appendChild(card);
       });
-
-      container.innerHTML = '';
-      container.appendChild(grid);
-
-      setTimeout(() => {
-        updateDots();
-        if (totalSlides > 1) startAutoplay();
-      }, 100);
-
-    } catch(e) {
+      fitStage();
+      addEventListener('resize', fitStage);
+      updateCarousel();
+      startAutoplay();
+      // pausa ao passar o mouse, arrasta no celular
+      const car = document.getElementById('tcar');
+      car.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+      car.addEventListener('mouseleave', resetAutoplay);
+      let sx = null;
+      car.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+      car.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) moveCarousel(dx < 0 ? 1 : -1); sx = null; });
+    } catch (e) {
       container.innerHTML = '<p class="empty-msg">Em breve os primeiros depoimentos aparecerão aqui. 💪</p>';
     }
   }
@@ -844,41 +911,6 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
   loadTestimonials();
 
   // ==========================================
-  // TYPEWRITER NO HERO
-  // ==========================================
-  function typeWriter(el, text1, text2, speed = 80) {
-    let i = 0;
-    el.innerHTML = '';
-    const span1 = document.createElement('span');
-    const span2 = document.createElement('span');
-    span1.style.color = 'var(--white)';
-    span2.style.color = 'var(--yellow)';
-    span2.style.display = 'block';
-    el.appendChild(span1);
-    el.appendChild(span2);
-
-    function typePart1() {
-      if (i < text1.length) {
-        span1.textContent += text1[i++];
-        setTimeout(typePart1, speed);
-      } else {
-        i = 0;
-        setTimeout(typePart2, 200);
-      }
-    }
-    function typePart2() {
-      if (i < text2.length) {
-        span2.textContent += text2[i++];
-        setTimeout(typePart2, speed);
-      }
-    }
-    typePart1();
-  }
-
-  const heroTitle = document.getElementById('hero-title');
-  if (heroTitle) typeWriter(heroTitle, 'Daniel', 'Noffs');
-
-  // ==========================================
   // SCROLL REVEAL
   // ==========================================
   const revealObserver = new IntersectionObserver(entries => {
@@ -890,7 +922,7 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .slide-left').forEach(el => {
     revealObserver.observe(el);
   });
 
@@ -930,16 +962,135 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     counterObserver.observe(el);
   });
 
-  // ==========================================
-  // PARALLAX NO HERO
-  // ==========================================
-  window.addEventListener('scroll', () => {
-    const video = document.querySelector('.hero-video');
-    if (video) {
-      video.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-    }
-  }, { passive: true });
+</script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// ==========================================
+// CENA DE SCROLL: HERO → BOX → QUEM É O DANIEL
+// ==========================================
+(function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const $ = id => document.getElementById(id);
+  const photo = $('hero-photo'), img = photo.querySelector('img');
+  const box = $('hero-box'), boxImg = $('hero-box-img');
+  const about = $('hero-about'), nD = $('hero-daniel'), nN = $('hero-noffs'), cta = $('hero-cta');
+  const PNG = { ratio: 1349 / 1166 };
+  let tl, counted = false;
+
+  function countUp() {
+    if (counted) return; counted = true;
+    about.querySelectorAll('[data-hero-count]').forEach(el => {
+      const target = +el.dataset.heroCount, suf = el.dataset.suffix || '';
+      const o = { v: 0 };
+      gsap.to(o, { v: target, duration: 1.6, ease: 'power1.out', onUpdate: () => {
+        el.textContent = target === 3000 ? (o.v >= 3000 ? '3k+' : Math.floor(o.v)) : Math.floor(o.v) + suf;
+      }});
+    });
+  }
+
+  function build() {
+    if (tl) { tl.scrollTrigger && tl.scrollTrigger.kill(); tl.kill(); }
+    const W = innerWidth, H = document.getElementById('scene-sticky').offsetHeight;
+    const mobile = W < 768;
+    gsap.set([photo, box, boxImg, about, nD, nN, cta], { clearProps: 'all' });
+
+    // Foto grande do banner
+    const photoW = Math.min(W * (mobile ? 0.95 : 0.56), (H - 50) / PNG.ratio, 760);
+    const photoH = photoW * PNG.ratio;
+    photo.style.width = photoW + 'px';
+    const startY = Math.min(0, (H - 36) - (H / 2 + photoH / 2));
+    const pcY = H / 2 + startY, pTop = pcY - photoH / 2;
+
+    // Nomes colados na cabeça
+    const cx = W / 2, gap = photoW * 0.13;
+    let fs = photoW * 0.34;
+    nD.style.fontSize = nN.style.fontSize = fs + 'px';
+    const maxW = cx - gap - W * 0.02, wide = Math.max(nD.offsetWidth, nN.offsetWidth);
+    if (wide > maxW) { fs *= maxW / wide; nD.style.fontSize = nN.style.fontSize = fs + 'px'; }
+    gsap.set(nD, { left: cx - gap - nD.offsetWidth, top: pTop + photoH * 0.15 });
+    gsap.set(nN, { left: cx + gap, top: pTop + photoH * 0.15 });
+    gsap.set(photo, { left: '50%', top: '50%', xPercent: -50, yPercent: -50, y: startY, transformOrigin: 'center center', clipPath: 'inset(-40% -40% -40% -40%)' });
+    gsap.set(cta, { left: '50%', xPercent: -50, top: pcY + photoH / 2 - cta.offsetHeight * 0.75 });
+
+    // Box igual ao da bio (3:4, até 340px)
+    const fW = mobile ? Math.min(W * 0.5, H * 0.3 * 0.75) : Math.min(340, W * 0.36, H * 0.72 * 0.75);
+    const fH = fW * 4 / 3;
+    gsap.set(box, { width: fW, height: fH, left: '50%', top: '50%', xPercent: -50, yPercent: -50 });
+
+    // Encaixe exato (medido comparando o rosto do recorte com a foto do box)
+    const sw = 1.1292 * fW, S = sw / photoW, sh = photoH * S;
+    const ox = -0.0879 * fW, oy = 0.0239 * fW;
+    const bL = W / 2 - fW / 2, bT = H / 2 - fH / 2;
+    const tX = bL + ox + sw / 2 - W / 2, tY = bT + oy + sh / 2 - H / 2;
+    const clip = `inset(${-oy / sh * 100}% ${(sw + ox - fW) / sw * 100}% ${(sh + oy - fH) / sh * 100}% ${-ox / sw * 100}%)`;
+
+    // Posição final: desktop box à esquerda + texto à direita; mobile box em cima + texto embaixo
+    let boxTo, aboutFrom;
+    if (mobile) {
+      const upY = -(H / 2 - fH / 2 - 24);
+      boxTo = { y: upY };
+      gsap.set(about, { left: 20, width: W - 40, top: 24 + fH + 20 });
+      aboutFrom = { x: W * 0.6 };
+    } else {
+      const lc = Math.max(fW / 2 + 24, Math.min(W * 0.27, W / 2 - 300));
+      boxTo = { x: lc - W / 2 };
+      const aL = lc + fW / 2 + Math.max(32, W * 0.05);
+      gsap.set(about, { left: aL, width: Math.min(W - aL - 24, 520), top: '50%', yPercent: -50 });
+      aboutFrom = { x: W * 0.6 };
+    }
+    gsap.set(about, aboutFrom);
+
+    tl = gsap.timeline({
+      defaults: { ease: 'sine.inOut' },
+      scrollTrigger: { trigger: '#scroll-scene', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: false }
+    });
+    tl.to([nD, nN], { opacity: 0, duration: 2.4 }, 0)
+      .to(cta, { opacity: 0, y: 24, duration: 1.6 }, 0)
+      .to(photo, { y: tY, x: tX, scale: S, duration: 5 }, 0)
+      .to(box, { opacity: 1, duration: 2 }, 2.6)
+      .to(photo, { clipPath: clip, duration: 1.6 }, 3.4)
+      .to(boxImg, { opacity: 1, duration: 1.6 }, 4.6)
+      .to(photo, { opacity: 0, duration: 1.4 }, 5.2)
+      .to(box, { ...boxTo, duration: 3.2 }, 6.4)
+      .to(about, { x: 0, opacity: 1, duration: 3.2, ease: 'power2.out' }, 8.2)
+      .call(countUp, null, 10)
+      .to({}, { duration: 0.4 }, 12.2);
+  }
+
+  const start = () => { build(); ScrollTrigger.refresh(); };
+  if (img.complete && img.naturalWidth) start(); else { img.addEventListener('load', start, { once: true }); }
+  let rt, lastW = innerWidth;
+  addEventListener('resize', () => {
+    if (innerWidth === lastW) return; // ignora a barra do navegador no celular
+    lastW = innerWidth; clearTimeout(rt); rt = setTimeout(start, 250);
+  });
+})();
+</script>
+
+
+<script>
+// Cards de preço: inclinação 3D leve seguindo o mouse
+(function () {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.plan-card, .product-card, .online-highlight, .online-info').forEach(card => {
+    card.classList.add('tilt');
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.classList.add('tilting');
+      card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - 0.5) * 8}deg) translateY(-6px)`;
+      card.style.setProperty('--gx', x * 100 + '%'); card.style.setProperty('--gy', y * 100 + '%');
+    });
+    card.addEventListener('mouseleave', () => { card.classList.remove('tilting'); card.style.transform = ''; });
+  });
+})();
 </script>
 
 <!-- CHAT WHATSAPP FLUTUANTE -->
@@ -1161,15 +1312,6 @@ Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu obj
     input.value = '';
   }
 
-  // Abre automaticamente após 4 segundos
-  setTimeout(() => {
-    const box = document.getElementById('wpp-chat-box');
-    const btn = document.getElementById('wpp-float-btn');
-    if (!box.classList.contains('open')) {
-      box.classList.add('open');
-      btn.classList.add('open');
-    }
-  }, 4000);
 </script>
 
 </body>
