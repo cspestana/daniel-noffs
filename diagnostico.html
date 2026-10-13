@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Gratuito — Daniel Noffs</title>
+<link rel="icon" type="image/png" href="favicon-dn.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #252528;
+    --yellow: #ffcf05;
+    --yellow-glow: rgba(255,207,5,0.18);
+    --white: #F5F5F0;
+    --gray: #1A1A1A;
+    --gray2: #2A2A2A;
+    --muted: #888;
+    --gold: #D4A843;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Fundo igual ao site */
+  html::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -2;
+    background-image: url("images/background.jpg");
+    background-size: cover; background-position: center;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.72);
+    pointer-events: none; z-index: -1;
+  }
+
+  /* HEADER */
+  .diag-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 32px;
+    max-width: 860px; margin: 0 auto;
+  }
+  .diag-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.06em;
+    color: var(--white); text-decoration: none;
+  }
+  .diag-logo span { color: var(--yellow); }
+  .diag-back {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .diag-back:hover { color: var(--white); }
+  .diag-back svg { width: 14px; height: 14px; }
+
+  /* WRAPPER PRINCIPAL */
+  .quiz-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+  }
+
+  /* BARRA DE PROGRESSO */
+  .progress-bar-wrap {
+    margin-bottom: 40px;
+  }
+  .progress-label {
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .progress-track {
+    height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--yellow);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 0%;
+  }
+
+  /* ETAPA */
+  .step {
+    display: none;
+    animation: stepIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .step.active { display: block; }
+
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateX(32px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .step-tag {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 14px;
+  }
+
+  .step h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 6vw, 48px);
+    line-height: 1.05; letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+
+  .step-sub {
+    font-size: 15px; color: var(--muted); line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  /* OPÇÕES */
+  .options {
+    display: flex; flex-direction: column; gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .opt {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .opt:hover { border-color: rgba(255,207,5,0.4); background: var(--yellow-glow); }
+  .opt.selected {
+    border-color: var(--yellow);
+    background: var(--yellow-glow);
+  }
+  .opt-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .opt-icon svg {
+    width: 24px; height: 24px;
+    stroke: var(--yellow); fill: none;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .opt-text strong {
+    display: block; font-size: 15px; font-weight: 600; margin-bottom: 2px;
+  }
+  .opt-text span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+  /* CAMPO NOME */
+  .name-field {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 18px 20px;
+    font-size: 16px; font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 32px;
+  }
+  .name-field::placeholder { color: var(--muted); }
+  .name-field:focus { border-color: var(--yellow); }
+
+  /* BOTÃO AVANÇAR */
+  .btn-next {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 32px;
+    background: var(--yellow); color: #111;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+    border: none; border-radius: 50px; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-next:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-next:disabled { opacity: 0.35; cursor: default; transform: none; }
+  .btn-next svg { width: 16px; height: 16px; }
+
+  /* RESULTADO */
+  #step-result .result-header {
+    text-align: center; margin-bottom: 48px;
+  }
+  .result-badge {
+    display: inline-block;
+    background: var(--yellow-glow);
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 50px;
+    margin-bottom: 20px;
+  }
+  #step-result h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 56px);
+    line-height: 1.05; margin-bottom: 12px;
+  }
+  #step-result .result-desc {
+    font-size: 15px; color: var(--muted); line-height: 1.7;
+    max-width: 480px; margin: 0 auto;
+  }
+
+  /* CARDS DE RESULTADO */
+  .result-cards {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-bottom: 40px;
+  }
+  .result-card {
+    padding: 20px 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+  }
+  .result-card-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 8px;
+  }
+  .result-card p { font-size: 14px; color: #CCC; line-height: 1.65; }
+
+  /* BOTÃO WHATSAPP */
+  .btn-wpp-result {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: 100%; padding: 18px 24px;
+    background: #25D366; color: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
+    border: none; border-radius: 50px; cursor: pointer; text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-bottom: 14px;
+  }
+  .btn-wpp-result:hover { opacity: 0.92; transform: translateY(-1px); }
+  .btn-wpp-result svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  .result-note {
+    text-align: center; font-size: 12px; color: var(--muted); line-height: 1.5;
+  }
+
+  @media (max-width: 480px) {
+    .diag-header { padding: 20px 20px; }
+    .quiz-wrap { padding: 16px 20px 64px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="diag-header">
+  <a href="index.html" class="diag-logo">DANIEL <span>NOFFS</span></a>
+  <a href="index.html" class="diag-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+    Voltar ao site
+  </a>
+</header>
+
+<div class="quiz-wrap">
+
+  <!-- Barra de progresso -->
+  <div class="progress-bar-wrap">
+    <div class="progress-label" id="progress-label">Etapa 1 de 5</div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <!-- ETAPA 1: Nome -->
+  <div class="step active" id="step-1">
+    <div class="step-tag">Diagnóstico gratuito</div>
+    <h2>Como posso te chamar?</h2>
+    <p class="step-sub">Em 5 perguntas rápidas monto um plano inicial pensado pra você.</p>
+    <input type="text" class="name-field" id="input-nome" placeholder="Seu primeiro nome" autocomplete="given-name">
+    <button class="btn-next" id="btn-1" disabled onclick="goNext(1)">
+      Continuar
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- ETAPA 2: Objetivo -->
+  <div class="step" id="step-2">
+    <div class="step-tag">Etapa 2 — Objetivo</div>
+    <h2>Qual é o seu principal objetivo?</h2>
+    <p class="step-sub">Seja honesto, não tem resposta errada.</p>
+    <div class="options" id="opts-2">
+      <div class="opt" onclick="selectOpt(this, 2)" data-value="emagrecimento">
+        <!-- Maçã line icon: emagrecer -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24">
+          <!-- corpo da maçã -->
+          <path d="M8 8.5C5.5 9 4 11.5 4 14c0 3.5 2.5 6 5 6 .8 0 1.5-.3 2-.5.5.2 1.2.5 2 .5 2.5 0 5-2.5 5-6 0-2.5-1.5-5-4-5.5"/>
+          <!-- talo -->
+          <path d="M12 8.5V6"/>
+          <!-- folha -->
+          <path d="M12 6 Q14.5 5 15.5 3 Q13 3.5 12 6"/>
+          <!-- entalhe superior -->
+          <path d="M9.5 8.8 Q12 7.5 14.5 8.8"/>
+        </svg></div>
+        <div class="opt-text"><strong>Emagrecer</strong><span>Perder gordura e definir o corpo</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 2)" data-value="hipertrofia">
+        <!-- Haltere: hipertrofia -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="10" width="3" height="4" rx="1"/><rect x="19" y="10" width="3" height="4" rx="1"/><rect x="5" y="8" width="3" height="8" rx="1"/><rect x="16" y="8" width="3" height="8" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div class="opt-text"><strong>Ganhar massa muscular</strong><span>Hipertrofia e força</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 2)" data-value="saude">
+        <!-- Coração com pulso: saúde -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 14.5 3 8.5A4.5 4.5 0 0112 6a4.5 4.5 0 019 2.5c0 6-9 12.5-9 12.5z"/><polyline points="2,12 5,12 7,9 9,15 11,12 13,12"/></svg></div>
+        <div class="opt-text"><strong>Saúde e bem-estar</strong><span>Disposição, mobilidade e qualidade de vida</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 2)" data-value="reabilitacao">
+        <!-- Anilha line icon: reabilitação/condicionamento -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="12" cy="12" r="2"/>
+          <line x1="12" y1="4" x2="12" y2="7"/>
+          <line x1="12" y1="17" x2="12" y2="20"/>
+          <line x1="4" y1="12" x2="7" y2="12"/>
+          <line x1="17" y1="12" x2="20" y2="12"/>
+        </svg></div>
+        <div class="opt-text"><strong>Reabilitação / condicionamento</strong><span>Pós-lesão, pós-cirurgia ou sedentarismo</span></div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn-2" disabled onclick="goNext(2)">
+      Continuar
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- ETAPA 3: Disponibilidade -->
+  <div class="step" id="step-3">
+    <div class="step-tag">Etapa 3 — Rotina</div>
+    <h2>Quantos dias por semana você consegue treinar?</h2>
+    <p class="step-sub">Sem julgamentos. A consistência vence a intensidade.</p>
+    <div class="options" id="opts-3">
+      <div class="opt" onclick="selectOpt(this, 3)" data-value="2">
+        <!-- Calendário 2: dois dias -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="7" y1="14" x2="9" y2="14"/><line x1="7" y1="18" x2="9" y2="18"/></svg></div>
+        <div class="opt-text"><strong>2 dias</strong><span>Agenda bem apertada</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 3)" data-value="3">
+        <!-- Calendário 3: três dias -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="7" y1="14" x2="9" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="7" y1="18" x2="9" y2="18"/></svg></div>
+        <div class="opt-text"><strong>3 dias</strong><span>O mais comum e eficiente</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 3)" data-value="4-5">
+        <!-- Calendário cheio: 4-5 dias -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="7" y1="14" x2="9" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="7" y1="18" x2="9" y2="18"/><line x1="12" y1="18" x2="14" y2="18"/></svg></div>
+        <div class="opt-text"><strong>4 a 5 dias</strong><span>Comprometimento alto</span></div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn-3" disabled onclick="goNext(3)">
+      Continuar
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- ETAPA 4: Experiência -->
+  <div class="step" id="step-4">
+    <div class="step-tag">Etapa 4 — Experiência</div>
+    <h2>Qual sua relação com o treino hoje?</h2>
+    <p class="step-sub">Isso ajuda a calibrar o ponto de partida certo para você.</p>
+    <div class="options" id="opts-4">
+      <div class="opt" onclick="selectOpt(this, 4)" data-value="iniciante">
+        <!-- Semente/broto: iniciante -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12"/><path d="M12 12C12 7 7 4 3 5c0 5 3 8 9 7z"/><path d="M12 12c0-5 5-8 9-7-1 5-4 8-9 7z"/></svg></div>
+        <div class="opt-text"><strong>Iniciante</strong><span>Nunca treinei ou fui muito inconsistente</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 4)" data-value="intermediario">
+        <!-- Haltere (barra + pesos): intermediário -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24">
+          <!-- barra central -->
+          <line x1="8" y1="12" x2="16" y2="12"/>
+          <!-- peso esquerdo externo -->
+          <rect x="2" y="9.5" width="2.5" height="5" rx="0.6"/>
+          <!-- peso esquerdo interno -->
+          <rect x="4.5" y="10.5" width="2" height="3" rx="0.5"/>
+          <!-- peso direito interno -->
+          <rect x="17.5" y="10.5" width="2" height="3" rx="0.5"/>
+          <!-- peso direito externo -->
+          <rect x="19.5" y="9.5" width="2.5" height="5" rx="0.6"/>
+        </svg></div>
+        <div class="opt-text"><strong>Intermediário</strong><span>Treino há algum tempo, mas sem acompanhamento</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 4)" data-value="avancado">
+        <!-- Troféu: avançado -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12l-2 7a5 5 0 01-8 0L6 3z"/><path d="M6 3H4a2 2 0 000 4h2"/><path d="M18 3h2a2 2 0 010 4h-2"/><line x1="12" y1="15" x2="12" y2="19"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+        <div class="opt-text"><strong>Avançado</strong><span>Treino consistente há mais de 2 anos</span></div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn-4" disabled onclick="goNext(4)">
+      Continuar
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- ETAPA 5: Modalidade -->
+  <div class="step" id="step-5">
+    <div class="step-tag">Etapa 5 — Formato</div>
+    <h2>Como prefere ser acompanhado?</h2>
+    <p class="step-sub">Daniel atende nas três modalidades com a mesma dedicação.</p>
+    <div class="options" id="opts-5">
+      <div class="opt" onclick="selectOpt(this, 5)" data-value="presencial">
+        <!-- Pin localização: presencial -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div class="opt-text"><strong>Presencial</strong><span>Santo André, São Caetano e região</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 5)" data-value="digital">
+        <!-- Celular com sinal: digital -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/><line x1="15" y1="6" x2="15" y2="6"/></svg></div>
+        <div class="opt-text"><strong>Digital</strong><span>Treino online com acompanhamento direto</span></div>
+      </div>
+      <div class="opt" onclick="selectOpt(this, 5)" data-value="online">
+        <!-- Globo/wifi: protocolo online -->
+        <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9"/><path d="M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3.5" y1="7.5" x2="20.5" y2="7.5"/><line x1="3.5" y1="16.5" x2="20.5" y2="16.5"/></svg></div>
+        <div class="opt-text"><strong>Protocolo online</strong><span>Plano de treino + nutrição + suporte</span></div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn-5" disabled onclick="showResult()">
+      Ver meu plano
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="step" id="step-result">
+    <div class="result-header">
+      <div class="result-badge">Seu diagnóstico</div>
+      <h2 id="result-title">Plano personalizado</h2>
+      <p class="result-desc" id="result-desc"></p>
+    </div>
+    <div class="result-cards" id="result-cards"></div>
+    <a class="btn-wpp-result" id="btn-wpp" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.855L.057 23.882l6.196-1.452A11.932 11.932 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-4.988-1.364l-.358-.213-3.677.862.927-3.576-.234-.368A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
+      </svg>
+      Falar com o Daniel agora
+    </a>
+    <p class="result-note">Resposta em até 24h • Sem compromisso</p>
+  </div>
+
+</div>
+
+<script>
+const answers = {};
+
+// Habilitar botão quando nome é digitado
+document.getElementById('input-nome').addEventListener('input', function() {
+  const ok = this.value.trim().length >= 2;
+  document.getElementById('btn-1').disabled = !ok;
+  if (ok) answers.nome = this.value.trim();
+});
+document.getElementById('input-nome').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !document.getElementById('btn-1').disabled) goNext(1);
+});
+
+function selectOpt(el, step) {
+  const parent = document.getElementById('opts-' + step);
+  parent.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers['step' + step] = el.dataset.value;
+  document.getElementById('btn-' + step).disabled = false;
+}
+
+function goNext(current) {
+  const next = current + 1;
+  document.getElementById('step-' + current).classList.remove('active');
+  const nextEl = document.getElementById('step-' + next);
+  // Re-trigger animação
+  nextEl.style.animation = 'none';
+  nextEl.offsetHeight; // reflow
+  nextEl.style.animation = '';
+  nextEl.classList.add('active');
+  updateProgress(next, 5);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(current, total) {
+  const pct = ((current - 1) / total) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `Etapa ${current} de ${total}`;
+}
+
+function showResult() {
+  // Coleta dados
+  const nome = answers.nome || 'Você';
+  const obj = answers.step2;
+  const dias = answers.step3;
+  const exp  = answers.step4;
+  const mod  = answers.step5;
+
+  // Monta o título personalizado
+  const titleMap = {
+    emagrecimento: `${nome}, seu foco é resultado visível`,
+    hipertrofia:   `${nome}, você quer força e massa`,
+    saude:         `${nome}, saúde e bem-estar em primeiro lugar`,
+    reabilitacao:  `${nome}, vamos reconstruir sua base`,
+  };
+  document.getElementById('result-title').textContent = titleMap[obj] || `${nome}, seu plano está pronto`;
+
+  // Texto de perfil
+  const descMap = {
+    emagrecimento: 'Com treinos focados em gasto calórico e preservação muscular, aliados a acompanhamento nutricional, emagrecimento consistente é totalmente alcançável.',
+    hipertrofia:   'Periodização de cargas, progressão estruturada e nutrição adequada são os pilares para ganho de massa real. Sem atalhos, sem desperdício de treino.',
+    saude:         'Movimento de qualidade, mobilidade e consistência ao longo do tempo transformam não só o corpo, mas a disposição e a autoestima.',
+    reabilitacao:  'Ponto de partida respeitoso com o seu histórico, progressão gradual e atenção às limitações é o caminho mais seguro e eficiente.',
+  };
+  document.getElementById('result-desc').textContent = descMap[obj] || '';
+
+  // Monta os cards
+  const modLabel = { presencial: 'Presencial', digital: 'Acompanhamento Digital', online: 'Protocolo Online' };
+  const diasLabel = { '2': '2×/semana', '3': '3×/semana', '4-5': '4-5×/semana' };
+  const expLabel  = { iniciante: 'Iniciante', intermediario: 'Intermediário', avancado: 'Avançado' };
+
+  const cards = [
+    {
+      label: 'Modalidade indicada',
+      text: `${modLabel[mod]} — formato que melhor se encaixa na sua rotina e preferência.`
+    },
+    {
+      label: 'Frequência sugerida',
+      text: `${diasLabel[dias]} é um ritmo excelente para o seu objetivo. Consistência ao longo das semanas supera qualquer intensidade isolada.`
+    },
+    {
+      label: 'Ponto de partida',
+      text: nível(exp, obj)
+    },
+    {
+      label: 'Próximo passo',
+      text: 'Conversar com o Daniel para definir datas, tirar dúvidas e dar o primeiro passo. Sem pressão, sem script de vendas.'
+    }
+  ];
+
+  const cardsEl = document.getElementById('result-cards');
+  cardsEl.innerHTML = cards.map(c => `
+    <div class="result-card">
+      <div class="result-card-label">${c.label}</div>
+      <p>${c.text}</p>
+    </div>
+  `).join('');
+
+  // Monta link WhatsApp com resumo
+  const msg = encodeURIComponent(
+    `Olá Daniel! Fiz o diagnóstico no seu site e quero saber mais.\n\n` +
+    `• Nome: ${nome}\n` +
+    `• Objetivo: ${obj}\n` +
+    `• Dias disponíveis: ${diasLabel[dias]}\n` +
+    `• Experiência: ${expLabel[exp]}\n` +
+    `• Formato preferido: ${modLabel[mod]}\n\n` +
+    `Pode me contar como funciona?`
+  );
+  document.getElementById('btn-wpp').href = `https://wa.me/5511944655777?text=${msg}`;
+
+  // Mostra resultado
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-result').style.animation = 'none';
+  document.getElementById('step-result').offsetHeight;
+  document.getElementById('step-result').style.animation = '';
+  document.getElementById('step-result').classList.add('active');
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('progress-label').textContent = 'Diagnóstico concluído ✓';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nível(exp, obj) {
+  if (exp === 'iniciante') return 'Vamos construir a base certa desde o início, com técnica e progressão segura — o que faz toda a diferença no longo prazo.';
+  if (exp === 'intermediario') return 'Você já tem alguma vivência. O trabalho é corrigir o que não está funcionando e adicionar a variável que faltava: acompanhamento de qualidade.';
+  if (exp === 'avancado') return 'Treinador experiente, mas com um novo olhar de fora. A periodização fina e os pequenos ajustes são o que separa o estagnado do que evolui.';
+  return 'Partimos do seu ponto atual, sem pular etapas.';
+}
+</script>
+
+</body>
+</html>

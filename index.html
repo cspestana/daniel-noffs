@@ -90,22 +90,19 @@
     z-index: -1;
   }
 
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0; transform: translateY(32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+  /* SCROLL REVEAL — animação ligada ao scroll (sem class-toggle) */
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .slide-left {
+    opacity: 0;
+    will-change: opacity, transform;
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-left {
-    opacity: 0; transform: translateX(-32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal-left.visible { opacity: 1; transform: translateX(0); }
-  .reveal-right {
-    opacity: 0; transform: translateX(32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  /* Estados iniciais — JS sobrescreve via inline style */
+  .reveal       { transform: translateY(44px); }
+  .reveal-left  { transform: translateX(-44px); }
+  .reveal-right { transform: translateX(44px); }
+  .slide-left   { transform: translateX(-60px); }
 
   /* PARALLAX */
   .parallax-wrap { overflow: hidden; }
@@ -473,7 +470,7 @@
 
 
   /* ═════ HERO + QUEM É O DANIEL (cena de scroll) ═════ */
-  #scroll-scene { height: 200vh; position: relative; z-index: 1; }
+  #scroll-scene { height: 280vh; position: relative; z-index: 1; }
   #scene-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
   .hero-name {
     position: absolute; z-index: 2; font-family: 'Bebas Neue', sans-serif;
@@ -495,12 +492,40 @@
   #hero-box::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--yellow); }
   #hero-cta {
     position: absolute; z-index: 20; display: inline-block;
-    background: var(--gold); color: #151310; border: 6px solid #151310;
+    background: linear-gradient(160deg, #ffe566 0%, #ffcf05 45%, #e6a800 100%);
+    color: #151310; border: none;
     font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
     letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
-    padding: 16px 52px; white-space: nowrap; transition: background 0.2s;
+    padding: 16px 52px; white-space: nowrap;
+    border-radius: 2px;
+    box-shadow:
+      0 4px 0 #a87200,
+      0 6px 12px rgba(0,0,0,0.5),
+      0 0 32px 8px rgba(255,207,5,0.5),
+      0 0 70px 16px rgba(255,207,5,0.2);
+    transform: translateY(0);
+    transition: transform 0.12s, box-shadow 0.12s;
+    animation: cta-pulse 2.2s ease-in-out infinite;
   }
-  #hero-cta:hover { background: var(--yellow); }
+  #hero-cta:hover {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #a87200,
+      0 3px 8px rgba(0,0,0,0.5),
+      0 0 40px 12px rgba(255,207,5,0.75),
+      0 0 90px 22px rgba(255,207,5,0.3);
+  }
+  #hero-cta:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 0px 0 #a87200,
+      0 2px 6px rgba(0,0,0,0.4),
+      0 0 20px 6px rgba(255,207,5,0.5);
+  }
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 4px 0 #a87200, 0 6px 12px rgba(0,0,0,0.5), 0 0 32px 8px rgba(255,207,5,0.5), 0 0 70px 16px rgba(255,207,5,0.2); }
+    50%       { box-shadow: 0 4px 0 #a87200, 0 6px 12px rgba(0,0,0,0.5), 0 0 50px 14px rgba(255,207,5,0.8), 0 0 100px 28px rgba(255,207,5,0.35); }
+  }
   #hero-about { position: absolute; z-index: 15; opacity: 0; will-change: transform, opacity; }
   #hero-about h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 52px); letter-spacing: 0.02em; margin-bottom: 20px; }
   #hero-about p { font-size: 15px; line-height: 1.8; color: #AAA; margin-bottom: 14px; }
@@ -550,10 +575,6 @@
     .tcard.is-right { transform: translate(28%, -50%) scale(0.8); }
   }
 
-  /* TÍTULO DOS PLANOS: entra deslizando da esquerda */
-  .slide-left { opacity: 0; transform: translateX(-120px); transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1); }
-  .slide-left.visible { opacity: 1; transform: translateX(0); }
-
   /* CARDS SEPARADOS */
   .plans-grid, .products-grid, .online-wrapper { gap: 24px; background: none; border: none; }
   .plan-card, .product-card, .online-highlight, .online-info { border: 1px solid var(--gray2); }
@@ -597,7 +618,7 @@
     <span class="hero-name" id="hero-noffs" aria-hidden="true">NOFFS</span>
     <div id="hero-photo"><img src="images/daniel-recorte.png" alt="Daniel Noffs, personal trainer"></div>
     <div id="hero-box"><img id="hero-box-img" src="images/daniel.jpg" alt=""></div>
-    <a id="hero-cta" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Agendar avaliação</a>
+    <a id="hero-cta" href="diagnostico.html">Agendar consultoria</a>
     <div id="hero-about" class="bio-text">
       <h2>Quem é o Daniel</h2>
       <p>Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.</p>
@@ -615,9 +636,9 @@
 <!-- PLANOS -->
 <section class="plans-section">
   <div class="section-label slide-left">Investimento</div>
-  <div class="section-title slide-left" style="transition-delay:0.12s">Planos e Valores</div>
+  <div class="section-title slide-left" data-delay="120">Planos e Valores</div>
 
-  <div class="tab-switcher">
+  <div class="tab-switcher reveal" data-delay="200">
     <button class="tab-btn active" onclick="switchTab('digital', this)">
       <span class="tab-icon"></span> Produtos Digitais
     </button>
@@ -634,7 +655,7 @@
     <div class="products-grid">
 
       <!-- PRODUTO 1 — FULLBODY -->
-      <div class="product-card">
+      <div class="product-card reveal" data-delay="0">
         <div class="product-badge">Treino em Casa incluso</div>
         <div class="product-name">Treino FullBody</div>
         <div class="product-price"><sup>R$</sup>55 <span style="font-size:16px; font-weight:300; color:var(--muted); font-family:'DM Sans',sans-serif;">cada</span></div>
@@ -656,7 +677,7 @@
       </div>
 
       <!-- PRODUTO 2 — PLANILHA -->
-      <div class="product-card featured">
+      <div class="product-card featured reveal" data-delay="100">
         <div class="product-badge">Mais popular</div>
         <div class="product-name">Planilha Noffs Personalizada</div>
         <div class="product-price"><sup>R$</sup>37</div>
@@ -671,7 +692,7 @@
       </div>
 
       <!-- PRODUTO 3 — PROTOCOLO 90 DIAS -->
-      <div class="product-card">
+      <div class="product-card reveal" data-delay="200">
         <div class="product-badge">Premium</div>
         <div class="product-name">Protocolo 90 Dias</div>
         <div class="product-price"><sup>R$</sup>47</div>
@@ -691,7 +712,7 @@
 
   <div class="tab-content" id="tab-presencial">
     <div class="plans-grid">
-      <div class="plan-card">
+      <div class="plan-card reveal" data-delay="0">
         <div class="plan-name">1x por semana</div>
         <div class="plan-price"><sup>R$</sup>120</div>
         <div class="plan-period">por sessão semanal</div>
@@ -702,7 +723,7 @@
           <li>Acompanhamento focado nos seus resultados</li>
         </ul>
       </div>
-      <div class="plan-card featured">
+      <div class="plan-card featured reveal" data-delay="100">
         <div class="plan-name">Pacote Mensal · 8 Aulas</div>
         <div class="plan-price"><sup>R$</sup>100</div>
         <div class="plan-period">por aula · 2x por semana</div>
@@ -713,7 +734,7 @@
           <li>Seu progresso acompanhado de perto</li>
         </ul>
       </div>
-      <div class="plan-card">
+      <div class="plan-card reveal" data-delay="200">
         <div class="plan-name">Pacote Mensal · 12 Aulas</div>
         <div class="plan-price"><sup>R$</sup>90</div>
         <div class="plan-period">por aula · 3x por semana</div>
@@ -729,7 +750,7 @@
 
   <div class="tab-content" id="tab-online">
     <div class="online-wrapper">
-      <div class="online-highlight">
+      <div class="online-highlight reveal" data-delay="0">
         <div class="plan-name">Personal Online</div>
         <div class="plan-price"><sup>R$</sup>150</div>
         <div class="plan-period">por mês</div>
@@ -740,7 +761,7 @@
           <li>Suporte via WhatsApp</li>
         </ul>
       </div>
-      <div class="online-info">
+      <div class="online-info reveal" data-delay="150">
         <div class="online-info-item">
           <span class="online-info-label">Para quem é?</span>
           <span class="online-info-value">Para quem quer evoluir com acompanhamento profissional online</span>
@@ -769,7 +790,7 @@
 <!-- DEPOIMENTOS -->
 <section class="testimonials-section">
   <div class="section-label slide-left">Resultados reais</div>
-  <div class="section-title slide-left" style="transition-delay:0.12s">O que dizem os alunos</div>
+  <div class="section-title slide-left" data-delay="120">O que dizem os alunos</div>
   <div class="tcar" id="tcar" aria-roledescription="carrossel">
     <div id="cards-container" class="tcar-stage">
       <p class="loading-msg">Carregando depoimentos...</p>
@@ -781,9 +802,9 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="section-label reveal">Próximo passo</div>
-  <div class="section-title reveal">Bora começar?</div>
-  <p>Me envie uma mensagem no WhatsApp para agendarmos sua primeira aula ou avaliação.</p>
-  <a class="btn-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20treinos." target="_blank">
+  <div class="section-title reveal" data-delay="100">Bora começar?</div>
+  <p class="reveal" data-delay="200">Me envie uma mensagem no WhatsApp para agendarmos sua primeira aula ou avaliação.</p>
+  <a class="btn-wpp reveal" data-delay="300" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20treinos." target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
     Falar com Daniel Noffs no WhatsApp
   </a>
@@ -905,28 +926,101 @@
   function switchTab(tab, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById('tab-' + tab).classList.add('active');
+    const content = document.getElementById('tab-' + tab);
+    content.classList.add('active');
     btn.classList.add('active');
+    // Re-calcular animação dos elementos da aba recém-aberta
+    if (window._revealTick) window._revealTick();
   }
 
   // Inicia
   loadTestimonials();
 
   // ==========================================
-  // SCROLL REVEAL
+  // SCROLL REVEAL — animação proporcional ao scroll (estilo pedrotuquim)
   // ==========================================
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
+  (function () {
+    const SELECTOR = '.reveal, .reveal-left, .reveal-right, .slide-left';
+    const REVEAL_ZONE = 0.70; // fração da viewport que dura a entrada — maior = mais gradual
+    const STAGGER_PX = 40;    // deslocamento extra entre irmãos com data-delay
 
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .slide-left').forEach(el => {
-    revealObserver.observe(el);
-  });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll(SELECTOR).forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    // Determina o tipo de translate de cada elemento
+    function getAxis(el) {
+      if (el.classList.contains('reveal-left'))  return 'x-neg';
+      if (el.classList.contains('reveal-right')) return 'x-pos';
+      if (el.classList.contains('slide-left'))   return 'x-neg-lg';
+      return 'y'; // .reveal
+    }
+
+    // Aplica easing suave ao progresso bruto (ease-out cúbico)
+    function ease(p) { return 1 - Math.pow(1 - p, 3); }
+
+    function applyProgress(el, p) {
+      const ep = ease(p);
+      el.style.opacity = ep;
+      const axis = getAxis(el);
+      // Translate usa easing mais leve para não acabar antes da opacidade
+      const tp = ease(p * 0.9);
+      if (axis === 'y')        el.style.transform = `translateY(${(1 - tp) * 40}px)`;
+      if (axis === 'x-neg')    el.style.transform = `translateX(${(1 - tp) * -40}px)`;
+      if (axis === 'x-pos')    el.style.transform = `translateX(${(1 - tp) * 40}px)`;
+      if (axis === 'x-neg-lg') el.style.transform = `translateX(${(1 - tp) * -56}px)`;
+    }
+
+    // Coleta todos os elementos (inclusive em abas inativas — serão animados ao abrir)
+    const allEls = Array.from(document.querySelectorAll(SELECTOR));
+
+    // Aplica estado inicial
+    allEls.forEach(el => applyProgress(el, 0));
+
+    let rafId = null;
+
+    function tick() {
+      rafId = null;
+      const vh = window.innerHeight;
+
+      allEls.forEach(el => {
+        // Ignora elementos em abas inativas (invisíveis)
+        if (el.closest('.tab-content:not(.active)')) return;
+
+        const rect = el.getBoundingClientRect();
+        // Quanto o topo do elemento já entrou na viewport (de baixo para cima)
+        const entered = vh - rect.top;
+        const zone = vh * REVEAL_ZONE;
+        let p = Math.min(Math.max(entered / zone, 0), 1);
+
+        // delay via data-delay: atrasa o início da animação em px de scroll
+        const delay = parseInt(el.dataset.delay || 0);
+        if (delay > 0) {
+          const delayZone = (delay / 1000) * STAGGER_PX * 8;
+          p = Math.min(Math.max((entered - delayZone) / zone, 0), 1);
+        }
+
+        applyProgress(el, p);
+      });
+    }
+
+    function schedTick() {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('scroll', schedTick, { passive: true });
+    window.addEventListener('resize', schedTick, { passive: true });
+
+    // Roda uma vez ao carregar para elementos já visíveis
+    tick();
+
+    // Expõe função para o switchTab poder reanimar aba recém-aberta
+    window._revealTick = tick;
+  })();
 
   // ==========================================
   // CONTADOR ANIMADO
@@ -1038,31 +1132,49 @@
       const upY = -(H / 2 - fH / 2 - 24);
       boxTo = { y: upY };
       gsap.set(about, { left: 20, width: W - 40, top: 24 + fH + 20 });
-      aboutFrom = { x: W * 0.6 };
+      aboutFrom = { x: W * 0.5, y: 0, opacity: 0 };  // mobile: vem da direita
     } else {
       const lc = Math.max(fW / 2 + 24, Math.min(W * 0.27, W / 2 - 300));
       boxTo = { x: lc - W / 2 };
       const aL = lc + fW / 2 + Math.max(32, W * 0.05);
       gsap.set(about, { left: aL, width: Math.min(W - aL - 24, 520), top: '50%', yPercent: -50 });
-      aboutFrom = { x: W * 0.6 };
+      aboutFrom = { x: Math.min(W * 0.5, 320), y: 0, opacity: 0 };  // desktop: vem da direita
     }
     gsap.set(about, aboutFrom);
 
+    // Duração total da timeline: ~16 unidades (mapeadas ao scroll da cena)
+    // Cada fase tem respiro suficiente para ser perceptível ao rolar devagar
     tl = gsap.timeline({
-      defaults: { ease: 'sine.inOut' },
-      scrollTrigger: { trigger: '#scroll-scene', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: false }
+      defaults: { ease: 'power2.inOut' },
+      scrollTrigger: { trigger: '#scroll-scene', start: 'top top', end: 'bottom bottom', scrub: 1.2, invalidateOnRefresh: false }
     });
-    tl.to([nD, nN], { opacity: 0, duration: 2.4 }, 0)
-      .to(cta, { opacity: 0, y: 24, duration: 1.6 }, 0)
-      .to(photo, { y: tY, x: tX, scale: S, duration: 5 }, 0)
-      .to(box, { opacity: 1, duration: 2 }, 2.6)
-      .to(photo, { clipPath: clip, duration: 1.6 }, 3.4)
-      .to(boxImg, { opacity: 1, duration: 1.6 }, 4.6)
-      .to(photo, { opacity: 0, duration: 1.4 }, 5.2)
-      .to(box, { ...boxTo, duration: 3.2 }, 6.4)
-      .to(about, { x: 0, opacity: 1, duration: 3.2, ease: 'power2.out' }, 8.2)
-      .call(countUp, null, 10)
-      .to({}, { duration: 0.4 }, 12.2);
+
+    // Fase 1 (0→3): Nomes e CTA somem gradualmente — leve scale nos nomes durante a saída
+    tl.to([nD, nN], { opacity: 0, scale: 0.92, duration: 3, ease: 'power1.in' }, 0)
+      .to(cta, { opacity: 0, y: 32, duration: 2, ease: 'power1.in' }, 0.4)
+
+    // Fase 2 (0→6): Foto reposiciona — movimento longo e contínuo acompanhando o scroll
+      .to(photo, { y: tY, x: tX, scale: S, duration: 6, ease: 'power1.inOut' }, 0)
+
+    // Fase 3 (3→5.5): Box aparece com suavidade
+      .to(box, { opacity: 1, duration: 2.5, ease: 'power2.out' }, 3)
+
+    // Fase 4 (4.5→6.5): Clip da foto se fecha progressivamente
+      .to(photo, { clipPath: clip, duration: 2, ease: 'power1.inOut' }, 4.5)
+
+    // Fase 5 (6→8): Foto crossfade com boxImg
+      .to(boxImg, { opacity: 1, duration: 2, ease: 'power2.out' }, 6)
+      .to(photo, { opacity: 0, duration: 1.8, ease: 'power1.in' }, 6.5)
+
+    // Fase 6 (7.5→11): Box desliza para posição final — movimento longo = aparece no scroll
+      .to(box, { ...boxTo, duration: 3.5, ease: 'power2.inOut' }, 7.5)
+
+    // Fase 7 (9→13): "Quem é o Daniel" surge progressivamente — entra de baixo + fade
+      .to(about, { x: 0, y: 0, opacity: 1, duration: 4.5, ease: 'power2.out' }, 9)
+      .call(countUp, null, 11.5)
+
+    // Pausa final para o usuário ler o bloco antes de sair da cena
+      .to({}, { duration: 1 }, 15);
   }
 
   const start = () => { build(); ScrollTrigger.refresh(); };
