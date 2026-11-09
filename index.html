@@ -212,6 +212,10 @@
   .bg-video {
     position: fixed; inset: 0; z-index: 0;
     overflow: hidden;
+    /* imagem estática de fundo (poster) — aparece no mobile no lugar do vídeo */
+    background:
+      linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+      url("images/hero-poster.jpg") center / cover no-repeat;
   }
   .bg-video video {
     position: absolute; inset: 0;
@@ -228,6 +232,10 @@
   #hero-video::-webkit-media-controls {
     display: none !important;
     -webkit-appearance: none;
+  }
+  /* no celular: esconde o vídeo (evita botão de play e economiza dados) — fica a imagem */
+  @media (max-width: 768px) {
+    .bg-video video { display: none; }
   }
 
   /* SESSÃO 1 — vídeo + nome que embaralha e some, revelando a mensagem */
@@ -1889,11 +1897,22 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
     }
   }
 
+  // No celular: não usa o vídeo (fica a imagem estática de fundo).
+  // Cancela o download pra economizar dados e sumir com o botão de play.
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    v.removeAttribute('autoplay');
+    try { v.pause(); } catch (e) {}
+    while (v.firstChild) v.removeChild(v.firstChild);
+    v.removeAttribute('src');
+    try { v.load(); } catch (e) {}
+    return;
+  }
+
   v.addEventListener('loadedmetadata', () => { v.playbackRate = BASE; });
   v.addEventListener('timeupdate', apply);
   if (v.readyState >= 1) v.playbackRate = BASE;
 
-  // Força o autoplay mudo no mobile (evita o botão de play no centro)
+  // Desktop: garante o autoplay mudo
   v.muted = true;
   v.setAttribute('muted', '');
   function forcePlay() {
@@ -1902,7 +1921,7 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
   }
   forcePlay();
   ['loadeddata', 'canplay'].forEach(function (ev) { v.addEventListener(ev, forcePlay); });
-  ['touchstart', 'click', 'scroll'].forEach(function (ev) {
+  ['click', 'scroll'].forEach(function (ev) {
     window.addEventListener(ev, forcePlay, { once: true, passive: true });
   });
 })();
