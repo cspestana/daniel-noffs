@@ -219,6 +219,15 @@
     object-fit: cover;
     object-position: center;
     filter: brightness(0.62) saturate(0.95);
+    pointer-events: none;
+  }
+  /* esconde o botão de play nativo (iOS/Android) — vídeo é autoplay mudo */
+  #hero-video::-webkit-media-controls-start-playback-button,
+  #hero-video::-webkit-media-controls-overlay-play-button,
+  #hero-video::-webkit-media-controls-panel,
+  #hero-video::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none;
   }
 
   /* SESSÃO 1 — vídeo + nome que embaralha e some, revelando a mensagem */
@@ -474,14 +483,7 @@
   }
 
   .about-grid {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 72px;
-    align-items: start;
-  }
-
-  @media (max-width: 900px) {
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    display: block;
   }
 
   .about-photo-wrap {
@@ -519,6 +521,13 @@
   .about-text p {
     font-size: 15px; line-height: 1.85; color: #AAA;
     margin-bottom: 18px;
+  }
+  /* parágrafos distribuídos na horizontal, ocupando a área */
+  .about-cols { display: flex; gap: 48px; margin-top: 12px; }
+  .about-cols p { flex: 1; margin-bottom: 0; }
+  @media (max-width: 760px) {
+    .about-cols { flex-direction: column; gap: 0; }
+    .about-cols p { margin-bottom: 18px; }
   }
 
   .stats-row {
@@ -1241,23 +1250,15 @@
 <section id="about" class="hpanel">
   <div class="container">
     <div class="about-grid">
-
-      <div class="about-photo-wrap reveal-left">
-        <div class="about-photo">
-          <img src="images/9. Retrato profissional do Daniel.png" alt="Daniel Noffs, personal trainer" loading="lazy">
-          <span class="about-photo-label">Personal Trainer</span>
-        </div>
-      </div>
-
       <div class="about-text">
         <span class="eyebrow reveal" data-delay="0">Sobre o Daniel</span>
-        <h2 class="reveal" data-delay="80">Experiência, conhecimento<br>e dedicação em cada treino.</h2>
+        <h2 class="reveal" data-delay="80">Experiência, conhecimento e dedicação em cada treino.</h2>
 
-        <p class="reveal" data-delay="160">Sou profissional de Educação Física, formado pela Uniban (2005), com pós-graduação em Fisiologia do Exercício, Musculação e Treinamento de Força (2024).</p>
-
-        <p class="reveal" data-delay="220">Há mais de 20 anos, ajudo pessoas a conquistarem mais força, disposição, autonomia e qualidade de vida, respeitando os objetivos e os limites de cada fase da vida.</p>
-
-        <p class="reveal" data-delay="280" style="color: var(--yellow);">Treinos personalizados, com acompanhamento próximo e resultados construídos no seu ritmo.</p>
+        <div class="about-cols">
+          <p class="reveal" data-delay="160">Sou profissional de Educação Física, formado pela Uniban (2005), com pós-graduação em Fisiologia do Exercício, Musculação e Treinamento de Força (2024).</p>
+          <p class="reveal" data-delay="220">Há mais de 20 anos, ajudo pessoas a conquistarem mais força, disposição, autonomia e qualidade de vida, respeitando os objetivos e os limites de cada fase da vida.</p>
+          <p class="reveal" data-delay="280" style="color: var(--yellow);">Treinos personalizados, com acompanhamento próximo e resultados construídos no seu ritmo.</p>
+        </div>
 
         <div class="stats-row">
           <div class="stat reveal" data-delay="340">
@@ -1891,6 +1892,19 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
   v.addEventListener('loadedmetadata', () => { v.playbackRate = BASE; });
   v.addEventListener('timeupdate', apply);
   if (v.readyState >= 1) v.playbackRate = BASE;
+
+  // Força o autoplay mudo no mobile (evita o botão de play no centro)
+  v.muted = true;
+  v.setAttribute('muted', '');
+  function forcePlay() {
+    const p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  forcePlay();
+  ['loadeddata', 'canplay'].forEach(function (ev) { v.addEventListener(ev, forcePlay); });
+  ['touchstart', 'click', 'scroll'].forEach(function (ev) {
+    window.addEventListener(ev, forcePlay, { once: true, passive: true });
+  });
 })();
 </script>
 
