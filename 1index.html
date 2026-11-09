@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Noffs — Personal Trainer</title>
+<link rel="icon" type="image/png" href="images/favicon-dn.png">
+<meta name="description" content="Personal trainer pós-graduado especialista em 50+, emagrecimento e hipertrofia. Atendimento presencial em Santo André, São Caetano e região. Força, disciplina e resultado.">
+<meta property="og:title" content="Daniel Noffs — Personal Trainer">
+<meta property="og:description" content="Personal trainer pós-graduado especialista em 50+, emagrecimento e hipertrofia. Atendimento presencial em Santo André, São Caetano e região. Força, disciplina e resultado.">
+<meta property="og:image" content="https://cspestana.github.io/daniel-noffs/images/favicon-dn.png">
+<meta property="og:url" content="https://www.danielnoffs.com.br">
+<meta property="og:type" content="website">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Bebas Neue'; font-display: swap; src: local('Bebas Neue'), local('BebasNeue'); }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #252528;
+    --yellow: #ffcf05;
+    --yellow-glow: rgba(255,207,5,0.15);
+    --white: #F5F5F0;
+    --gray: #1A1A1A;
+    --gray2: #2A2A2A;
+    --muted: #888;
+    --gold: #D4A843;
+    --container: 1140px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: clip;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9000; opacity: 0.6;
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: var(--container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
+
+  /* SECTION HEADERS */
+  .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--yellow);
+    margin-bottom: 16px; display: block;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.95;
+    margin-bottom: 48px;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal, .reveal-left, .reveal-right, .slide-up {
+    opacity: 0; will-change: opacity, transform;
+  }
+  .reveal      { transform: translateY(44px); }
+  .reveal-left { transform: translateX(-44px); }
+  .reveal-right{ transform: translateX(44px); }
+  .slide-up    { transform: translateY(56px); }
+
+  /* PARALLAX */
+  .parallax-img { will-change: transform; }
+
+  /* ─────────────────────────────────────
+     00. INTRO SADU-STYLE (D · N)
+  ───────────────────────────────────── */
+  #intro-splash {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Letras D e N gigantes */
+  .intro-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 22vw, 280px);
+    line-height: 0.85;
+    color: var(--white);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+  .intro-letter-d { left: 3vw; }
+  .intro-letter-n { right: 3vw; }
+
+  /* Box central com slideshow */
+  .intro-box {
+    position: relative;
+    z-index: 3;
+    width: min(340px, 44vw);
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.7);
+  }
+  .intro-slide {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.1s ease;
+  }
+  .intro-slide.active { opacity: 1; }
+  .intro-slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+  }
+
+  /* Texto dentro do box */
+  .intro-box-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 4;
+    padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  }
+  .intro-box-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(18px, 2.6vw, 26px);
+    letter-spacing: 0.1em;
+    color: var(--white);
+    text-align: center;
+  }
+  .intro-box-role {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--yellow);
+    margin-top: 4px;
+  }
+
+  /* Dots do slideshow */
+  .intro-dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%; transform: translateX(-50%);
+    z-index: 5;
+    display: flex; gap: 7px;
+  }
+  .intro-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .intro-dot.active { background: var(--yellow); transform: scale(1.3); }
+
+  /* Scroll down hint no intro */
+  .intro-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%; transform: translateX(-50%);
+    z-index: 6;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.35);
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .intro-scroll-line {
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+
+  @media (max-width: 600px) {
+    .intro-letter { font-size: clamp(80px, 20vw, 140px); }
+    .intro-box { width: min(220px, 52vw); }
+    .intro-letter-d { left: 2vw; }
+    .intro-letter-n { right: 2vw; }
+  }
+
+  /* ─────────────────────────────────────
+     01. HERO
+  ───────────────────────────────────── */
+  #hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: url("images/background.jpg") center / cover no-repeat;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(37,37,40,1) 0%,
+      rgba(37,37,40,0.78) 40%,
+      rgba(37,37,40,0.45) 70%,
+      rgba(37,37,40,0.2) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 6vw 8vh;
+    max-width: var(--container);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--yellow); border: 1px solid var(--yellow);
+    padding: 6px 14px; margin-bottom: 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  /* Nome grande no hero */
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 13vw, 160px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    animation: fadeUp 0.7s 0.08s ease both;
+  }
+
+  .hero-role {
+    font-size: clamp(13px, 1.6vw, 18px);
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 20px;
+    margin-top: 6px;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    animation: fadeUp 0.7s 0.22s ease both;
+    max-width: 680px;
+    color: rgba(245,245,240,0.9);
+  }
+  .hero-headline em {
+    color: var(--yellow);
+    font-style: normal;
+  }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.7;
+    animation: fadeUp 0.7s 0.28s ease both;
+  }
+
+  .hero-cta-row {
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+    margin-top: 32px;
+    animation: fadeUp 0.7s 0.35s ease both;
+  }
+
+  #hero-cta {
+    display: inline-block;
+    background: linear-gradient(160deg, #ffe566 0%, #ffcf05 45%, #e6a800 100%);
+    color: #151310; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+    padding: 16px 52px; white-space: nowrap;
+    border-radius: 2px;
+    box-shadow:
+      0 4px 0 #a87200,
+      0 6px 12px rgba(0,0,0,0.5),
+      0 0 32px 8px rgba(255,207,5,0.5),
+      0 0 70px 16px rgba(255,207,5,0.2);
+    transform: translateY(0);
+    transition: transform 0.12s, box-shadow 0.12s;
+    animation: cta-pulse 2.2s ease-in-out infinite;
+  }
+  #hero-cta:hover {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #a87200,
+      0 3px 8px rgba(0,0,0,0.5),
+      0 0 40px 12px rgba(255,207,5,0.75),
+      0 0 90px 22px rgba(255,207,5,0.3);
+  }
+  #hero-cta:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #a87200, 0 2px 6px rgba(0,0,0,0.4), 0 0 20px 6px rgba(255,207,5,0.5);
+  }
+
+  .hero-scroll-hint {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; gap: 10px;
+  }
+  .hero-scroll-hint::before {
+    content: '';
+    display: block; width: 1px; height: 32px; background: var(--muted);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 0;
+    margin-top: 28px; padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    animation: fadeUp 0.7s 0.42s ease both;
+  }
+  .badge {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .badge::after { content: '·'; color: var(--yellow); margin: 0 12px; }
+  .badge:last-child::after { content: ''; }
+
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 4px 0 #a87200, 0 6px 12px rgba(0,0,0,0.5), 0 0 32px 8px rgba(255,207,5,0.5), 0 0 70px 16px rgba(255,207,5,0.2); }
+    50%       { box-shadow: 0 4px 0 #a87200, 0 6px 12px rgba(0,0,0,0.5), 0 0 50px 14px rgba(255,207,5,0.8), 0 0 100px 28px rgba(255,207,5,0.35); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scroll-line {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50%       { transform: scaleY(0.4); opacity: 0.4; }
+  }
+
+  /* ─────────────────────────────────────
+     02. QUEM É O DANIEL
+  ───────────────────────────────────── */
+  #about {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--gray2);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo {
+    width: 100%; aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .about-photo:hover img { transform: scale(1.03); }
+  .about-photo::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: var(--yellow);
+  }
+  .about-photo-label {
+    position: absolute; top: 20px; left: 20px;
+    background: var(--yellow); color: #111;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 5px 12px;
+  }
+
+  .about-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 5vw, 56px);
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+  .about-text p {
+    font-size: 15px; line-height: 1.85; color: #AAA;
+    margin-bottom: 18px;
+  }
+
+  .stats-row {
+    display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap;
+    padding-top: 32px; border-top: 1px solid var(--gray2);
+  }
+  .stat { border-left: 3px solid var(--yellow); padding-left: 16px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px; color: var(--white); line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;
+  }
+
+  /* ─────────────────────────────────────
+     03. TREINAMENTO PARA CADA FASE
+  ───────────────────────────────────── */
+  #training {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--gray2);
+  }
+
+  .training-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--gray2);
+    border: 1px solid var(--gray2);
+  }
+  @media (max-width: 768px) {
+    .training-grid { grid-template-columns: 1fr; }
+  }
+
+  .training-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: default;
+    background: var(--gray);
+  }
+  .training-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    filter: grayscale(20%);
+  }
+  .training-card:hover img { transform: scale(1.06); filter: grayscale(0%); }
+  .training-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,20,22,0.95) 0%, rgba(20,20,22,0.35) 55%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px 28px 28px;
+    transition: background 0.4s ease;
+  }
+  .training-card:hover .training-card-overlay {
+    background: linear-gradient(to top, rgba(20,20,22,1) 0%, rgba(20,20,22,0.45) 60%, transparent 100%);
+  }
+  .training-card-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 8px; display: block;
+  }
+  .training-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3.5vw, 38px);
+    line-height: 1; color: var(--white); margin-bottom: 10px;
+  }
+  .training-card-desc {
+    font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6;
+    max-width: 340px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .training-card:hover .training-card-desc {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ─────────────────────────────────────
+     04. MODALIDADES E PLANOS
+  ───────────────────────────────────── */
+  #plans {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--gray2);
+  }
+
+  .plans-intro {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 32px; margin-bottom: 60px; flex-wrap: wrap;
+  }
+  .plans-intro-lead {
+    font-size: 15px; color: var(--muted); max-width: 360px; line-height: 1.7;
+  }
+
+  .modality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--gray2);
+    border: 1px solid var(--gray2);
+    margin-bottom: 48px;
+  }
+  @media (max-width: 860px) { .modality-grid { grid-template-columns: 1fr; } }
+
+  .modality-card {
+    background: var(--gray);
+    padding: 44px 36px;
+    position: relative;
+    display: flex; flex-direction: column;
+    transition: background 0.3s;
+  }
+  .modality-card.featured {
+    background: var(--black);
+    border: 1px solid var(--yellow);
+    margin: -1px; z-index: 2;
+  }
+  .modality-card.featured::before {
+    content: 'MAIS ESCOLHIDO';
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--yellow); color: #111;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    padding: 5px 16px; white-space: nowrap;
+  }
+
+  .modality-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gray2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px; flex-shrink: 0;
+    color: var(--yellow);
+  }
+  .modality-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .modality-name {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+  }
+  .modality-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 0.02em; color: var(--white); margin-bottom: 16px;
+  }
+  .modality-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.75;
+    margin-bottom: 28px; flex: 1;
+  }
+  .modality-features {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .modality-features li {
+    font-size: 13px; color: #999;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .modality-features li::before { content: '—'; color: var(--yellow); flex-shrink: 0; font-weight: 700; }
+  .modality-card.featured .modality-features li { color: var(--white); }
+
+  .btn-modality-wpp {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: transparent; color: var(--yellow);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 14px 24px; text-decoration: none; margin-top: auto;
+    border: 1px solid var(--yellow);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-modality-wpp:hover { background: var(--yellow); color: #111; }
+  .btn-modality-wpp svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .modality-card.featured .btn-modality-wpp {
+    background: var(--yellow); color: #111; border-color: var(--yellow);
+  }
+  .modality-card.featured .btn-modality-wpp:hover { opacity: 0.88; }
+
+  /* Produtos digitais abaixo */
+  .digital-strip {
+    border: 1px solid var(--gray2);
+    padding: 32px 36px;
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+    justify-content: space-between;
+    background: var(--gray);
+  }
+  .digital-strip-left h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; margin-bottom: 6px;
+  }
+  .digital-strip-left p {
+    font-size: 13px; color: var(--muted);
+  }
+  .digital-strip-links {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .btn-digital {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 12px 20px; text-decoration: none; border: 1px solid var(--gray2);
+    color: var(--muted); background: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-digital:hover { border-color: var(--yellow); color: var(--yellow); }
+  .btn-digital::after { content: '↗'; font-size: 12px; }
+
+  /* ─────────────────────────────────────
+     05. COMO FUNCIONA
+  ───────────────────────────────────── */
+  #how {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--gray2);
+    background: var(--gray);
+    position: relative; overflow: hidden;
+  }
+  #how::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background: url("images/6. Halteres e pesos.jpg") center / cover no-repeat;
+    opacity: 0.05;
+  }
+
+  .how-grid {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--gray2);
+    background: var(--gray2);
+  }
+  @media (max-width: 900px) {
+    .how-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .how-grid { grid-template-columns: 1fr; }
+  }
+
+  .how-step {
+    background: var(--gray);
+    padding: 40px 32px;
+    position: relative;
+  }
+  .how-step:last-child .how-step-arrow { display: none; }
+
+  .how-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px; line-height: 1;
+    color: var(--gray2);
+    position: absolute; top: 16px; right: 20px;
+    pointer-events: none;
+    transition: color 0.4s;
+  }
+  .how-step:hover .how-step-num { color: rgba(255,207,5,0.12); }
+
+  .how-step-icon {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--yellow);
+    margin-bottom: 20px;
+    color: var(--yellow);
+  }
+  .how-step-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .how-step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.02em; color: var(--white); margin-bottom: 10px;
+  }
+  .how-step-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.7;
+  }
+
+  /* ─────────────────────────────────────
+     06. DEPOIMENTOS
+  ───────────────────────────────────── */
+  #testimonials {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--gray2);
+    overflow: clip;
+  }
+
+  .tcar {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    touch-action: pan-y;
+    user-select: none; -webkit-user-select: none;
+  }
+  .tcar-stage {
+    position: relative;
+    height: 340px;
+    transition: height 0.4s ease;
+  }
+  .tcar-stage > p { text-align: center; padding-top: 120px; color: var(--muted); font-size: 14px; font-style: italic; }
+
+  .tcard {
+    position: absolute; top: 50%; left: 50%;
+    width: min(520px, 78vw); min-height: 240px;
+    background: var(--gray); color: var(--white); border: 1px solid var(--gray2);
+    padding: 40px 44px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    transform: translate(-50%, -50%) scale(0.7); opacity: 0; filter: blur(4px);
+    transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), opacity 0.8s ease, filter 0.8s ease;
+    cursor: pointer; pointer-events: none; z-index: 1;
+  }
+  .tcard.is-center {
+    border-color: #3a3a3a;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1; filter: none; z-index: 3;
+    cursor: default; pointer-events: auto;
+  }
+  .tcard.is-left  { transform: translate(-112%, -50%) scale(0.78); opacity: 0.55; filter: blur(2.5px); z-index: 2; pointer-events: auto; }
+  .tcard.is-right { transform: translate(12%, -50%) scale(0.78); opacity: 0.55; filter: blur(2.5px); z-index: 2; pointer-events: auto; }
+
+  /* Inicial de nome do aluno (sem foto) */
+  .tcard-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--gray2); border: 1px solid var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--yellow);
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+
+  .card-stars { display: flex; gap: 3px; justify-content: center; }
+  .card-star { font-size: 15px; color: var(--yellow); }
+  .tcard-name { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 17px; color: var(--white); }
+  .tcard-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic; font-size: 19px; line-height: 1.6; color: #DDD; max-width: 430px;
+  }
+  .tcard-text::before { content: '\201C'; }
+  .tcard-text::after  { content: '\201D'; }
+
+  .carousel-dots {
+    display: flex; gap: 10px; justify-content: center; margin-top: 28px;
+  }
+  .carousel-dot {
+    width: 11px; height: 11px; background: transparent;
+    border: 2px solid #555; border-radius: 50%;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: pointer;
+  }
+  .carousel-dot.active { background: var(--yellow); border-color: var(--yellow); }
+
+  @media (max-width: 700px) {
+    .tcar-stage { height: 380px; }
+    .tcard { width: 84vw; padding: 32px 24px; }
+    .tcard-text { font-size: 16px; }
+    .tcard.is-left  { transform: translate(-128%, -50%) scale(0.8); }
+    .tcard.is-right { transform: translate(28%, -50%) scale(0.8); }
+  }
+
+  /* ─────────────────────────────────────
+     07. CTA FINAL
+  ───────────────────────────────────── */
+  #cta-final {
+    padding: 120px 0;
+    position: relative; overflow: hidden; isolation: isolate;
+    text-align: center;
+  }
+  #cta-final::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background: url("images/10. Conexão com o aluno.png") center / cover no-repeat;
+    opacity: 0.12;
+  }
+  #cta-final::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(20,20,22,0.3) 0%, rgba(20,20,22,0.92) 75%);
+  }
+  #cta-final .section-title {
+    margin: 0 auto 16px;
+    max-width: 700px;
+  }
+  #cta-final .section-title em {
+    color: var(--yellow); font-style: normal;
+  }
+  #cta-final .cta-sub {
+    color: var(--muted); font-size: 16px; font-weight: 300;
+    margin-bottom: 48px; max-width: 420px; margin-left: auto; margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .btn-wpp {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: #25D366; color: white;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
+    padding: 20px 48px; text-decoration: none;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 0 40px rgba(37,211,102,0.3);
+  }
+  .btn-wpp:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(37,211,102,0.5); }
+  .btn-wpp svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+  .cta-social-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px; font-size: 13px;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .cta-social-link:hover { color: var(--yellow); }
+
+  /* ─────────────────────────────────────
+     FOOTER
+  ───────────────────────────────────── */
+  footer {
+    padding: 24px 6vw; border-top: 1px solid var(--gray2);
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+    max-width: var(--container); margin: 0 auto;
+  }
+  footer p { font-size: 11px; color: #444; letter-spacing: 0.08em; }
+
+  /* ─────────────────────────────────────
+     WHATSAPP FLUTUANTE
+  ───────────────────────────────────── */
+  .wpp-chat-wrap {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  }
+  .wpp-float-btn {
+    width: 62px; height: 62px; border-radius: 50%;
+    background: #25D366; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.55);
+    animation: wpp-bounce 2.5s ease-in-out infinite;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .wpp-float-btn:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,0.7); animation: none; }
+  .wpp-float-btn svg { width: 30px; height: 30px; transition: opacity 0.2s, transform 0.2s; }
+  .wpp-icon-open { opacity: 1; transform: scale(1); }
+  .wpp-icon-close { position: absolute; opacity: 0; transform: scale(0.5); }
+  .wpp-float-btn.open .wpp-icon-open { opacity: 0; transform: scale(0.5); }
+  .wpp-float-btn.open .wpp-icon-close { opacity: 1; transform: scale(1); }
+  .wpp-float-btn.open { animation: none; background: #1a1a1a; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  .wpp-notification-dot {
+    position: absolute; top: 4px; right: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #ff3b30; border: 2px solid #25D366;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .wpp-float-btn.open .wpp-notification-dot { display: none; }
+  @keyframes pulse-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+  @keyframes wpp-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .wpp-chat-box {
+    width: 320px; background: #fff; border-radius: 12px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.35);
+    overflow: hidden; display: none; flex-direction: column;
+    animation: chat-open 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    transform-origin: bottom right;
+  }
+  .wpp-chat-box.open { display: flex; }
+  @keyframes chat-open {
+    from { opacity: 0; transform: scale(0.85) translateY(16px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .wpp-chat-header { background: #075E54; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .wpp-chat-avatar { width: 42px; height: 42px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; flex-shrink: 0; }
+  .wpp-chat-info { flex: 1; }
+  .wpp-chat-name { font-size: 15px; font-weight: 700; color: white; }
+  .wpp-chat-status { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+  .wpp-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #25D366; display: inline-block; }
+  .wpp-chat-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 18px; cursor: pointer; padding: 4px; line-height: 1; transition: color 0.2s; }
+  .wpp-chat-close:hover { color: white; }
+  .wpp-chat-body { padding: 16px; background: #ECE5DD; min-height: 120px; }
+  .wpp-chat-bubble { background: white; border-radius: 0 8px 8px 8px; padding: 10px 14px; max-width: 85%; box-shadow: 0 1px 2px rgba(0,0,0,0.1); position: relative; }
+  .wpp-chat-bubble::before { content: ''; position: absolute; top: 0; left: -8px; border: 8px solid transparent; border-top-color: white; border-left: none; }
+  .wpp-chat-bubble p { font-size: 14px; color: #111; line-height: 1.5; margin-bottom: 4px; }
+  .wpp-chat-bubble p:last-of-type { margin-bottom: 0; }
+  .wpp-bubble-time { font-size: 11px; color: #999; display: block; text-align: right; margin-top: 4px; }
+  .wpp-chat-footer { padding: 10px 12px; background: #F0F0F0; display: flex; align-items: center; gap: 8px; border-top: 1px solid #ddd; }
+  .wpp-chat-input { flex: 1; border: none; border-radius: 20px; background: white; padding: 10px 16px; font-size: 14px; outline: none; color: #111; font-family: 'DM Sans', sans-serif; }
+  .wpp-chat-input::placeholder { color: #999; }
+  .wpp-chat-send { width: 40px; height: 40px; border-radius: 50%; background: #25D366; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+  .wpp-chat-send:hover { background: #1da851; }
+  .wpp-chat-send svg { width: 18px; height: 18px; color: white; }
+  @media (max-width: 400px) { .wpp-chat-box { width: calc(100vw - 32px); } .wpp-chat-wrap { right: 16px; bottom: 16px; } }
+
+  /* ─────────────────────────────────────
+     TILT 3D em hover
+  ───────────────────────────────────── */
+  .tilt {
+    transform: perspective(900px) rotateX(0) rotateY(0) translateY(0);
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+    will-change: transform;
+  }
+  .tilt.tilting { transition: transform 0.12s ease-out, box-shadow 0.3s ease; box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+  .tilt::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    background: radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,0.07), transparent 60%);
+  }
+  .tilt.tilting::after { opacity: 1; }
+
+  /* ─────────────────────────────────────
+     RESPONSIVE GLOBAL
+  ───────────────────────────────────── */
+  @media (max-width: 600px) {
+    #about, #training, #plans, #how, #testimonials { padding: 72px 0; }
+    #cta-final { padding: 80px 0; }
+    .about-grid { gap: 36px; }
+    .modality-card, .how-step { padding: 32px 24px; }
+    .digital-strip { padding: 24px 20px; }
+    .btn-wpp { padding: 18px 28px; font-size: 14px; width: 100%; justify-content: center; }
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-left, .reveal-right, .slide-up,
+    .parallax-img, .hero-bg, .training-card img {
+      opacity: 1 !important; transform: none !important; filter: none !important;
+      transition: none !important; animation: none !important;
+    }
+    #hero-cta { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     00. INTRO SPLASH (Sadu-style D · N)
+════════════════════════════════════════ -->
+<section id="intro-splash">
+  <span class="intro-letter intro-letter-d">D</span>
+  <span class="intro-letter intro-letter-n">N</span>
+
+  <div class="intro-box" id="intro-box">
+    <!-- slides gerados por JS -->
+  </div>
+
+  <div class="intro-scroll">
+    <div class="intro-scroll-line"></div>
+    role
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     01. HERO
+════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg parallax-img" id="hero-bg"></div>
+
+  <div class="hero-content">
+    <span class="hero-tag">Personal Trainer · Santo André/SP</span>
+
+    <h1 class="hero-name">Daniel Noffs</h1>
+    <p class="hero-role">Personal Trainer</p>
+
+    <p class="hero-headline">
+      SEU CORPO. SEU RITMO.<br><em>SUA EVOLUÇÃO.</em>
+    </p>
+
+    <p class="hero-sub">Treinamento personalizado para quem quer mais do que resultado — quer qualidade de vida de verdade.</p>
+
+    <div class="hero-cta-row">
+      <a id="hero-cta" href="diagnostico.html">Agendar consultoria</a>
+      <span class="hero-scroll-hint">Role para conhecer</span>
+    </div>
+
+    <div class="hero-badges">
+      <span class="badge">Pós-graduado</span>
+      <span class="badge">Especialista 50+</span>
+      <span class="badge">Presencial &amp; Online</span>
+      <span class="badge">+20 anos de experiência</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     02. QUEM É O DANIEL
+════════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-photo-wrap reveal-left">
+        <div class="about-photo">
+          <img src="images/9. Retrato profissional do Daniel.png" alt="Daniel Noffs, personal trainer" loading="lazy">
+          <span class="about-photo-label">Personal Trainer</span>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <span class="eyebrow reveal" data-delay="0">Sobre o Daniel</span>
+        <h2 class="reveal" data-delay="80">Quem é o Daniel</h2>
+
+        <p class="reveal" data-delay="160">Sou formado em Educação Física pela Uniban (2005) e pós-graduado em fisiologia do exercício, musculação e treinamento de força (2024). Há mais de duas décadas, ajudo pessoas a transformarem sua relação com o treino, a saúde e a autoestima.</p>
+
+        <p class="reveal" data-delay="220">Ao longo da minha trajetória, já acompanhei alunos de diferentes perfis e fases da vida, incluindo o público 50+, sempre com foco em mais disposição, autonomia, confiança e qualidade de vida. Hoje trabalho com atendimento personalizado, focado na sua realidade, no seu objetivo e no seu tempo.</p>
+
+        <p class="reveal" data-delay="280">Sou de Santo André/SP, casado, pai da Lara e de duas dogs que completam nossa família. 🐾</p>
+
+        <div class="stats-row">
+          <div class="stat reveal" data-delay="340">
+            <div class="stat-num" data-count="20" data-suffix="+">0+</div>
+            <div class="stat-label">Anos na área</div>
+          </div>
+          <div class="stat reveal" data-delay="400">
+            <div class="stat-num" data-count="3000" data-suffix="">0</div>
+            <div class="stat-label">Alunos atendidos</div>
+          </div>
+          <div class="stat reveal" data-delay="460">
+            <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+            <div class="stat-label">Personalizado</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     03. TREINAMENTO PARA CADA FASE
+════════════════════════════════════════ -->
+<section id="training">
+  <div class="container">
+    <span class="eyebrow reveal">Especialidades</span>
+    <h2 class="section-title reveal" data-delay="80">Treinamento para<br>cada fase</h2>
+
+    <div class="training-grid">
+
+      <div class="training-card reveal" data-delay="0">
+        <img src="images/2. Personal com mulher 60+.png" alt="Personal trainer com mulher 60+" loading="lazy">
+        <div class="training-card-overlay">
+          <span class="training-card-tag">Especialidade</span>
+          <h3 class="training-card-title">Público 50+</h3>
+          <p class="training-card-desc">Treino pensado para quem quer mais autonomia, disposição e qualidade de vida — com segurança e evolução progressiva.</p>
+        </div>
+      </div>
+
+      <div class="training-card reveal" data-delay="100">
+        <img src="images/3. Personal com homem 50+.png" alt="Personal trainer com homem 50+" loading="lazy">
+        <div class="training-card-overlay">
+          <span class="training-card-tag">Resultado</span>
+          <h3 class="training-card-title">Força &amp; Hipertrofia</h3>
+          <p class="training-card-desc">Periodização individualizada para ganho de massa muscular e força, respeitando o seu ritmo e sua recuperação.</p>
+        </div>
+      </div>
+
+      <div class="training-card reveal" data-delay="200">
+        <img src="images/4. Personal com adulto em academia.png" alt="Personal trainer com adulto em academia" loading="lazy">
+        <div class="training-card-overlay">
+          <span class="training-card-tag">Emagrecimento</span>
+          <h3 class="training-card-title">Reeducação &amp; Saúde</h3>
+          <p class="training-card-desc">Treino inteligente aliado à reeducação do movimento, para quem quer perder peso com saúde e sem sacrifício.</p>
+        </div>
+      </div>
+
+      <div class="training-card reveal" data-delay="300">
+        <img src="images/5. Treinamento ao ar livre.png" alt="Treinamento ao ar livre" loading="lazy">
+        <div class="training-card-overlay">
+          <span class="training-card-tag">Flexibilidade</span>
+          <h3 class="training-card-title">Ao Ar Livre &amp; Online</h3>
+          <p class="training-card-desc">Treino onde você estiver. Academia, condomínio, parque ou de casa — o acompanhamento não para.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     04. MODALIDADES E PLANOS
+════════════════════════════════════════ -->
+<section id="plans">
+  <div class="container">
+
+    <div class="plans-intro">
+      <div>
+        <span class="eyebrow reveal">Modalidades</span>
+        <h2 class="section-title reveal" data-delay="80" style="margin-bottom:0">Como posso<br>te atender</h2>
+      </div>
+      <p class="plans-intro-lead reveal" data-delay="160">Cada modalidade tem um formato pensado para encaixar na sua rotina. Fale comigo para encontrar o melhor caminho.</p>
+    </div>
+
+    <div class="modality-grid">
+
+      <!-- Personal Presencial -->
+      <div class="modality-card reveal" data-delay="0">
+        <div class="modality-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 8a5 5 0 00-10 0v5a5 5 0 0010 0V8z"/><path d="M12 18v3M9 21h6"/><path d="M5 10H3M21 10h-2"/></svg>
+        </div>
+        <div class="modality-name">Presencial</div>
+        <div class="modality-title">Personal Presencial</div>
+        <p class="modality-desc">Atendimento individualizado em Santo André, São Caetano e região. Cada sessão é pensada para o seu objetivo naquele dia.</p>
+        <ul class="modality-features">
+          <li>Treino 100% personalizado</li>
+          <li>Sessões de 60 minutos</li>
+          <li>Acompanhamento próximo e contínuo</li>
+          <li>Avaliação física inicial</li>
+        </ul>
+        <a class="btn-modality-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Tenho%20interesse%20no%20personal%20presencial.%20Pode%20me%20contar%20mais%3F" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+          Falar com Daniel
+        </a>
+      </div>
+
+      <!-- Consultoria Online — destaque -->
+      <div class="modality-card featured reveal" data-delay="100">
+        <div class="modality-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="modality-name">Online · Atende todo Brasil</div>
+        <div class="modality-title">Consultoria Online</div>
+        <p class="modality-desc">Acompanhamento completo à distância. Você treina onde quiser, com orientação profissional e ajustes mensais.</p>
+        <ul class="modality-features">
+          <li>Treino personalizado para academia, condomínio ou casa</li>
+          <li>Avaliação inicial + montagem do treino</li>
+          <li>Ajustes mensais conforme evolução</li>
+          <li>Suporte via WhatsApp (resposta em até 24h)</li>
+        </ul>
+        <a class="btn-modality-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Tenho%20interesse%20na%20consultoria%20online.%20Pode%20me%20contar%20mais%3F" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+          Quero começar agora
+        </a>
+      </div>
+
+      <!-- Programas Digitais -->
+      <div class="modality-card reveal" data-delay="200">
+        <div class="modality-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="modality-name">Digital · Compra única</div>
+        <div class="modality-title">Programas Digitais</div>
+        <p class="modality-desc">Planilhas e protocolos de treino criados por Daniel para você seguir no seu ritmo, com qualidade profissional.</p>
+        <ul class="modality-features">
+          <li>Treino FullBody (masc. e fem.) — R$55 cada</li>
+          <li>Planilha Personalizada Noffs — R$37</li>
+          <li>Protocolo 90 Dias — R$47</li>
+        </ul>
+        <a class="btn-modality-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Tenho%20interesse%20nos%20programas%20digitais.%20Pode%20me%20ajudar%3F" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+          Ver produtos
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Links diretos Kiwify -->
+    <div class="digital-strip reveal" data-delay="300">
+      <div class="digital-strip-left">
+        <h3>Produtos digitais disponíveis agora</h3>
+        <p>Compra direta, acesso imediato — sem necessidade de contato prévio</p>
+      </div>
+      <div class="digital-strip-links">
+        <a class="btn-digital" href="https://pay.kiwify.com.br/tvF58zl" target="_blank">FullBody Masculino</a>
+        <a class="btn-digital" href="https://pay.kiwify.com.br/tTpMi9C" target="_blank">FullBody Feminino</a>
+        <a class="btn-digital" href="https://pay.kiwify.com.br/DNIxAXg" target="_blank">Planilha Personalizada</a>
+        <a class="btn-digital" href="https://pay.kiwify.com.br/tR4kZab" target="_blank">Protocolo 90 Dias</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     05. COMO FUNCIONA
+════════════════════════════════════════ -->
+<section id="how">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="eyebrow reveal">Processo</span>
+    <h2 class="section-title reveal" data-delay="80">Como funciona</h2>
+
+    <div class="how-grid">
+
+      <div class="how-step reveal" data-delay="0">
+        <span class="how-step-num">01</span>
+        <div class="how-step-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="how-step-title">Vamos conversar</h3>
+        <p class="how-step-desc">Me conta sua rotina, seus objetivos e o que te travou até hoje. Esse papo vale mais do que qualquer ficha de anamnese.</p>
+      </div>
+
+      <div class="how-step reveal" data-delay="100">
+        <span class="how-step-num">02</span>
+        <div class="how-step-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h3 class="how-step-title">Entendemos seus objetivos</h3>
+        <p class="how-step-desc">Faço uma avaliação completa do seu histórico, limitações e metas. Nada de treino genérico — entendo o que você realmente precisa.</p>
+      </div>
+
+      <div class="how-step reveal" data-delay="200">
+        <span class="how-step-num">03</span>
+        <div class="how-step-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3 class="how-step-title">Seu treino ganha direção</h3>
+        <p class="how-step-desc">Monto seu programa personalizado — com periodização, cadência, progressão de carga e adaptações para a sua realidade.</p>
+      </div>
+
+      <div class="how-step reveal" data-delay="300">
+        <span class="how-step-num">04</span>
+        <div class="how-step-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="how-step-title">Você evolui com orientação</h3>
+        <p class="how-step-desc">Acompanho sua evolução, ajusto o que for preciso e fico do seu lado em cada fase. Você não precisa descobrir o caminho sozinho.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     06. DEPOIMENTOS
+════════════════════════════════════════ -->
+<section id="testimonials">
+  <div class="container">
+    <span class="eyebrow reveal">Resultados reais</span>
+    <h2 class="section-title reveal" data-delay="80">O que dizem os alunos</h2>
+  </div>
+
+  <div class="tcar" id="tcar" aria-roledescription="carrossel">
+    <div id="cards-container" class="tcar-stage">
+      <p>Carregando depoimentos...</p>
+    </div>
+  </div>
+  <div class="carousel-dots" id="carousel-dots"></div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     07. CTA FINAL
+════════════════════════════════════════ -->
+<section id="cta-final">
+  <div class="container">
+    <span class="eyebrow reveal">Próximo passo</span>
+    <h2 class="section-title reveal" data-delay="80">SEU PRÓXIMO PASSO<br><em>COMEÇA AQUI.</em></h2>
+    <p class="cta-sub reveal" data-delay="160">Me envie uma mensagem no WhatsApp e vamos conversar sobre como posso te ajudar a evoluir.</p>
+
+    <a class="btn-wpp reveal" data-delay="240" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20saber%20mais%20sobre%20os%20treinos." target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+      Conversar com Daniel
+    </a>
+
+    <br>
+    <a class="cta-social-link reveal" data-delay="320" href="https://instagram.com/danielnoffspersonal" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      Siga no Instagram · @danielnoffspersonal
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Daniel Noffs</p>
+  <p>Personal Trainer · Santo André/SP</p>
+  <p>Developed by Camilla Pestana</p>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<div class="wpp-chat-wrap">
+  <div class="wpp-chat-box" id="wpp-chat-box">
+    <div class="wpp-chat-header">
+      <div class="wpp-chat-avatar">DN</div>
+      <div class="wpp-chat-info">
+        <div class="wpp-chat-name">Daniel Noffs</div>
+        <div class="wpp-chat-status"><span class="wpp-status-dot"></span> Online agora</div>
+      </div>
+      <button class="wpp-chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="wpp-chat-body">
+      <div class="wpp-chat-bubble">
+        <p>Olá! 👋 Sou o Daniel Noffs, personal trainer.</p>
+        <p>Como posso te ajudar hoje?</p>
+        <span class="wpp-bubble-time">agora</span>
+      </div>
+    </div>
+    <div class="wpp-chat-footer">
+      <input type="text" id="wpp-msg-input" class="wpp-chat-input" placeholder="Digite sua mensagem..." onkeydown="if(event.key==='Enter') sendWpp()">
+      <button class="wpp-chat-send" onclick="sendWpp()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <button class="wpp-float-btn" onclick="toggleChat()" id="wpp-float-btn" aria-label="Abrir chat WhatsApp">
+    <svg class="wpp-icon-open" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path fill="white" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <svg class="wpp-icon-close" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+    <span class="wpp-notification-dot"></span>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+<script>
+// ─── WHATSAPP CHAT ───────────────────────
+function toggleChat() {
+  const box = document.getElementById('wpp-chat-box');
+  const btn = document.getElementById('wpp-float-btn');
+  const isOpen = box.classList.contains('open');
+  box.classList.toggle('open');
+  btn.classList.toggle('open');
+  if (!isOpen) setTimeout(() => document.getElementById('wpp-msg-input').focus(), 300);
+}
+function sendWpp() {
+  const input = document.getElementById('wpp-msg-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  window.open(`https://wa.me/5511944655777?text=${encodeURIComponent(msg)}`, '_blank');
+  input.value = '';
+}
+
+// ─── DEPOIMENTOS ─────────────────────────
+const SHEET_ID = '1YShs4AfxEGGIx8Y1leLYgZN9C_sVQVEPX2Nwz1o2vZQ';
+let currentSlide = 0, totalSlides = 0, autoplayTimer = null;
+
+function updateCarousel() {
+  const cards = document.querySelectorAll('.tcard');
+  cards.forEach((c, i) => {
+    c.classList.remove('is-center', 'is-left', 'is-right');
+    const d = (i - currentSlide + totalSlides) % totalSlides;
+    if (d === 0) c.classList.add('is-center');
+    else if (d === 1) c.classList.add('is-right');
+    else if (d === totalSlides - 1) c.classList.add('is-left');
+    c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
+  });
+  updateDots();
+}
+function moveCarousel(dir) { if (!totalSlides) return; currentSlide = (currentSlide + dir + totalSlides) % totalSlides; updateCarousel(); resetAutoplay(); }
+function goToSlide(i) { currentSlide = i; updateCarousel(); resetAutoplay(); }
+function updateDots() {
+  const dotsEl = document.getElementById('carousel-dots'); if (!dotsEl) return;
+  dotsEl.innerHTML = '';
+  if (totalSlides < 2) return;
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsEl.appendChild(dot);
+  }
+}
+function startAutoplay() { if (totalSlides > 1) autoplayTimer = setInterval(() => { currentSlide = (currentSlide + 1) % totalSlides; updateCarousel(); }, 4500); }
+function resetAutoplay() { clearInterval(autoplayTimer); startAutoplay(); }
+
+function fitStage() {
+  const stage = document.getElementById('cards-container');
+  let max = 0;
+  stage.querySelectorAll('.tcard').forEach(c => { max = Math.max(max, c.offsetHeight); });
+  if (max) stage.style.height = (max + 40) + 'px';
+}
+
+function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+function fetchSheet() {
+  return new Promise((resolve, reject) => {
+    const cb = '__dnSheet' + Date.now();
+    const sc = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 10000);
+    function cleanup() { clearTimeout(timer); delete window[cb]; sc.remove(); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    sc.onerror = () => { cleanup(); reject(new Error('load')); };
+    sc.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${cb}&sheet=Form_Responses&_=${Date.now()}`;
+    document.body.appendChild(sc);
+  });
+}
+
+async function loadTestimonials() {
+  const container = document.getElementById('cards-container');
+  try {
+    const json = await fetchSheet();
+    const rows = (json.table && json.table.rows) || [];
+    const approved = rows.filter(r => { const v = r.c && r.c[3] && r.c[3].v; return v && v.toString().trim().toUpperCase() === 'SIM'; });
+    if (!approved.length) { container.innerHTML = '<p>Em breve os primeiros depoimentos aparecerão aqui. 💪</p>'; return; }
+    totalSlides = approved.length;
+    container.innerHTML = '';
+    approved.forEach((row, i) => {
+      const name = (row.c[1] && row.c[1].v) || '';
+      const text = (row.c[2] && row.c[2].v) || '';
+      const initial = name.trim().charAt(0).toUpperCase() || '?';
+      const card = document.createElement('div');
+      card.className = 'tcard';
+      card.innerHTML = `
+        <div class="tcard-avatar">${escapeHtml(initial)}</div>
+        <div class="card-stars"><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span><span class="card-star">★</span></div>
+        <div class="tcard-name">${escapeHtml(name)}</div>
+        <div class="tcard-text">${escapeHtml(text)}</div>`;
+      card.addEventListener('click', () => { if (!card.classList.contains('is-center')) goToSlide(i); });
+      container.appendChild(card);
+    });
+    fitStage();
+    addEventListener('resize', fitStage);
+    updateCarousel();
+    startAutoplay();
+    const car = document.getElementById('tcar');
+    car.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+    car.addEventListener('mouseleave', resetAutoplay);
+    let sx = null;
+    car.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) moveCarousel(dx < 0 ? 1 : -1); sx = null; });
+  } catch (e) {
+    container.innerHTML = '<p>Em breve os primeiros depoimentos aparecerão aqui. 💪</p>';
+  }
+}
+loadTestimonials();
+
+// ─── SCROLL REVEAL ───────────────────────
+(function () {
+  const SELECTOR = '.reveal, .reveal-left, .reveal-right, .slide-up';
+  const REVEAL_ZONE = 0.68;
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll(SELECTOR).forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    return;
+  }
+
+  function getAxis(el) {
+    if (el.classList.contains('reveal-left'))  return 'x-neg';
+    if (el.classList.contains('reveal-right')) return 'x-pos';
+    if (el.classList.contains('slide-up'))     return 'y-lg';
+    return 'y';
+  }
+  function ease(p) { return 1 - Math.pow(1 - p, 3); }
+  function applyProgress(el, p) {
+    const ep = ease(p);
+    el.style.opacity = ep;
+    const tp = ease(p * 0.9);
+    const axis = getAxis(el);
+    if (axis === 'y')     el.style.transform = `translateY(${(1 - tp) * 40}px)`;
+    if (axis === 'y-lg')  el.style.transform = `translateY(${(1 - tp) * 56}px)`;
+    if (axis === 'x-neg') el.style.transform = `translateX(${(1 - tp) * -40}px)`;
+    if (axis === 'x-pos') el.style.transform = `translateX(${(1 - tp) * 40}px)`;
+  }
+
+  const allEls = Array.from(document.querySelectorAll(SELECTOR));
+  allEls.forEach(el => applyProgress(el, 0));
+
+  let rafId = null;
+  function tick() {
+    rafId = null;
+    const vh = window.innerHeight;
+    allEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const entered = vh - rect.top;
+      const zone = vh * REVEAL_ZONE;
+      const delay = parseInt(el.dataset.delay || 0);
+      let p;
+      if (delay > 0) {
+        const dz = (delay / 1000) * 40 * 8;
+        p = Math.min(Math.max((entered - dz) / zone, 0), 1);
+      } else {
+        p = Math.min(Math.max(entered / zone, 0), 1);
+      }
+      applyProgress(el, p);
+    });
+  }
+  function sched() { if (!rafId) rafId = requestAnimationFrame(tick); }
+  window.addEventListener('scroll', sched, { passive: true });
+  window.addEventListener('resize', sched, { passive: true });
+  tick();
+  window._revealTick = tick;
+})();
+
+// ─── CONTADOR ANIMADO ────────────────────
+function animateCounter(el) {
+  const target = parseInt(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800, step = 16;
+  let current = 0;
+  const inc = target / (duration / step);
+  const timer = setInterval(() => {
+    current += inc;
+    if (current >= target) {
+      current = target; clearInterval(timer);
+      if (target === 3000) { el.textContent = '3k+'; return; }
+    }
+    el.textContent = Math.floor(current) + suffix;
+  }, step);
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObserver.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+// ─── TILT 3D ─────────────────────────────
+(function () {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.modality-card, .how-step').forEach(card => {
+    card.classList.add('tilt');
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.classList.add('tilting');
+      card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 6}deg) rotateY(${(x - 0.5) * 6}deg) translateY(-4px)`;
+      card.style.setProperty('--gx', x * 100 + '%');
+      card.style.setProperty('--gy', y * 100 + '%');
+    });
+    card.addEventListener('mouseleave', () => { card.classList.remove('tilting'); card.style.transform = ''; });
+  });
+})();
+</script>
+
+<!-- ═══════════════════════════════════════
+     INTRO SPLASH SLIDESHOW
+════════════════════════════════════════ -->
+<script>
+(function () {
+  const IMAGES = [
+    'images/1. Hero — imagem principal.jpg',
+    'images/2. Personal com mulher 60+.png',
+    'images/3. Personal com homem 50+.png',
+    'images/4. Personal com adulto em academia.png',
+    'images/5. Treinamento ao ar livre.png',
+    'images/6. Halteres e pesos.jpg',
+    'images/7. Equipamentos de musculação.jpg',
+    'images/8. Consultoria online.png',
+    'images/9. Retrato profissional do Daniel.png',
+    'images/10. Conexão com o aluno.png'
+  ];
+
+  const box = document.getElementById('intro-box');
+  if (!box) return;
+
+  // Cria os slides
+  IMAGES.forEach((src, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'intro-slide' + (i === 0 ? ' active' : '');
+    slide.style.backgroundImage = `url("${src}")`;
+    box.appendChild(slide);
+  });
+
+  // Label dentro do box
+  const label = document.createElement('div');
+  label.className = 'intro-box-label';
+  label.innerHTML = '<span class="intro-box-name">Daniel Noffs</span><span class="intro-box-role">Personal Trainer</span>';
+  box.appendChild(label);
+
+  // Dots fora do box (dentro do intro-splash)
+  const splash = document.getElementById('intro-splash');
+  const dotsWrap = document.createElement('div');
+  dotsWrap.className = 'intro-dots';
+  IMAGES.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'intro-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  splash.appendChild(dotsWrap);
+
+  let current = 0, timer = null;
+  const slides = box.querySelectorAll('.intro-slide');
+  const dots   = dotsWrap.querySelectorAll('.intro-dot');
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + IMAGES.length) % IMAGES.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function next() { goTo(current + 1); }
+
+  function start() { timer = setInterval(next, 2800); }
+  function stop()  { clearInterval(timer); }
+
+  box.addEventListener('mouseenter', stop);
+  box.addEventListener('mouseleave', start);
+
+  // Suporte a swipe no box
+  let sx = null;
+  box.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 35) goTo(current + (dx < 0 ? 1 : -1));
+    sx = null;
+    stop(); start();
+  });
+
+  start();
+})();
+</script>
+
+<!-- GSAP + ScrollTrigger para parallax e hero -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  // Parallax no hero background
+  const heroBg = document.getElementById('hero-bg');
+  if (heroBg) {
+    gsap.to(heroBg, {
+      yPercent: 30,
+      ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+  // Parallax suave nas fotos dos cards de treinamento
+  document.querySelectorAll('.training-card img').forEach(img => {
+    gsap.fromTo(img,
+      { yPercent: -8 },
+      { yPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: img.closest('.training-card'), start: 'top bottom', end: 'bottom top', scrub: true }
+      }
+    );
+  });
+
+  // Foto do about com parallax sutil
+  const aboutImg = document.querySelector('.about-photo img');
+  if (aboutImg) {
+    gsap.fromTo(aboutImg,
+      { yPercent: -5 },
+      { yPercent: 5, ease: 'none',
+        scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true }
+      }
+    );
+  }
+
+  // Linha amarela no hero-cta cresce ao rolar
+  const heroCta = document.getElementById('hero-cta');
+  if (heroCta) {
+    gsap.fromTo(heroCta,
+      { opacity: 1 },
+      { opacity: 0, y: -40, ease: 'power1.in',
+        scrollTrigger: { trigger: '#hero', start: 'center top', end: 'bottom top', scrub: true }
+      }
+    );
+  }
+})();
+</script>
+
+</body>
+</html>
