@@ -233,10 +233,6 @@
     display: none !important;
     -webkit-appearance: none;
   }
-  /* no celular: esconde o vídeo (evita botão de play e economiza dados) — fica a imagem */
-  @media (max-width: 768px) {
-    .bg-video video { display: none; }
-  }
 
   /* SESSÃO 1 — vídeo + nome que embaralha e some, revelando a mensagem */
   #hero {
@@ -1196,8 +1192,8 @@
 
 <!-- Vídeo de fundo FIXO (sessões 1 e 2) -->
 <div class="bg-video" aria-hidden="true">
-  <video id="hero-video" autoplay muted loop playsinline preload="auto">
-    <source src="images/session1.mp4" type="video/mp4">
+  <video id="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="images/hero-poster.jpg">
+    <source src="images/session1-opt.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -1897,22 +1893,11 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
     }
   }
 
-  // No celular: não usa o vídeo (fica a imagem estática de fundo).
-  // Cancela o download pra economizar dados e sumir com o botão de play.
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    v.removeAttribute('autoplay');
-    try { v.pause(); } catch (e) {}
-    while (v.firstChild) v.removeChild(v.firstChild);
-    v.removeAttribute('src');
-    try { v.load(); } catch (e) {}
-    return;
-  }
-
   v.addEventListener('loadedmetadata', () => { v.playbackRate = BASE; });
   v.addEventListener('timeupdate', apply);
   if (v.readyState >= 1) v.playbackRate = BASE;
 
-  // Desktop: garante o autoplay mudo
+  // Garante o autoplay mudo no desktop e no celular
   v.muted = true;
   v.setAttribute('muted', '');
   function forcePlay() {
@@ -1921,7 +1906,7 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
   }
   forcePlay();
   ['loadeddata', 'canplay'].forEach(function (ev) { v.addEventListener(ev, forcePlay); });
-  ['click', 'scroll'].forEach(function (ev) {
+  ['touchstart', 'click', 'scroll'].forEach(function (ev) {
     window.addEventListener(ev, forcePlay, { once: true, passive: true });
   });
 })();
