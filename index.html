@@ -671,26 +671,29 @@
 
   .modality-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: var(--gray2);
-    border: 1px solid var(--gray2);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
     margin-bottom: 48px;
+    max-width: 880px;
   }
-  @media (max-width: 860px) { .modality-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .modality-grid { grid-template-columns: 1fr; } }
 
   .modality-card {
     background: var(--gray);
     padding: 44px 36px;
     position: relative;
     display: flex; flex-direction: column;
-    transition: background 0.3s;
+    border: 1px solid var(--gray2);
+    border-radius: 14px;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
   }
+  .modality-card:hover { transform: translateY(-4px); border-color: #3a3a3a; }
   .modality-card.featured {
     background: var(--black);
     border: 1px solid var(--yellow);
-    margin: -1px; z-index: 2;
+    z-index: 2;
   }
+  .modality-card.featured:hover { border-color: var(--yellow); }
   .modality-card.featured::before {
     content: 'MAIS ESCOLHIDO';
     position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
@@ -1430,25 +1433,6 @@
         <a class="btn-modality-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Tenho%20interesse%20na%20consultoria%20online.%20Pode%20me%20contar%20mais%3F" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
           Começar agora
-        </a>
-      </div>
-
-      <!-- Programas Digitais -->
-      <div class="modality-card reveal" data-delay="200">
-        <div class="modality-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </div>
-        <div class="modality-name">Digital · Compra única</div>
-        <div class="modality-title">Programas Digitais</div>
-        <p class="modality-desc">Planilhas e protocolos de treino criados por Daniel para você seguir no seu ritmo, com qualidade profissional.</p>
-        <ul class="modality-features">
-          <li>Treino FullBody (masc. e fem.) — R$55 cada</li>
-          <li>Planilha Personalizada Noffs — R$37</li>
-          <li>Protocolo 90 Dias — R$47</li>
-        </ul>
-        <a class="btn-modality-wpp" href="https://wa.me/5511944655777?text=Ol%C3%A1%20Daniel!%20Tenho%20interesse%20nos%20programas%20digitais.%20Pode%20me%20ajudar%3F" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-          Ver produtos
         </a>
       </div>
 
