@@ -1285,15 +1285,15 @@
   .nav-menu.open li:nth-child(5) a { transition-delay: 0.32s; }
   .nav-menu.open li:nth-child(6) a { transition-delay: 0.38s; }
   .nav-menu a:hover { color: var(--yellow); }
-  .nav-cta {
-    margin-top: 34px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  .nav-menu a.nav-cta {
+    margin-top: 34px; line-height: 1; font-family: 'Bebas Neue', sans-serif; font-size: 30px; font-weight: 400;
+    letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
     background: var(--yellow); color: #151310; padding: 16px 40px; border-radius: 999px;
     opacity: 0; transform: translateY(24px);
     transition: opacity 0.5s ease 0.44s, transform 0.5s ease 0.44s, filter 0.2s;
   }
-  .nav-menu.open .nav-cta { opacity: 1; transform: none; }
-  .nav-cta:hover { filter: brightness(1.08); }
+  .nav-menu.open a.nav-cta { opacity: 1; transform: none; }
+  .nav-menu a.nav-cta:hover { color: #151310; filter: brightness(1.08); }
 </style>
 <script type="application/ld+json">
 {
