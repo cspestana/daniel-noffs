@@ -1226,6 +1226,74 @@
     .entry-pop-box { max-width: 320px; }
     .entry-pop-close { top: -10px; right: -10px; width: 34px; height: 34px; }
   }
+
+  /* ─── HEADER + MENU SANDUÍCHE ─── */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10002;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px clamp(20px, 5vw, 56px);
+    opacity: 0; transform: translateY(-12px); pointer-events: none;
+    transition: opacity 0.7s ease, transform 0.7s ease, background 0.3s ease, padding 0.3s ease;
+  }
+  .site-header.show { opacity: 1; transform: none; pointer-events: auto; }
+  .site-header.scrolled {
+    background: rgba(18,18,20,0.72);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  .site-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.01em;
+    color: var(--white); text-decoration: none; line-height: 1;
+    font-style: italic;
+  }
+  .site-logo .logo-last { color: var(--yellow); }
+
+  .nav-toggle {
+    width: 42px; height: 36px; background: none; border: none; cursor: pointer; padding: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 7px;
+  }
+  .nav-toggle span {
+    display: block; height: 2px; width: 30px; background: var(--white); border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease, background 0.25s;
+  }
+  .nav-toggle:hover span { background: var(--yellow); }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); width: 30px; }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); width: 30px; }
+
+  .nav-menu {
+    position: fixed; inset: 0; z-index: 10001;
+    background: rgba(13,13,15,0.97);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .nav-menu.open { opacity: 1; visibility: visible; }
+  .nav-menu ul { list-style: none; text-align: center; margin: 0; padding: 0; }
+  .nav-menu a {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 7vw, 66px);
+    letter-spacing: 0.02em; color: var(--white); text-decoration: none; display: inline-block;
+    padding: 5px 0; line-height: 1.05;
+    opacity: 0; transform: translateY(24px);
+    transition: color 0.25s ease, opacity 0.5s ease, transform 0.5s ease;
+  }
+  .nav-menu.open a { opacity: 1; transform: none; }
+  .nav-menu.open li:nth-child(1) a { transition-delay: 0.08s; }
+  .nav-menu.open li:nth-child(2) a { transition-delay: 0.14s; }
+  .nav-menu.open li:nth-child(3) a { transition-delay: 0.20s; }
+  .nav-menu.open li:nth-child(4) a { transition-delay: 0.26s; }
+  .nav-menu.open li:nth-child(5) a { transition-delay: 0.32s; }
+  .nav-menu.open li:nth-child(6) a { transition-delay: 0.38s; }
+  .nav-menu a:hover { color: var(--yellow); }
+  .nav-cta {
+    margin-top: 34px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    background: var(--yellow); color: #151310; padding: 16px 40px; border-radius: 999px;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.5s ease 0.44s, transform 0.5s ease 0.44s, filter 0.2s;
+  }
+  .nav-menu.open .nav-cta { opacity: 1; transform: none; }
+  .nav-cta:hover { filter: brightness(1.08); }
 </style>
 <script type="application/ld+json">
 {
@@ -1252,6 +1320,24 @@
     <source src="images/session1-opt.mp4" type="video/mp4">
   </video>
 </div>
+
+<!-- HEADER + MENU SANDUÍCHE -->
+<header class="site-header" id="site-header">
+  <a href="#top" class="site-logo" aria-label="Daniel Noffs"><span class="logo-first">D</span><span class="logo-last">N</span></a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="nav-menu" id="nav-menu" aria-hidden="true">
+  <ul>
+    <li><a href="#top" data-nav>Início</a></li>
+    <li><a href="#about" data-nav>Sobre</a></li>
+    <li><a href="#training" data-nav>Especialidades</a></li>
+    <li><a href="#plans" data-nav>Modalidades</a></li>
+    <li><a href="#testimonials" data-nav>Depoimentos</a></li>
+  </ul>
+  <a class="nav-cta" href="diagnostico.html">Agendar consultoria</a>
+</nav>
 
 <!-- ═══════════════════════════════════════
      SESSÃO 1, Vídeo + nome que embaralha/some e revela a mensagem
@@ -2274,6 +2360,61 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
   // fecha ao clicar no WhatsApp também
   const link = pop.querySelector('.entry-pop-link');
   if (link) link.addEventListener('click', closePop);
+})();
+</script>
+
+<!-- Header + menu sanduíche -->
+<script>
+(function () {
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('nav-menu');
+  if (!header || !toggle || !menu) return;
+
+  // Surge suavemente depois da mensagem do hero
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(function () { header.classList.add('show'); }, reduce ? 1200 : 3900);
+
+  function openMenu() {
+    menu.classList.add('open'); toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true'); menu.setAttribute('aria-hidden', 'false');
+  }
+  function closeMenu() {
+    menu.classList.remove('open'); toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false'); menu.setAttribute('aria-hidden', 'true');
+  }
+  toggle.addEventListener('click', function () {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  function scrollToTarget(href) {
+    if (href === '#top') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (href === '#training' && document.body.classList.contains('hscroll-on')) {
+      const stage = document.getElementById('hstage');
+      const sp = (stage && stage.closest('.pin-spacer')) || stage;
+      if (sp) { window.scrollTo({ top: sp.offsetTop + sp.offsetHeight - window.innerHeight - 4, behavior: 'smooth' }); return; }
+    }
+    const el = document.querySelector(href);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+  }
+
+  menu.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      closeMenu();
+      setTimeout(function () { scrollToTarget(href); }, 180);
+    });
+  });
+  const cta = menu.querySelector('.nav-cta');
+  if (cta) cta.addEventListener('click', closeMenu);
+  const logo = header.querySelector('.site-logo');
+  if (logo) logo.addEventListener('click', function (e) { e.preventDefault(); scrollToTarget('#top'); });
+
+  function onScroll() { header.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 
