@@ -1261,6 +1261,16 @@
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); width: 30px; }
 
+  .header-right { display: flex; align-items: center; gap: clamp(16px, 4vw, 26px); }
+  .lang-switch { display: flex; align-items: center; gap: 7px; }
+  .lang-btn {
+    background: none; border: none; cursor: pointer; padding: 2px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.05em;
+    color: #888; line-height: 1; transition: color 0.2s ease;
+  }
+  .lang-btn:hover { color: var(--white); }
+  .lang-btn.active { color: var(--yellow); }
+  .lang-sep { color: #555; font-size: 16px; font-family: 'Bebas Neue', sans-serif; }
   .nav-menu {
     position: fixed; inset: 0; z-index: 10001;
     background: rgba(13,13,15,0.97);
@@ -1324,19 +1334,26 @@
 <!-- HEADER + MENU SANDUÍCHE -->
 <header class="site-header" id="site-header">
   <a href="#top" class="site-logo" aria-label="Daniel Noffs"><span class="logo-first">D</span><span class="logo-last">N</span></a>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="header-right">
+    <div class="lang-switch" id="lang-switch" role="group" aria-label="Idioma / Language">
+      <button type="button" class="lang-btn active" data-lang="pt" aria-pressed="true">PT</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 <nav class="nav-menu" id="nav-menu" aria-hidden="true">
   <ul>
-    <li><a href="#top" data-nav>Início</a></li>
-    <li><a href="#about" data-nav>Sobre</a></li>
-    <li><a href="#training" data-nav>Especialidades</a></li>
-    <li><a href="#plans" data-nav>Modalidades</a></li>
-    <li><a href="#testimonials" data-nav>Depoimentos</a></li>
+    <li><a href="#top" data-nav data-i18n="nav_home">Início</a></li>
+    <li><a href="#about" data-nav data-i18n="nav_about">Sobre</a></li>
+    <li><a href="#training" data-nav data-i18n="nav_specialties">Especialidades</a></li>
+    <li><a href="#plans" data-nav data-i18n="nav_modalities">Modalidades</a></li>
+    <li><a href="#testimonials" data-nav data-i18n="nav_testimonials">Depoimentos</a></li>
   </ul>
-  <a class="nav-cta" href="diagnostico.html">Agendar consultoria</a>
+  <a class="nav-cta" href="diagnostico.html" data-i18n="cta_schedule">Agendar consultoria</a>
 </nav>
 
 <!-- ═══════════════════════════════════════
@@ -1350,17 +1367,17 @@
     <div class="hero-intro">
       <div class="hero-intro-box">
         <h1 class="hero-name" id="hero-name"><span class="hn-first">Daniel</span> <span class="hn-last">Noffs</span></h1>
-        <p class="hero-role" id="hero-role">Personal Trainer</p>
+        <p class="hero-role" id="hero-role" data-i18n="hero_role">Personal Trainer</p>
       </div>
     </div>
 
     <!-- Mensagem que surge no lugar do nome -->
     <div class="hero-msg" id="hero-msg">
       <div class="hero-msg-inner">
-        <h2 class="hm-headline">Seu corpo, seus objetivos.<br><em>Um treino feito para você.</em></h2>
-        <p class="hm-sub">Personal Trainer com acompanhamento individualizado, presencial no ABC Paulista ou online para todo o Brasil.</p>
+        <h2 class="hm-headline" data-i18n="hero_headline">Seu corpo, seus objetivos.<br><em>Um treino feito para você.</em></h2>
+        <p class="hm-sub" data-i18n="hero_sub">Personal Trainer com acompanhamento individualizado, presencial no ABC Paulista ou online para todo o Brasil.</p>
         <div class="hero-cta-row">
-          <a id="hero-cta" href="diagnostico.html">Agendar consultoria</a>
+          <a id="hero-cta" href="diagnostico.html" data-i18n="cta_schedule">Agendar consultoria</a>
         </div>
       </div>
     </div>
@@ -1397,27 +1414,27 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-text">
-        <span class="eyebrow reveal" data-delay="0">Sobre o Daniel</span>
-        <h2 class="reveal" data-delay="80">Experiência, conhecimento e dedicação em cada treino.</h2>
+        <span class="eyebrow reveal" data-delay="0" data-i18n="about_eyebrow">Sobre o Daniel</span>
+        <h2 class="reveal" data-delay="80" data-i18n="about_title">Experiência, conhecimento e dedicação em cada treino.</h2>
 
         <div class="about-cols">
-          <p class="reveal" data-delay="160">Sou profissional de Educação Física, formado pela Uniban (2005), com pós-graduação em Fisiologia do Exercício, Musculação e Treinamento de Força (2024).</p>
-          <p class="reveal" data-delay="220">Há mais de 20 anos, ajudo pessoas a conquistarem mais força, disposição, autonomia e qualidade de vida, respeitando os objetivos e os limites de cada fase da vida.</p>
-          <p class="reveal" data-delay="280" style="color: var(--yellow);">Treinos personalizados, com acompanhamento próximo e resultados construídos no seu ritmo.</p>
+          <p class="reveal" data-delay="160" data-i18n="about_p1">Sou profissional de Educação Física, formado pela Uniban (2005), com pós-graduação em Fisiologia do Exercício, Musculação e Treinamento de Força (2024).</p>
+          <p class="reveal" data-delay="220" data-i18n="about_p2">Há mais de 20 anos, ajudo pessoas a conquistarem mais força, disposição, autonomia e qualidade de vida, respeitando os objetivos e os limites de cada fase da vida.</p>
+          <p class="reveal" data-delay="280" style="color: var(--yellow);" data-i18n="about_p3">Treinos personalizados, com acompanhamento próximo e resultados construídos no seu ritmo.</p>
         </div>
 
         <div class="stats-row">
           <div class="stat reveal" data-delay="340">
             <div class="stat-num" data-count="20" data-suffix="+">0+</div>
-            <div class="stat-label">Anos na área</div>
+            <div class="stat-label" data-i18n="stat_years">Anos na área</div>
           </div>
           <div class="stat reveal" data-delay="400">
             <div class="stat-num" data-count="3000" data-suffix="">0</div>
-            <div class="stat-label">Alunos atendidos</div>
+            <div class="stat-label" data-i18n="stat_students">Alunos atendidos</div>
           </div>
           <div class="stat reveal" data-delay="460">
             <div class="stat-num" data-count="100" data-suffix="%">0%</div>
-            <div class="stat-label">Personalizado</div>
+            <div class="stat-label" data-i18n="stat_personal">Personalizado</div>
           </div>
         </div>
       </div>
@@ -1431,44 +1448,44 @@
 ════════════════════════════════════════ -->
 <section id="training" class="hpanel">
   <div class="container">
-    <span class="eyebrow" id="tr-eyebrow">Especialidades</span>
-    <h2 class="section-title" id="tr-title"><span class="tr-line">Treinamento para</span><span class="tr-line">cada fase</span></h2>
+    <span class="eyebrow" id="tr-eyebrow" data-i18n="tr_eyebrow">Especialidades</span>
+    <h2 class="section-title" id="tr-title"><span class="tr-line" data-i18n="tr_title_1">Treinamento para</span><span class="tr-line" data-i18n="tr_title_2">cada fase</span></h2>
 
     <div class="training-grid">
 
       <div class="training-card" data-delay="0">
         <img src="images/2. Personal com mulher 60+.jpg" alt="Personal trainer com mulher 60+" loading="lazy">
         <div class="training-card-overlay">
-          <span class="training-card-tag">Especialidade</span>
-          <h3 class="training-card-title">Público 50+</h3>
-          <p class="training-card-desc">Treino pensado para quem quer mais autonomia, disposição e qualidade de vida, com segurança e evolução progressiva.</p>
+          <span class="training-card-tag" data-i18n="c1_tag">Especialidade</span>
+          <h3 class="training-card-title" data-i18n="c1_title">Público 50+</h3>
+          <p class="training-card-desc" data-i18n="c1_desc">Treino pensado para quem quer mais autonomia, disposição e qualidade de vida, com segurança e evolução progressiva.</p>
         </div>
       </div>
 
       <div class="training-card" data-delay="100">
         <img src="images/3. Personal com homem 50+.jpg" alt="Personal trainer com homem 50+" loading="lazy">
         <div class="training-card-overlay">
-          <span class="training-card-tag">Resultado</span>
-          <h3 class="training-card-title">Força &amp; Hipertrofia</h3>
-          <p class="training-card-desc">Periodização individualizada para ganho de massa muscular e força, respeitando o seu ritmo e sua recuperação.</p>
+          <span class="training-card-tag" data-i18n="c2_tag">Resultado</span>
+          <h3 class="training-card-title" data-i18n="c2_title">Força &amp; Hipertrofia</h3>
+          <p class="training-card-desc" data-i18n="c2_desc">Periodização individualizada para ganho de massa muscular e força, respeitando o seu ritmo e sua recuperação.</p>
         </div>
       </div>
 
       <div class="training-card" data-delay="200">
         <img src="images/4. Personal com adulto em academia.jpg" alt="Personal trainer com adulto em academia" loading="lazy">
         <div class="training-card-overlay">
-          <span class="training-card-tag">Emagrecimento</span>
-          <h3 class="training-card-title">Reeducação &amp; Saúde</h3>
-          <p class="training-card-desc">Treino inteligente aliado à reeducação do movimento, para quem quer perder peso com saúde e sem sacrifício.</p>
+          <span class="training-card-tag" data-i18n="c3_tag">Emagrecimento</span>
+          <h3 class="training-card-title" data-i18n="c3_title">Reeducação &amp; Saúde</h3>
+          <p class="training-card-desc" data-i18n="c3_desc">Treino inteligente aliado à reeducação do movimento, para quem quer perder peso com saúde e sem sacrifício.</p>
         </div>
       </div>
 
       <div class="training-card" data-delay="300">
         <img src="images/5. Treinamento ao ar livre.jpg" alt="Treinamento ao ar livre" loading="lazy">
         <div class="training-card-overlay">
-          <span class="training-card-tag">Flexibilidade</span>
-          <h3 class="training-card-title">Ao Ar Livre &amp; Online</h3>
-          <p class="training-card-desc">Treino onde você estiver. Academia, condomínio, parque ou de casa, o acompanhamento não para.</p>
+          <span class="training-card-tag" data-i18n="c4_tag">Flexibilidade</span>
+          <h3 class="training-card-title" data-i18n="c4_title">Ao Ar Livre &amp; Online</h3>
+          <p class="training-card-desc" data-i18n="c4_desc">Treino onde você estiver. Academia, condomínio, parque ou de casa, o acompanhamento não para.</p>
         </div>
       </div>
 
@@ -1486,10 +1503,10 @@
 
     <div class="plans-intro">
       <div>
-        <span class="eyebrow reveal">Modalidades</span>
-        <h2 class="section-title reveal" data-delay="80" style="margin-bottom:0">Como posso<br>te atender</h2>
+        <span class="eyebrow reveal" data-i18n="plans_eyebrow">Modalidades</span>
+        <h2 class="section-title reveal" data-delay="80" style="margin-bottom:0" data-i18n="plans_title">Como posso<br>te atender</h2>
       </div>
-      <p class="plans-intro-lead reveal" data-delay="160">Cada modalidade tem um formato pensado para encaixar na sua rotina. Fale comigo para encontrar o melhor caminho.</p>
+      <p class="plans-intro-lead reveal" data-delay="160" data-i18n="plans_lead">Cada modalidade tem um formato pensado para encaixar na sua rotina. Fale comigo para encontrar o melhor caminho.</p>
     </div>
 
     <div class="modality-grid">
@@ -1499,18 +1516,18 @@
         <div class="modality-icon">
           <svg viewBox="0 0 24 24"><path d="M17 8a5 5 0 00-10 0v5a5 5 0 0010 0V8z"/><path d="M12 18v3M9 21h6"/><path d="M5 10H3M21 10h-2"/></svg>
         </div>
-        <div class="modality-name">Presencial</div>
-        <div class="modality-title">Personal Presencial</div>
-        <p class="modality-desc">Atendimento individualizado em Santo André, São Caetano e região. Cada sessão é pensada para o seu objetivo naquele dia.</p>
+        <div class="modality-name" data-i18n="m1_name">Presencial</div>
+        <div class="modality-title" data-i18n="m1_title">Personal Presencial</div>
+        <p class="modality-desc" data-i18n="m1_desc">Atendimento individualizado em Santo André, São Caetano e região. Cada sessão é pensada para o seu objetivo naquele dia.</p>
         <ul class="modality-features">
-          <li>Treino 100% personalizado</li>
-          <li>Sessões de 60 minutos</li>
-          <li>Acompanhamento próximo e contínuo</li>
-          <li>Avaliação física inicial</li>
+          <li data-i18n="m1_f1">Treino 100% personalizado</li>
+          <li data-i18n="m1_f2">Sessões de 60 minutos</li>
+          <li data-i18n="m1_f3">Acompanhamento próximo e contínuo</li>
+          <li data-i18n="m1_f4">Avaliação física inicial</li>
         </ul>
-        <a class="btn-modality-wpp" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Quero%20treinar%20no%20personal%20presencial.%20Como%20fa%C3%A7o%20pra%20come%C3%A7ar%3F%20%F0%9F%8F%8B%EF%B8%8F" target="_blank">
+        <a class="btn-modality-wpp" data-wa="presencial" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Quero%20treinar%20no%20personal%20presencial.%20Como%20fa%C3%A7o%20pra%20come%C3%A7ar%3F%20%F0%9F%8F%8B%EF%B8%8F" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-          Falar com Daniel
+          <span data-i18n="m1_btn">Falar com Daniel</span>
         </a>
       </div>
 
@@ -1519,23 +1536,23 @@
         <div class="modality-icon">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
-        <div class="modality-name">Online · Atende todo Brasil</div>
-        <div class="modality-title">Consultoria Online</div>
+        <div class="modality-name" data-i18n="m2_name">Online · Atende todo Brasil</div>
+        <div class="modality-title" data-i18n="m2_title">Consultoria Online</div>
         <span class="tecnofit-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-          Treinos no app TecnoFit
+          <span data-i18n="m2_badge">Treinos no app TecnoFit</span>
         </span>
-        <p class="modality-desc">Acompanhamento completo à distância. Você treina onde quiser, com orientação profissional e ajustes mensais.</p>
+        <p class="modality-desc" data-i18n="m2_desc">Acompanhamento completo à distância. Você treina onde quiser, com orientação profissional e ajustes mensais.</p>
         <ul class="modality-features">
-          <li>Treino no app TecnoFit, com vídeos dos exercícios e seu histórico</li>
-          <li>Treino personalizado para academia, condomínio ou casa</li>
-          <li>Avaliação inicial + montagem do treino</li>
-          <li>Ajustes mensais conforme evolução</li>
-          <li>Suporte via WhatsApp (resposta em até 24h)</li>
+          <li data-i18n="m2_f1">Treino no app TecnoFit, com vídeos dos exercícios e seu histórico</li>
+          <li data-i18n="m2_f2">Treino personalizado para academia, condomínio ou casa</li>
+          <li data-i18n="m2_f3">Avaliação inicial + montagem do treino</li>
+          <li data-i18n="m2_f4">Ajustes mensais conforme evolução</li>
+          <li data-i18n="m2_f5">Suporte via WhatsApp (resposta em até 24h)</li>
         </ul>
-        <a class="btn-modality-wpp" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Quero%20a%20consultoria%20online.%20Como%20fa%C3%A7o%20pra%20come%C3%A7ar%3F%20%F0%9F%92%BB" target="_blank">
+        <a class="btn-modality-wpp" data-wa="online" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Quero%20a%20consultoria%20online.%20Como%20fa%C3%A7o%20pra%20come%C3%A7ar%3F%20%F0%9F%92%BB" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-          Começar agora
+          <span data-i18n="m2_btn">Começar agora</span>
         </a>
       </div>
 
@@ -1549,8 +1566,8 @@
 ════════════════════════════════════════ -->
 <section id="how">
   <div class="container" style="position:relative;z-index:1;">
-    <span class="eyebrow reveal">Processo</span>
-    <h2 class="section-title reveal" data-delay="80">Como funciona</h2>
+    <span class="eyebrow reveal" data-i18n="how_eyebrow">Processo</span>
+    <h2 class="section-title reveal" data-delay="80" data-i18n="how_title">Como funciona</h2>
 
     <div class="how-grid">
 
@@ -1559,8 +1576,8 @@
         <div class="how-step-icon">
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
-        <h3 class="how-step-title">Vamos conversar</h3>
-        <p class="how-step-desc">Me conta sua rotina, seus objetivos e o que te travou até hoje. Esse papo vale mais do que qualquer ficha de anamnese.</p>
+        <h3 class="how-step-title" data-i18n="s1_title">Vamos conversar</h3>
+        <p class="how-step-desc" data-i18n="s1_desc">Me conta sua rotina, seus objetivos e o que te travou até hoje. Esse papo vale mais do que qualquer ficha de anamnese.</p>
       </div>
 
       <div class="how-step reveal" data-delay="100">
@@ -1568,8 +1585,8 @@
         <div class="how-step-icon">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </div>
-        <h3 class="how-step-title">Entendemos seus objetivos</h3>
-        <p class="how-step-desc">Faço uma avaliação completa do seu histórico, limitações e metas. Nada de treino genérico, entendo o que você realmente precisa.</p>
+        <h3 class="how-step-title" data-i18n="s2_title">Entendemos seus objetivos</h3>
+        <p class="how-step-desc" data-i18n="s2_desc">Faço uma avaliação completa do seu histórico, limitações e metas. Nada de treino genérico, entendo o que você realmente precisa.</p>
       </div>
 
       <div class="how-step reveal" data-delay="200">
@@ -1577,8 +1594,8 @@
         <div class="how-step-icon">
           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </div>
-        <h3 class="how-step-title">Seu treino ganha direção</h3>
-        <p class="how-step-desc">Monto seu programa personalizado, com periodização, cadência, progressão de carga e adaptações para a sua realidade.</p>
+        <h3 class="how-step-title" data-i18n="s3_title">Seu treino ganha direção</h3>
+        <p class="how-step-desc" data-i18n="s3_desc">Monto seu programa personalizado, com periodização, cadência, progressão de carga e adaptações para a sua realidade.</p>
       </div>
 
       <div class="how-step reveal" data-delay="300">
@@ -1586,8 +1603,8 @@
         <div class="how-step-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <h3 class="how-step-title">Você evolui com orientação</h3>
-        <p class="how-step-desc">Acompanho sua evolução, ajusto o que for preciso e fico do seu lado em cada fase. Você não precisa descobrir o caminho sozinho.</p>
+        <h3 class="how-step-title" data-i18n="s4_title">Você evolui com orientação</h3>
+        <p class="how-step-desc" data-i18n="s4_desc">Acompanho sua evolução, ajusto o que for preciso e fico do seu lado em cada fase. Você não precisa descobrir o caminho sozinho.</p>
       </div>
 
     </div>
@@ -1599,13 +1616,13 @@
 ════════════════════════════════════════ -->
 <section id="testimonials">
   <div class="container">
-    <span class="eyebrow reveal">Resultados reais</span>
-    <h2 class="section-title reveal" data-delay="80">O que dizem os alunos</h2>
+    <span class="eyebrow reveal" data-i18n="test_eyebrow">Resultados reais</span>
+    <h2 class="section-title reveal" data-delay="80" data-i18n="test_title">O que dizem os alunos</h2>
   </div>
 
   <div class="tcar" id="tcar" aria-roledescription="carrossel">
     <div id="cards-container" class="tcar-stage">
-      <p>Carregando depoimentos...</p>
+      <p data-i18n="test_loading">Carregando depoimentos...</p>
     </div>
   </div>
   <div class="carousel-dots" id="carousel-dots"></div>
@@ -1616,13 +1633,13 @@
 ════════════════════════════════════════ -->
 <section id="cta-final">
   <div class="container">
-    <span class="eyebrow reveal">Próximo passo</span>
-    <h2 class="section-title reveal" data-delay="80">SEU PRÓXIMO PASSO<br><em>COMEÇA AQUI.</em></h2>
-    <p class="cta-sub reveal" data-delay="160">Me envie uma mensagem no WhatsApp e vamos conversar sobre como posso te ajudar a evoluir.</p>
+    <span class="eyebrow reveal" data-i18n="cf_eyebrow">Próximo passo</span>
+    <h2 class="section-title reveal" data-delay="80" data-i18n="cf_title">SEU PRÓXIMO PASSO<br><em>COMEÇA AQUI.</em></h2>
+    <p class="cta-sub reveal" data-delay="160" data-i18n="cf_sub">Me envie uma mensagem no WhatsApp e vamos conversar sobre como posso te ajudar a evoluir.</p>
 
-    <a class="btn-wpp reveal" data-delay="240" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Cheguei%20pelo%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20treinos.%20%F0%9F%94%A5" target="_blank">
+    <a class="btn-wpp reveal" data-delay="240" data-wa="geral" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Cheguei%20pelo%20seu%20site%20e%20quero%20saber%20mais%20sobre%20os%20treinos.%20%F0%9F%94%A5" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.846L0 24l6.337-1.508A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.015-1.378l-.36-.214-3.732.888.939-3.634-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-      Conversar com Daniel
+      <span data-i18n="cf_btn">Conversar com Daniel</span>
     </a>
 
     <br>
@@ -1632,7 +1649,7 @@
         <circle cx="12" cy="12" r="4"/>
         <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
       </svg>
-      Siga no Instagram · @danielnoffspersonal
+      <span data-i18n="cf_insta">Siga no Instagram · @danielnoffspersonal</span>
     </a>
 
     <a class="to-top" id="to-top" href="#top" aria-label="Voltar ao topo">
@@ -1649,7 +1666,7 @@
 <footer>
   <!-- Quando tiver o CREF do Daniel, troque a linha abaixo por: © 2026 Daniel Noffs · CREF 000000-G/SP · Santo André/SP -->
   <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;">© 2026 Daniel Noffs · Santo André/SP</p>
-  <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;"><a href="privacidade.html" style="color:#f8f8f8;">Política de privacidade</a> · <a href="#" onclick="dnOpenConsent && dnOpenConsent(); return false;" style="color:#f8f8f8;">Preferências de cookies</a></p>
+  <p style="font-size:11px; color:#f8f8f8; letter-spacing:0.1em;"><a href="privacidade.html" style="color:#f8f8f8;" data-i18n="footer_privacy">Política de privacidade</a> · <a href="#" onclick="dnOpenConsent && dnOpenConsent(); return false;" style="color:#f8f8f8;" data-i18n="footer_cookies">Preferências de cookies</a></p>
   <p style="font-size:11px; color:#888; letter-spacing:0.1em; margin-top:6px;">Developed by LaZenith</p>
 </footer>
 </div><!-- /.page-rest -->
@@ -1659,7 +1676,7 @@
   <div class="entry-pop-backdrop" id="entry-pop-backdrop"></div>
   <div class="entry-pop-box" role="dialog" aria-label="Consultoria Online">
     <button class="entry-pop-close" id="entry-pop-close" aria-label="Fechar">&times;</button>
-    <a class="entry-pop-link" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Vi%20a%20oferta%20da%20Consultoria%20Online%20no%20site%20e%20quero%20come%C3%A7ar.%20Pode%20me%20explicar%20como%20funciona%3F%20%F0%9F%99%8C" target="_blank" rel="noopener">
+    <a class="entry-pop-link" data-wa="popup" href="https://wa.me/5511927976943?text=Ol%C3%A1%20Daniel%21%20Vi%20a%20oferta%20da%20Consultoria%20Online%20no%20site%20e%20quero%20come%C3%A7ar.%20Pode%20me%20explicar%20como%20funciona%3F%20%F0%9F%99%8C" target="_blank" rel="noopener">
       <img src="images/popup-consultoria.jpg" alt="Consultoria Online Fitness — fale no WhatsApp">
     </a>
   </div>
@@ -1672,19 +1689,19 @@
       <div class="wpp-chat-avatar">DN</div>
       <div class="wpp-chat-info">
         <div class="wpp-chat-name">Daniel Noffs</div>
-        <div class="wpp-chat-status"><span class="wpp-status-dot"></span> Online agora</div>
+        <div class="wpp-chat-status"><span class="wpp-status-dot"></span> <span data-i18n="wpp_status">Online agora</span></div>
       </div>
       <button class="wpp-chat-close" onclick="toggleChat()">✕</button>
     </div>
     <div class="wpp-chat-body">
       <div class="wpp-chat-bubble">
-        <p>Olá! 👋 Sou o Daniel Noffs, personal trainer.</p>
-        <p>Como posso te ajudar hoje?</p>
-        <span class="wpp-bubble-time">agora</span>
+        <p data-i18n="wpp_b1">Olá! 👋 Sou o Daniel Noffs, personal trainer.</p>
+        <p data-i18n="wpp_b2">Como posso te ajudar hoje?</p>
+        <span class="wpp-bubble-time" data-i18n="wpp_time">agora</span>
       </div>
     </div>
     <div class="wpp-chat-footer">
-      <input type="text" id="wpp-msg-input" class="wpp-chat-input" placeholder="Digite sua mensagem..." onkeydown="if(event.key==='Enter') sendWpp()">
+      <input type="text" id="wpp-msg-input" class="wpp-chat-input" data-i18n-ph="wpp_placeholder" placeholder="Digite sua mensagem..." onkeydown="if(event.key==='Enter') sendWpp()">
       <button class="wpp-chat-send" onclick="sendWpp()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -1720,7 +1737,7 @@ function sendWpp() {
   const input = document.getElementById('wpp-msg-input');
   const msg = input.value.trim();
   if (!msg) return;
-  const full = `${msg}\n\n(enviado pelo chat do site 💬)`;
+  const full = `${msg}\n\n${window.dnChatSuffix||'(enviado pelo chat do site 💬)'}`;
   window.open(`https://wa.me/5511927976943?text=${encodeURIComponent(full)}`, '_blank');
   input.value = '';
 }
@@ -2416,6 +2433,48 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
   function onScroll() { header.classList.toggle('scrolled', window.scrollY > 40); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+})();
+</script>
+
+<!-- Seletor de idioma PT/EN -->
+<script>
+(function(){
+  var I18N = { pt: {"nav_home": "Início", "nav_about": "Sobre", "nav_specialties": "Especialidades", "nav_modalities": "Modalidades", "nav_testimonials": "Depoimentos", "cta_schedule": "Agendar consultoria", "hero_role": "Personal Trainer", "hero_headline": "Seu corpo, seus objetivos.<br><em>Um treino feito para você.</em>", "hero_sub": "Personal Trainer com acompanhamento individualizado, presencial no ABC Paulista ou online para todo o Brasil.", "about_eyebrow": "Sobre o Daniel", "about_title": "Experiência, conhecimento e dedicação em cada treino.", "about_p1": "Sou profissional de Educação Física, formado pela Uniban (2005), com pós-graduação em Fisiologia do Exercício, Musculação e Treinamento de Força (2024).", "about_p2": "Há mais de 20 anos, ajudo pessoas a conquistarem mais força, disposição, autonomia e qualidade de vida, respeitando os objetivos e os limites de cada fase da vida.", "about_p3": "Treinos personalizados, com acompanhamento próximo e resultados construídos no seu ritmo.", "stat_years": "Anos na área", "stat_students": "Alunos atendidos", "stat_personal": "Personalizado", "tr_eyebrow": "Especialidades", "tr_title_1": "Treinamento para", "tr_title_2": "cada fase", "c1_tag": "Especialidade", "c1_title": "Público 50+", "c1_desc": "Treino pensado para quem quer mais autonomia, disposição e qualidade de vida, com segurança e evolução progressiva.", "c2_tag": "Resultado", "c2_title": "Força & Hipertrofia", "c2_desc": "Periodização individualizada para ganho de massa muscular e força, respeitando o seu ritmo e sua recuperação.", "c3_tag": "Emagrecimento", "c3_title": "Reeducação & Saúde", "c3_desc": "Treino inteligente aliado à reeducação do movimento, para quem quer perder peso com saúde e sem sacrifício.", "c4_tag": "Flexibilidade", "c4_title": "Ao Ar Livre & Online", "c4_desc": "Treino onde você estiver. Academia, condomínio, parque ou de casa, o acompanhamento não para.", "plans_eyebrow": "Modalidades", "plans_title": "Como posso<br>te atender", "plans_lead": "Cada modalidade tem um formato pensado para encaixar na sua rotina. Fale comigo para encontrar o melhor caminho.", "m1_name": "Presencial", "m1_title": "Personal Presencial", "m1_desc": "Atendimento individualizado em Santo André, São Caetano e região. Cada sessão é pensada para o seu objetivo naquele dia.", "m1_f1": "Treino 100% personalizado", "m1_f2": "Sessões de 60 minutos", "m1_f3": "Acompanhamento próximo e contínuo", "m1_f4": "Avaliação física inicial", "m1_btn": "Falar com Daniel", "m2_name": "Online · Atende todo Brasil", "m2_title": "Consultoria Online", "m2_badge": "Treinos no app TecnoFit", "m2_desc": "Acompanhamento completo à distância. Você treina onde quiser, com orientação profissional e ajustes mensais.", "m2_f1": "Treino no app TecnoFit, com vídeos dos exercícios e seu histórico", "m2_f2": "Treino personalizado para academia, condomínio ou casa", "m2_f3": "Avaliação inicial + montagem do treino", "m2_f4": "Ajustes mensais conforme evolução", "m2_f5": "Suporte via WhatsApp (resposta em até 24h)", "m2_btn": "Começar agora", "how_eyebrow": "Processo", "how_title": "Como funciona", "s1_title": "Vamos conversar", "s1_desc": "Me conta sua rotina, seus objetivos e o que te travou até hoje. Esse papo vale mais do que qualquer ficha de anamnese.", "s2_title": "Entendemos seus objetivos", "s2_desc": "Faço uma avaliação completa do seu histórico, limitações e metas. Nada de treino genérico, entendo o que você realmente precisa.", "s3_title": "Seu treino ganha direção", "s3_desc": "Monto seu programa personalizado, com periodização, cadência, progressão de carga e adaptações para a sua realidade.", "s4_title": "Você evolui com orientação", "s4_desc": "Acompanho sua evolução, ajusto o que for preciso e fico do seu lado em cada fase. Você não precisa descobrir o caminho sozinho.", "test_eyebrow": "Resultados reais", "test_title": "O que dizem os alunos", "test_loading": "Carregando depoimentos...", "cf_eyebrow": "Próximo passo", "cf_title": "SEU PRÓXIMO PASSO<br><em>COMEÇA AQUI.</em>", "cf_sub": "Me envie uma mensagem no WhatsApp e vamos conversar sobre como posso te ajudar a evoluir.", "cf_btn": "Conversar com Daniel", "cf_insta": "Siga no Instagram · @danielnoffspersonal", "footer_privacy": "Política de privacidade", "footer_cookies": "Preferências de cookies", "wpp_status": "Online agora", "wpp_b1": "Olá! 👋 Sou o Daniel Noffs, personal trainer.", "wpp_b2": "Como posso te ajudar hoje?", "wpp_time": "agora", "wpp_placeholder": "Digite sua mensagem..."}, en: {"nav_home": "Home", "nav_about": "About", "nav_specialties": "Specialties", "nav_modalities": "Services", "nav_testimonials": "Testimonials", "cta_schedule": "Book a consultation", "hero_role": "Personal Trainer", "hero_headline": "Your body, your goals.<br><em>Training made for you.</em>", "hero_sub": "Personal trainer with individualized coaching, in person in the ABC Paulista region or online across Brazil.", "about_eyebrow": "About Daniel", "about_title": "Experience, knowledge and dedication in every session.", "about_p1": "I'm a Physical Education professional, graduated from Uniban (2005), with a postgraduate degree in Exercise Physiology, Bodybuilding and Strength Training (2024).", "about_p2": "For over 20 years, I've helped people gain more strength, energy, autonomy and quality of life, respecting the goals and limits of each stage of life.", "about_p3": "Personalized training, with close guidance and results built at your own pace.", "stat_years": "Years in the field", "stat_students": "Students coached", "stat_personal": "Personalized", "tr_eyebrow": "Specialties", "tr_title_1": "Training for", "tr_title_2": "every stage", "c1_tag": "Specialty", "c1_title": "50+ Audience", "c1_desc": "Training designed for those who want more autonomy, energy and quality of life, with safety and progressive evolution.", "c2_tag": "Results", "c2_title": "Strength & Hypertrophy", "c2_desc": "Individualized periodization for muscle and strength gains, respecting your pace and recovery.", "c3_tag": "Weight loss", "c3_title": "Re-education & Health", "c3_desc": "Smart training combined with movement re-education, for those who want to lose weight healthily and without sacrifice.", "c4_tag": "Flexibility", "c4_title": "Outdoor & Online", "c4_desc": "Training wherever you are. Gym, condo, park or home, the coaching never stops.", "plans_eyebrow": "Services", "plans_title": "How I can<br>help you", "plans_lead": "Each option is designed to fit your routine. Talk to me to find the best path for you.", "m1_name": "In person", "m1_title": "In-Person Personal Training", "m1_desc": "Individualized coaching in Santo André, São Caetano and nearby areas. Each session is tailored to your goal for that day.", "m1_f1": "100% personalized training", "m1_f2": "60-minute sessions", "m1_f3": "Close, continuous guidance", "m1_f4": "Initial physical assessment", "m1_btn": "Talk to Daniel", "m2_name": "Online · All of Brazil", "m2_title": "Online Coaching", "m2_badge": "Workouts on the TecnoFit app", "m2_desc": "Complete remote coaching. Train wherever you want, with professional guidance and monthly adjustments.", "m2_f1": "Workouts on the TecnoFit app, with exercise videos and your history", "m2_f2": "Personalized training for gym, condo or home", "m2_f3": "Initial assessment + program setup", "m2_f4": "Monthly adjustments as you progress", "m2_f5": "WhatsApp support (reply within 24h)", "m2_btn": "Start now", "how_eyebrow": "Process", "how_title": "How it works", "s1_title": "Let's talk", "s1_desc": "Tell me about your routine, your goals and what's held you back so far. This conversation is worth more than any intake form.", "s2_title": "We define your goals", "s2_desc": "I do a full assessment of your history, limitations and goals. No generic training, I understand what you really need.", "s3_title": "Your training gets direction", "s3_desc": "I build your personalized program, with periodization, cadence, load progression and adaptations for your reality.", "s4_title": "You evolve with guidance", "s4_desc": "I track your progress, adjust whatever's needed and stay by your side at every stage. You don't have to figure out the path alone.", "test_eyebrow": "Real results", "test_title": "What students say", "test_loading": "Loading testimonials...", "cf_eyebrow": "Next step", "cf_title": "YOUR NEXT STEP<br><em>STARTS HERE.</em>", "cf_sub": "Send me a message on WhatsApp and let's talk about how I can help you evolve.", "cf_btn": "Chat with Daniel", "cf_insta": "Follow on Instagram · @danielnoffspersonal", "footer_privacy": "Privacy policy", "footer_cookies": "Cookie preferences", "wpp_status": "Online now", "wpp_b1": "Hi! 👋 I'm Daniel Noffs, personal trainer.", "wpp_b2": "How can I help you today?", "wpp_time": "now", "wpp_placeholder": "Type your message..."} };
+  var waMsg = {"pt": {"presencial": "Olá Daniel! Quero treinar no personal presencial. Como faço pra começar? 🏋️", "online": "Olá Daniel! Quero a consultoria online. Como faço pra começar? 💻", "geral": "Olá Daniel! Cheguei pelo seu site e quero saber mais sobre os treinos. 🔥", "popup": "Olá Daniel! Vi a oferta da Consultoria Online no site e quero começar. Pode me explicar como funciona? 🙌", "chatSuffix": "(enviado pelo chat do site 💬)"}, "en": {"presencial": "Hi Daniel! I want in-person personal training. How do I get started? 🏋️", "online": "Hi Daniel! I want the online coaching. How do I get started? 💻", "geral": "Hi Daniel! I came from your website and I want to know more about training. 🔥", "popup": "Hi Daniel! I saw the Online Coaching offer on the site and I want to start. Can you explain how it works? 🙌", "chatSuffix": "(sent from the website chat 💬)"}};
+  var WA_BASE = 'https://wa.me/5511927976943?text=';
+  window.dnWaMsg = waMsg;
+  function apply(lang){
+    if (lang !== 'en') lang = 'pt';
+    document.documentElement.lang = (lang === 'en') ? 'en' : 'pt-BR';
+    var dict = I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = dict[el.getAttribute('data-i18n')];
+      if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var v = dict[el.getAttribute('data-i18n-ph')];
+      if (v != null) el.setAttribute('placeholder', v);
+    });
+    var wm = waMsg[lang];
+    document.querySelectorAll('[data-wa]').forEach(function(a){
+      var v = wm[a.getAttribute('data-wa')];
+      if (v != null) a.setAttribute('href', WA_BASE + encodeURIComponent(v));
+    });
+    window.dnChatSuffix = wm.chatSuffix;
+    window.dnLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    try { localStorage.setItem('dn_lang', lang); } catch(e){}
+  }
+  var initial = 'pt';
+  try { var sv = localStorage.getItem('dn_lang'); if (sv === 'en' || sv === 'pt') initial = sv; } catch(e){}
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+  apply(initial);
 })();
 </script>
 
