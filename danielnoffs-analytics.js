@@ -18,7 +18,7 @@
   'use strict';
 
   var MEASUREMENT_ID = 'G-WWB9F3145B'; // ID real da propriedade 541425468
-  var PIXEL_ID = '987341567105870';     // Meta Pixel (Facebook/Instagram Ads)
+  var PIXEL_ID = '2290260114851636';     // Meta Pixel (Facebook/Instagram Ads)
   var CONSENT_KEY = 'dn_consent_v1';    // 'granted' | 'denied'
 
   window.dataLayer = window.dataLayer || [];
