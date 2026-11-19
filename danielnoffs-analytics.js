@@ -1,6 +1,6 @@
 /*
  * danielnoffs-analytics.js
- * Medição GA4 + consentimento (LGPD) para danielnoffs.com.br (site estático, GitHub Pages)
+ * Medição GA4 + Meta Pixel + consentimento (LGPD) para danielnoffs.com.br (site estático, GitHub Pages)
  *
  * COMO INSTALAR (ainda NÃO instalado, depende de autorização):
  *   1. Salvar este arquivo na raiz do repositório do site.
@@ -18,6 +18,7 @@
   'use strict';
 
   var MEASUREMENT_ID = 'G-WWB9F3145B'; // ID real da propriedade 541425468
+  var PIXEL_ID = '987341567105870';     // Meta Pixel (Facebook/Instagram Ads)
   var CONSENT_KEY = 'dn_consent_v1';    // 'granted' | 'denied'
 
   window.dataLayer = window.dataLayer || [];
@@ -44,13 +45,24 @@
     gtag('config', MEASUREMENT_ID);
   }
 
+  var pixelLoaded = false;
+  function loadPixel() {
+    if (pixelLoaded) return;
+    pixelLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', PIXEL_ID);
+    window.fbq('track', 'PageView');
+  }
+
   function getConsent() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
   function setConsent(v) { try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {} }
 
   // Envia evento só se houve consentimento (evita fila crescendo sem uso)
+  var PIXEL_EVENTS = { click_whatsapp: 'Contact', quiz_complete: 'Lead', click_product: 'InitiateCheckout' };
   function track(name, params) {
     if (getConsent() !== 'granted') return;
     gtag('event', name, params || {});
+    if (window.fbq && PIXEL_EVENTS[name]) { try { window.fbq('track', PIXEL_EVENTS[name]); } catch (e) {} }
   }
   window.dnTrack = track;
 
@@ -64,7 +76,7 @@
       'background:#1A1A1A;color:#F5F5F0;border:1px solid #D4A843;border-radius:10px;padding:16px;' +
       'font:14px/1.5 "DM Sans",system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.4)';
     b.innerHTML =
-      '<p style="margin:0 0 12px">Usamos cookies de análise (Google Analytics) para entender como o site é usado e melhorar o atendimento. ' +
+      '<p style="margin:0 0 12px">Usamos cookies de análise e marketing (Google Analytics e Meta) para entender como o site é usado e melhorar o atendimento. ' +
       'Nenhum dado é coletado antes da sua escolha. <a href="/privacidade.html" style="color:#ffcf05">Política de privacidade</a></p>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
       '<button type="button" data-c="granted" style="background:#ffcf05;color:#252528;border:0;border-radius:6px;padding:10px 16px;font-weight:700;cursor:pointer">Aceitar</button>' +
@@ -75,7 +87,7 @@
       if (!v) return;
       setConsent(v);
       b.remove();
-      if (v === 'granted') loadGA();
+      if (v === 'granted') { loadGA(); loadPixel(); }
     });
     document.body.appendChild(b);
   }
@@ -196,7 +208,7 @@
     hookQuiz();
     hookChat();
     var c = getConsent();
-    if (c === 'granted') loadGA();
+    if (c === 'granted') { loadGA(); loadPixel(); }
     else if (c !== 'denied') showBanner();
   }
 
