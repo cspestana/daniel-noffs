@@ -19,6 +19,7 @@
 
   var MEASUREMENT_ID = 'G-WWB9F3145B'; // ID real da propriedade 541425468
   var PIXEL_ID = '2290260114851636';     // Meta Pixel (Facebook/Instagram Ads)
+  var CLARITY_ID = 'zh4mhxeznv';         // Microsoft Clarity (gravações e mapas de calor)
   var CONSENT_KEY = 'dn_consent_v1';    // 'granted' | 'denied'
 
   window.dataLayer = window.dataLayer || [];
@@ -54,6 +55,13 @@
     window.fbq('track', 'PageView');
   }
 
+  var clarityLoaded = false;
+  function loadClarity() {
+    if (clarityLoaded) return;
+    clarityLoaded = true;
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script',CLARITY_ID);
+  }
+
   function getConsent() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
   function setConsent(v) { try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {} }
 
@@ -76,7 +84,7 @@
       'background:#1A1A1A;color:#F5F5F0;border:1px solid #D4A843;border-radius:10px;padding:16px;' +
       'font:14px/1.5 "DM Sans",system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.4)';
     b.innerHTML =
-      '<p style="margin:0 0 12px">Usamos cookies de análise e marketing (Google Analytics e Meta) para entender como o site é usado e melhorar o atendimento. ' +
+      '<p style="margin:0 0 12px">Usamos cookies de análise e marketing (Google Analytics, Meta e Microsoft Clarity) para entender como o site é usado e melhorar o atendimento. ' +
       'Nenhum dado é coletado antes da sua escolha. <a href="/privacidade.html" style="color:#ffcf05">Política de privacidade</a></p>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
       '<button type="button" data-c="granted" style="background:#ffcf05;color:#252528;border:0;border-radius:6px;padding:10px 16px;font-weight:700;cursor:pointer">Aceitar</button>' +
@@ -87,7 +95,7 @@
       if (!v) return;
       setConsent(v);
       b.remove();
-      if (v === 'granted') { loadGA(); loadPixel(); }
+      if (v === 'granted') { loadGA(); loadPixel(); loadClarity(); }
     });
     document.body.appendChild(b);
   }
@@ -208,7 +216,7 @@
     hookQuiz();
     hookChat();
     var c = getConsent();
-    if (c === 'granted') { loadGA(); loadPixel(); }
+    if (c === 'granted') { loadGA(); loadPixel(); loadClarity(); }
     else if (c !== 'denied') showBanner();
   }
 
